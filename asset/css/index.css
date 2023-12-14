@@ -1,0 +1,83 @@
+@font-face {
+    font-family: 'Barlow-ExtraLight', sans-serif;
+    src: url('asset/fonts/Barlow-ExtraLight.woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    color: #353031;
+    font-family: 'Barlow-ExtraLight', sans-serif;
+
+}
+
+h1 {
+    color: white;
+    padding: 165px 0px 0px 50px;
+    margin: 0px;
+    font-family: 'Barlow-ExtraLight', sans-serif;
+
+}
+
+.subtile {
+    padding: 0px 0px 50px 50px;
+    font-size: 2.8rem;
+}
+
+.cta-header-padding {
+    padding: 0px 0px 70px 50px;
+}
+
+.cta-header {
+    color: white;
+    padding: 20px 20px;
+    margin: 20px 0px 50px 0px;
+    background: #039DB5;
+}
+
+.header {
+    background: url(./../img/img-banner.webp);
+    max-height: 545px;
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+@media screen and (max-width: 980px) {
+    .header {
+        max-height: 50vh;
+        margin-top: 32vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-size: cover;
+        background-position: center;
+    }
+
+    h1 {
+        display: none;
+        position: absolute;
+        top: 150px;
+        color: #353031;
+        font-size: 21px;
+        padding: 165px 0px 0px 0px;
+        
+
+    }
+
+    .subtile {
+        font-size: 30px;
+        padding: 0px 0px 175px 50px;
+
+    }
+    .cta-header {
+        position: absolute;
+        top: 78%;
+        left: 25%;
+        transform: translate(-50%, -50%);
+        color: white;
+        padding: 20px 20px;
+        margin: 20px 0px 50px 0px;
+        background: #039DB5;
+    }
+}
