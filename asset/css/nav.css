@@ -35,22 +35,13 @@
     padding: 0px 10px 0px 10px;
     display: flex;
     align-items: center;
-}
+    text-shadow: 3px 5px 5px rgba(53,48,49,0.72);}
 
 .nav-links ul li:hover {
     text-decoration: none;
     background-color: #039DB5;
     color: #353031;
 }
-
-.dropdown-content a:hover {
-    background-color: #039DB5;
-    color: #353031;
-    padding: 5px 10px;
-
-
-}
-
 .nav-links a {
     text-decoration: none;
     color: #353031;
