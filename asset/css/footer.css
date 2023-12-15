@@ -1,0 +1,31 @@
+footer {
+    background-color: #353031;
+    color: white;
+}
+.footer-links {
+    text-align: center;
+    background: #353031;
+}
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    padding: 60px 0;
+}
+.footer-links li {
+    display: inline-block;
+    margin: 0 10px;
+}
+.footer-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+.footer-copyright {
+    text-align: center;
+    padding: 20px 0px;
+    background: #514D4E;
+}
+.footer-copyright p {
+    margin: 0;
+    font-size: 12px;
+}

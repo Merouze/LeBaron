@@ -21,24 +21,24 @@
 
 // Modal services
 
-    const cardsList = document.querySelectorAll("#cards-list a.card");
-    cardsList.forEach(function(card) {
-        card.addEventListener("click", function(event) {
-            event.preventDefault();
-            const modal = createModal();
-            const classList = {
-                H3: "modal-ttl",
-                P: "modal-txt",
-                IMG: "modal-icon"
-            };
-            modal.firstElementChild.innerHTML = '<i class="fa fa-times modal-close" aria-hidden="true"></i>';
-            Object.values(this.children).forEach(function(element) {
-                const newElement = element.cloneNode(true);
-                newElement.className = classList[element.tagName];
-                modal.firstElementChild.appendChild(newElement);
-            });
-        })
-    })
+    // const cardsList = document.querySelectorAll("#cards-list a.card");
+    // cardsList.forEach(function(card) {
+    //     card.addEventListener("click", function(event) {
+    //         event.preventDefault();
+    //         const modal = createModal();
+    //         const classList = {
+    //             H3: "modal-ttl",
+    //             P: "modal-txt",
+    //             IMG: "modal-icon"
+    //         };
+    //         modal.firstElementChild.innerHTML = '<i class="fa fa-times modal-close" aria-hidden="true"></i>';
+    //         Object.values(this.children).forEach(function(element) {
+    //             const newElement = element.cloneNode(true);
+    //             newElement.className = classList[element.tagName];
+    //             modal.firstElementChild.appendChild(newElement);
+    //         });
+    //     })
+    // })
 
 
 // Mobile menu 
