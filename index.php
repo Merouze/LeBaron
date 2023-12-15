@@ -4,9 +4,10 @@
 <?php include './_includes./_nav.php' ?>
 <section class="header">
     <h1>POMPES FUNÈBRES <span class="blue">LE BARON</span></h1>
-    <p class="subtile">« Artisan-Marbrier<br>depuis 1964. »</p>
+    <p class="subtile">« Artisan-Marbrier<br>depuis 1966. »</p>
     <p class="cta-header-padding"><a class="cta-header" href="">NOS SERVICES ►</a></p>
 </section>
+<!-- section presentation -->
 <section class="content">
     <div class="text-img">
         <div class="img"><img src="asset\img\fleurs-roses.webp" alt="Fleur rose"></div>
@@ -31,11 +32,43 @@
                 <span class="grey bold">simplifier la tâche dans ces moments douloureux.</span>
             </p>
             <p><a href="contact.php"><span class="blue bold">Contactez-nous</span></a> dès à présent pour réaliser un <span class="grey bold">devis</span> pour organiser des <span class="blue bold">obsèques,</span> souscrire à une
-            <span class="blue bold">prévoyance</span> ou bien faire appel à notre service de <span class="blue bold">marbrerie.</span>
+                <span class="blue bold">prévoyance</span> ou bien faire appel à notre service de <span class="blue bold">marbrerie.</span>
             </p>
         </div>
         <div class="img"><img src="asset\img\concept-fond-cimetiere.webp" alt="Rose blanche"></div>
     </div>
 </section>
+<!-- section service -->
+<section class="section-services">
+    <div>
+        <h2>NOS SERVICES</h2>
+        <p><span class="grey bold">Les Pompes Funèbres</span> <span class="blue bold">Le Baron</span> vous accompagnent avant, pendant et après le décès de vos proches.
+        </p>
+    </div>
+    <div class="services">
+        <div class="service">
+            <img src="asset\img\concept-fond-cimetiere.webp" alt="">
+            <h3>POMPES FUNÈBRES <span class="blue">/</span></h3>
+            <h4>Organisation d'obsèques.</h4>
+            <p>Nous vous aidons a organiser les obsèques avec soins ...</p>
+            <p><a class="cta-services" href="">En savoir +</a></p>
+        </div>
+        <div class="service">
+            <img src="asset\img\marbrier.jpg" alt="">
+            <h3>MARBRERIE <span class="blue">/</span></h3>
+            <h4>De la pose à l'entretien.</h4>
+            <p>Les pompes funèbres le baron vous proposent un service de marbrerie à Caen et ses environs…</p>
+            <p><a class="cta-services" href="">En savoir +</a></p>
+        </div>
+        <div class="service">
+            <img src="asset\img\resilier-contrat-prevoyance.webp" alt="">
+            <h3>PRÉVOYANCE <span class="blue">/</span></h3>
+            <h4>Préserver et organiser.</h4>
+            <p>Vous souhaitez préserver vos proches dans leur deuil tout en faisant respecter…</p>
+            <p><a class="cta-services" href="">En savoir +</a></p>
+        </div>
+    </div>
+</section>
 <?php include './_includes./_form.php' ?>
+<?php include './_includes./_location.php' ?>
 <?php include './_includes./_footer.php' ?>

@@ -35,18 +35,24 @@ h1 {
     background-position: center;
     color: white;
 }
+
 /* section content */
 .img img {
     height: 100%;
     max-width: 100%;
+    border-radius: 10px;
+
 }
+
 .content p {
     font-size: 16px;
 }
+
 .content h2 {
     margin: 0;
     font-size: 32px;
 }
+
 .content h3 {
     margin: 0;
     font-size: 24px;
@@ -58,6 +64,7 @@ h1 {
     padding: 50px 0;
     display: flex;
     flex-direction: column;
+    padding-bottom: 0px;
 }
 
 .title-text {
@@ -70,10 +77,12 @@ h1 {
     justify-content: space-evenly;
     margin-bottom: 20px;
 }
+
 .text a {
     color: #353031;
     text-decoration: underline;
 }
+
 .text {
     width: 40%;
     display: flex;
@@ -81,6 +90,67 @@ h1 {
     align-items: flex-start;
     font-size: 16px;
     justify-content: center;
+}
+
+/* section service */
+.section-services {
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+}
+
+.section-services p {
+    font-size: 16px;
+    padding-bottom: 20px;
+}
+
+.section-services h2 {
+    padding-top: 0;
+}
+
+.section-services h3 {
+    margin-bottom: 0;
+}
+
+.section-services h4 {
+    margin-top: 10px;
+}
+
+.cta-services {
+    color: white;
+    padding: 20px 20px;
+    background: #039DB5;
+}
+
+.services {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.service {
+    max-width: 390px;
+    padding: 20px;
+    /* border: 1px solid #ddd; */
+    border-radius: 10px;
+    margin: 10px;
+    text-align: left;
+}
+
+.service img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.service h3 {
+    color: #333;
+}
+
+.service img {
+    height: 290px;
+    width: 390px;
 }
 
 @media screen and (max-width: 980px) {
@@ -118,10 +188,12 @@ h1 {
         margin: 20px 0px 50px 0px;
         background: #039DB5;
     }
+
     /* content */
     .text-img {
         flex-direction: column-reverse;
     }
+
     .text {
         width: 100%;
         display: flex;
