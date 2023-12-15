@@ -4,62 +4,121 @@
     font-weight: normal;
     font-style: normal;
 }
+
 body {
     font-family: 'Barlow-ExtraLight', sans-serif;
     margin: 0;
     padding: 0;
     color: #353031;
 }
+
 body a {
     list-style-type: none;
     text-decoration: none;
     color: white;
 }
+
 /* text */
-.blue{
+.blue {
     color: #039DB5;
 }
-.grey{
+
+.grey {
     color: #353031;
 }
-.bold{
+
+.bold {
     font-weight: bold;
 }
+
 /* underline */
 .blue-underline {
     color: #039DB5;
     text-decoration: underline;
 }
+
 /* map */
 .google-map {
     max-height: 50vh;
     width: 100%;
 }
+
 .google-map iframe {
     max-height: 55vh;
     width: 100%;
 }
+
 .info-location {
     display: flex;
     background: #F3F3F3;
     max-width: 30%;
     margin: 50px auto;
 }
-.info-location ul{
+
+.info-location ul {
     list-style-type: none;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
+
 .location h2 {
     text-align: center;
 }
+
 .location p {
     text-align: center;
     font-size: 16px;
 }
 
-@media screen and (max-width: 960px){
+/* <!-- section obituary --> */
+.obituary {
+    max-height: 470px;
+    font-size: 40px;
+    background: url("./../img/bougies-rose-rouge.webp");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+.obituary-text {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+}
+
+.obituary p {
+    font-size: 16px;
+    color: white;
+    line-height: 1.5em;
+    text-align: center;
+    padding: 30px 20px;
+
+}
+
+.obituary h2 {
+    text-align: center;
+    max-width: 50vw;
+    color: white;
+    font-size: 45px;
+
+}
+
+.cta-obituary {
+    color: white;
+    padding: 20px 20px;
+    background: #039DB5;
+}
+
+.title-obituary {
+    display: none;
+}
+
+/* map */
+@media screen and (max-width: 960px) {
     .info-location {
         display: flex;
         background: #F3F3F3;
@@ -69,3 +128,58 @@ body a {
     }
 }
 
+@media screen and (max-width: 600px) {
+
+    /* <!-- section obituary --> */
+    .obituary {
+        height: 470px;
+        font-size: 40px;
+        background: url("./../img/bougies-blanches-rose-rouge-mobil.webp");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+    }
+
+    .obituary h2 {
+        text-align: center;
+        color: #353031;
+        font-size: 24px;
+        padding-top: 0px;
+        margin: 0px;
+        display: none;
+
+
+    }
+
+    .obituary-text {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+
+    }
+
+    .obituary p {
+        font-size: 16px;
+        color: white;
+        line-height: 2em;
+        text-align: center;
+        padding: 40px 20px;
+
+    }
+
+    .title-obituary {
+        display: flex;
+        justify-content: center;
+    }
+    /* .obituary-cta {
+        margin: 0px;
+        padding: 0px;
+        margin-bottom: 0px;
+
+    } */
+
+}

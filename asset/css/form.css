@@ -7,13 +7,15 @@
 }
 form {
     max-width: 400px;
-    margin: 20px auto 0 auto;
+    margin: 0px auto 0 auto;
     padding-bottom: 65px;
     padding-bottom: 40px;
 }
 h2 {
     padding-top: 50px;
     color: #353031;
+    margin-top: 0px;
+
 }
 label {
     display: block;

@@ -1,7 +1,7 @@
 <section class="location">
     <div class="title-location">
         <h2>NOUS SITUER</h2>
-        <p><span class="grey bold">Les Pompes funèbres</span> <span class="grey bold">Le Baron</span> se situe en Normandie, à Vieux, prêt de Caen.
+        <p><span class="grey bold">Les Pompes funèbres</span> <span class="blue bold">Le Baron</span> se situe en Normandie, à <span class="grey bold">Vieux,</span> prêt de <span class="grey bold">Caen.</span>
         </p>
     </div>
     <div class="info-location">
