@@ -22,12 +22,12 @@
         <input type="checkbox" id="rgpd" name="rgpd" required>
         <label for="rgpd">J'accepte les termes de la politique de confidentialité</label>
     </div>
-<!-- 
+
     <button class="g-recaptcha"
     data-sitekey="6Ld0QjIpAAAAAIw6sXmFG_6x86GTgGd6eXbx8mM1"
     data-callback='onSubmit'
     data-action='submit' type="submit">Envoyer</button>
-    <p>Vos données personnelles font l'objet d'un traitement informatique pour répondre à vos demandes d'informations et/ou de devis. Pour en savoir plus et pour exercer vos droits, consultez notre politique de données personnelles.</p> -->
+    <p>Vos données personnelles font l'objet d'un traitement informatique pour répondre à vos demandes d'informations et/ou de devis. Pour en savoir plus et pour exercer vos droits, consultez notre politique de données personnelles.</p>
 </form>
 
 </section>

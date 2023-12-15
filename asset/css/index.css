@@ -5,18 +5,11 @@
     font-style: normal;
 }
 
-body {
-    color: #353031;
-    font-family: 'Barlow-ExtraLight', sans-serif;
-
-}
-
 h1 {
     color: white;
     padding: 165px 0px 0px 50px;
     margin: 0px;
     font-family: 'Barlow-ExtraLight', sans-serif;
-
 }
 
 .subtile {
@@ -42,6 +35,53 @@ h1 {
     background-position: center;
     color: white;
 }
+/* section content */
+.img img {
+    height: 100%;
+    max-width: 100%;
+}
+.content p {
+    font-size: 16px;
+}
+.content h2 {
+    margin: 0;
+    font-size: 32px;
+}
+.content h3 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.content {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-img {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+.text a {
+    color: #353031;
+    text-decoration: underline;
+}
+.text {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 16px;
+    justify-content: center;
+}
 
 @media screen and (max-width: 980px) {
     .header {
@@ -61,15 +101,13 @@ h1 {
         color: #353031;
         font-size: 21px;
         padding: 165px 0px 0px 0px;
-        
-
     }
 
     .subtile {
         font-size: 30px;
         padding: 0px 0px 175px 50px;
-
     }
+
     .cta-header {
         position: absolute;
         top: 78%;
@@ -79,5 +117,17 @@ h1 {
         padding: 20px 20px;
         margin: 20px 0px 50px 0px;
         background: #039DB5;
+    }
+    /* content */
+    .text-img {
+        flex-direction: column-reverse;
+    }
+    .text {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 16px;
+        justify-content: center;
     }
 }
