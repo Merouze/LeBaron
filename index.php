@@ -7,4 +7,5 @@
     <p class="subtile">« Artisan-Marbrier<br>depuis 1964. »</p>
     <p class="cta-header-padding"><a class="cta-header" href="">NOS SERVICES ►</a></p>
 </section>
+<?php include './_includes./_form.php' ?>
 <?php include './_includes./_footer.php' ?>

@@ -10,6 +10,7 @@ footer {
     list-style: none;
     padding: 0;
     padding: 60px 0;
+    margin: 0;
 }
 .footer-links li {
     display: inline-block;
@@ -24,6 +25,7 @@ footer {
     text-align: center;
     padding: 20px 0px;
     background: #514D4E;
+    margin-bottom: 0;
 }
 .footer-copyright p {
     margin: 0;
