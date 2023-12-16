@@ -7,6 +7,7 @@
     <p class="subtile">« Artisan-Marbrier<br>depuis 1966. »</p>
     <p class="cta-header-padding"><a class="cta-header" href="">NOS SERVICES ►</a></p>
 </section>
+
 <!-- section presentation -->
 <section class="content">
     <div class="text-img">
@@ -39,7 +40,7 @@
     </div>
 </section>
 <!-- section service -->
-<section class="section-services">
+<section id="section-services" class="section-services">
     <div>
         <h2>NOS SERVICES</h2>
         <p><span class="grey bold">Les Pompes Funèbres</span> <span class="blue bold">Le Baron</span> vous accompagnent avant, pendant et après le décès de vos proches.
@@ -69,6 +70,10 @@
         </div>
     </div>
 </section>
+<?php include './_includes./_location.php' ?>
+<?php include './_includes./_form.php' ?>
+
+
 <!-- section obituary -->
 <h2 class="title-obituary">Avis de décès et condoléances</h2>
 <section class="obituary">
@@ -81,6 +86,4 @@
 </div>
 </section>
 
-<?php include './_includes./_form.php' ?>
-<?php include './_includes./_location.php' ?>
 <?php include './_includes./_footer.php' ?>

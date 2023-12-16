@@ -14,25 +14,25 @@
     </div>
     <div class="nav-links">
         <ul>
-            <li><a href="#">Accueil</a></li>
+            <li><a href="index.php">Accueil</a></li>
             <ul class="dropdown">
-                <li><a href="#">Nos services ▼</a></li>
+                <li><a href="#section-services">Nos services ▼</a></li>
                 <div class="dropdown-content">
-                <li><a href="#">Service Obsèques</a></li>
-                <li><a href="#">Service Marbrerie</a></li>
-                <li><a href="#">Service Prévoyance</a></li>
+                <li><a href="service-obseques.php">Service Obsèques</a></li>
+                <li><a href="service-marbrerie.php">Service Marbrerie</a></li>
+                <li><a href="service-prevoyance.php">Service Prévoyance</a></li>
                 </div>
             </ul>
-            <li><a href="#">Avis de décès et condoléances</a></li>
+            <li><a href="avis-deces.php">Avis de décès et condoléances</a></li>
             <ul class="dropdown">
                 <li><a href="#">Devis ▼</a></li>
                 <div class="dropdown-content">
-                    <li><a href="#">Devis Obsèques</a></li>
-                    <li><a href="#">Devis Marbrerie</a></li>
-                    <li><a href="#">Devis Prévoyance</a></li>
+                    <li><a href="devis-obseques.php">Devis Obsèques</a></li>
+                    <li><a href="devis-marbrerie.php">Devis Marbrerie</a></li>
+                    <li><a href="devis-prevoyance.php">Devis Prévoyance</a></li>
                 </div>
             </ul>
-            <li><a href="#">Contact</a></li>
+            <li><a href="contact.php">Contact</a></li>
         </ul>
     </div>
     <div class="burger-menu" id="burger-icon">&#9776;</div>

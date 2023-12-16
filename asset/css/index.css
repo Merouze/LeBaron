@@ -152,6 +152,24 @@ h1 {
     height: 290px;
     width: 390px;
 }
+/* Btn back-top */
+.myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #039DB5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.myBtn:hover {
+    background-color: #0056b3;
+}
+
 
 @media screen and (max-width: 980px) {
     .header {
