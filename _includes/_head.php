@@ -20,7 +20,7 @@
 </head>
     <title><?php $currentPage['title']?></title>
 </head>
-<body data-token="<?=$_SESSION['token']?>">
+<body data-token="<?=$_SESSION['myToken']?>">
 
 
 

@@ -10,6 +10,7 @@ body {
     margin: 0;
     padding: 0;
     color: #353031;
+    list-style-type: none;
 
 }
 
@@ -19,6 +20,9 @@ body {
     min-height: 300px;
     background-size: cover;
     background-position: center;
+}
+.mb50 {
+    margin-bottom: 50px;
 }
 
 .padding-title {
@@ -43,12 +47,17 @@ body a {
 .grey {
     color: #353031;
 }
+
 .red {
     color: red;
 }
 
 .bold {
     font-weight: bold;
+}
+
+.white {
+    color: white;
 }
 
 /* underline */
@@ -73,6 +82,10 @@ body a {
     background: #F3F3F3;
     max-width: 30%;
     margin: 50px auto;
+}
+
+ul {
+    list-style-type: none;
 }
 
 .info-location ul {
@@ -137,6 +150,52 @@ body a {
     display: none;
 }
 
+/* *********************recherche-avis-deces*************** */
+.display-mtb20 {
+    margin: 20px 0 50px 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cta-ad {
+    width: 20%;
+    margin-bottom: 10px;
+
+}
+
+.input-ad {
+    width: 50%;
+}
+
+.ad {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    align-items: center;
+    height: 450px;
+    justify-content: center;
+}
+
+.display-ad {
+    max-width: 50vw;
+    margin: 50px auto;
+}
+.display-ad ul {
+    padding-left: 0;
+
+}
+
+.mt50 {
+    margin-top: 50px;
+}
+
+.recherche-ad {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /* map */
 @media screen and (max-width: 960px) {
     .info-location {
@@ -163,6 +222,7 @@ body a {
         border-radius: 10px;
 
     }
+
     .display {
         display: flex;
         position: absolute;
@@ -171,7 +231,7 @@ body a {
         font-size: 21px;
         padding: 165px 0px 0px 0px;
     }
-    
+
     /* <!-- section obituary --> */
     .obituary {
         height: 470px;
@@ -183,6 +243,9 @@ body a {
         flex-direction: column;
         justify-content: flex-start;
 
+    }
+    .obituary h3 {
+        font-size: 36px;
     }
 
     .obituary h2 {
@@ -216,6 +279,14 @@ body a {
     .title-obituary {
         display: flex;
         justify-content: center;
+    }
+    .mt100 {
+        margin-top: 100px;
+
+    }
+    .display-ad {
+        max-width: 100vw;
+        margin: 50px auto;
     }
 
 
