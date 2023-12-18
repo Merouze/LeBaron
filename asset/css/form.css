@@ -77,4 +77,12 @@ p {
     label{
         margin-left: 10px;
     }
+    button {
+        background-color: #039DB5;
+        color: #353031;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        margin: 20px 10px;
+    }
 }

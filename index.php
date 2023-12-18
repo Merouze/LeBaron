@@ -5,7 +5,7 @@
 <section class="header">
     <h1>POMPES FUNÈBRES <span class="blue">LE BARON</span></h1>
     <p class="subtile">« Artisan-Marbrier<br>depuis 1966. »</p>
-    <p class="cta-header-padding"><a class="cta-header" href="">NOS SERVICES ►</a></p>
+    <p class="cta-header-padding"><a class="cta-header" href="#section-services">NOS SERVICES ►</a></p>
 </section>
 
 <!-- section presentation -->

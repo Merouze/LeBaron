@@ -15,7 +15,7 @@
             <p>&copy; 2023 Pompes Funèbres Le Baron. Site réalisé par Mérouze.A</p>
         </div>
     </footer>
-    <button onclick="topFunction()" class="myBtn" id="myBtn" title="Go to top">Top</button>
+    <button onclick="topFunction()" class="myBtn-top" id="myBtn" title="Go to top"><img src="asset/img/en-haut.png" alt="icon-back-top"></button>
 
     <script src="asset/Js/script.js"></script>
 

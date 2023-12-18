@@ -15,7 +15,7 @@
     <textarea id="message" name="message" rows="6" placeholder="Votre message" required></textarea>
 
     <!-- <label for="captcha">Captcha :</label> -->
-    <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+    <!-- <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>"> -->
 
     
     <div>

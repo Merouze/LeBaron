@@ -16,7 +16,7 @@
         <ul>
             <li><a href="index.php">Accueil</a></li>
             <ul class="dropdown">
-                <li><a href="#section-services">Nos services ▼</a></li>
+                <li><a href="#">Nos services ▼</a></li>
                 <div class="dropdown-content">
                 <li><a href="service-obseques.php">Service Obsèques</a></li>
                 <li><a href="service-marbrerie.php">Service Marbrerie</a></li>

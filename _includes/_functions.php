@@ -9,8 +9,8 @@
  * @return void
  */
 function generateToken ():void {
-  if(!isset($_SESSION['token'])|| !isset($_SESSION['tokenExpire'])|| $_SESSION['tokenExpire'] < time() ) {
-    $_SESSION['token'] = md5(uniqid(mt_rand(), true));
+  if(!isset($_SESSION['myToken'])|| !isset($_SESSION['tokenExpire'])|| $_SESSION['tokenExpire'] < time() ) {
+    $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
     $_SESSION['tokenExpire'] =  time() +  30 * 60;
   }};
   

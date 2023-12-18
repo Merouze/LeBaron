@@ -61,7 +61,7 @@ window.onscroll = function() {
   scrollFunction();
 };
 
-// Btn back-top 
+// ***************************************** */ Btn back-top************************************ 
 
 // Au chargement de la page, attachez la fonction de défilement
 window.onscroll = function() {

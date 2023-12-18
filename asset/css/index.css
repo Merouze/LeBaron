@@ -39,7 +39,7 @@ h1 {
 /* section content */
 .img img {
     height: 100%;
-    max-width: 100%;
+    max-width: 500px;
     border-radius: 10px;
 
 }
@@ -153,21 +153,15 @@ h1 {
     width: 390px;
 }
 /* Btn back-top */
-.myBtn {
+.myBtn-top {
     display: none;
     position: fixed;
     bottom: 20px;
     left: 20px;
-    background-color: #039DB5;
-    color: white;
-    border: none;
-    border-radius: 5px;
     padding: 10px 15px;
     cursor: pointer;
-}
-
-.myBtn:hover {
-    background-color: #0056b3;
+    background: none;
+    border: none;
 }
 
 
