@@ -75,7 +75,7 @@
 
 
 <!-- section obituary -->
-<h2 class="title-obituary">Avis de décès et condoléances</h2>
+<h2 class="title-obituary">Avis de décès et&nbsp;<span class="blue bold">condoléances</span></h2>
 <section class="obituary">
     <div class="obituary-text">
     <h2>Avis de décès et condoléances</h2>

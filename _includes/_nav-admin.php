@@ -32,7 +32,7 @@
                     <li><a href="devis-prevoyance.php">Devis Prévoyance</a></li>
                 </div>
             </ul>
-            <li><a href="contact.php">Contact</a></li>
+            <li><a href="contact.php">Déconnexion</a></li>
         </ul>
     </div>
     <div class="burger-menu" id="burger-icon">&#9776;</div>
