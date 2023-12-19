@@ -44,6 +44,7 @@ textarea {
     margin-bottom: 10px;
     box-sizing: border-box;
 }
+
 input {
     width: 80%;
 
@@ -69,12 +70,13 @@ button:hover {
     background-color: #037b8d;
     border: 1px solid #353031;
 }
-
-p {
-    justify-content: center;
-    margin-top: 20px;
+.devis p {
     font-size: 16px;
     line-height: 20px;
+
+}
+p {
+    justify-content: center;
     align-items: center;
 
 
@@ -103,21 +105,26 @@ p {
         margin-bottom: 10px;
         margin: 5px 0 10px 0;
     }
+
     input {
         margin: 5px auto 5px 20px;
 
     }
+
     .info-form {
         margin: 10px;
 
     }
+
     h1 {
         margin-left: 20px;
 
     }
+
     h2 {
         margin-top: 20px;
     }
+
     .mtb {
         margin: 10px 0 10px 0;
     }

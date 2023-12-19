@@ -87,6 +87,15 @@
 .phone-link {
     color: green;
 }
+.icon-user {
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+nav.info {
+    display: flex;
+    align-items: center;
+}
 
 @media screen and (max-width: 960px) {
     .logo {
@@ -94,6 +103,10 @@
         position: absolute;
         top: 100px;
         max-height: 30vh;
+    }
+    .d-logo {
+        display: contents;
+
     }
 
 
@@ -131,8 +144,12 @@
 
     .info-nav {
         display: flex;
-        position: absolute;
-        left: 50px;
+        align-items: center;
+        margin: 0;
+    }
+    .nav-info {
+        display: flex;
+        align-items: center;
     }
 
     .nav-links a {

@@ -53,10 +53,6 @@ button:hover {
     background-color: #037b8d;
     border: 1px solid #353031;
 }
-p {
-    margin-top: 20px;
-    font-size: 12px;
-}
 /* Responsive styles for mobile */
 @media screen and (max-width: 600px) {
     /* .form{

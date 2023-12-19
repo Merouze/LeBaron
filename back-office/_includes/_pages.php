@@ -125,11 +125,21 @@ $pages = [
         'name' => 'admin',
         'file' => 'admin.php',
         'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
-        'linkCss' => ['./asset/css/style.css', './asset/css/index.css', './asset/css/nav.css', './asset/css/footer.css', './asset/css/condoleance.css'],
+        'linkCss' => ['./asset/css/style.css', './asset/css/index.css', './asset/css/nav.css', './asset/css/footer.css', './asset/css/condoleance.css', './asset/css/form.css'],
         'linkScript' => ['./asset/js/fonctions.js', './asset/js/script.js'],
         'language' => 'fr',
         'onNav' => true
-
-    ]
+        
+        ],
+        [
+            'name' => 'login-family',
+            'file' => 'login-family.php',
+            'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
+            'linkCss' => ['./asset/css/style.css', './asset/css/index.css', './asset/css/nav.css', './asset/css/footer.css', './asset/css/form.css','./asset/css/condoleance.css'],
+            'linkScript' => ['./asset/js/fonctions.js', './asset/js/script.js'],
+            'language' => 'fr',
+            'onNav' => true
+    
+        ]
 
     ];
