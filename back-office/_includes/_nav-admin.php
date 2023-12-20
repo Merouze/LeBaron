@@ -1,7 +1,7 @@
 <div class="navbar">
     <div class="contact-info">
         <div class="d-logo">
-            <img class="logo" src=".././asset/img/Logo-LB.png" alt="">
+            <img class="logo" src=".././asset/img/Logo-LB.png" alt="Logo Le Baron">
         </div>
         <div class="">
             <p class="info-nav">Permanence téléphonique 7j/7 et 24h/24</p>

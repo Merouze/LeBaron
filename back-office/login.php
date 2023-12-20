@@ -1,5 +1,7 @@
 <!-- // ----- # HEAD # ----- // -->
 <?php include './_includes/_head.php' ?>
+<!-- // ----- # NAV # ----- // -->
+<?php include './_includes/_nav.php' ?>
 
 <!-- section header title -->
 <section class="header-pages">

@@ -1,11 +1,11 @@
 <!-- // ----- # HEAD # ----- // -->
 <?php include './_includes/_head.php' ?>
 <!-- // ----- # NAV # ----- // -->
-<?php include './_includes./_nav.php' ?>
+<?php include './_includes/_nav.php' ?>
 <!-- section header title -->
 <section class="header-pages">
 </section>
-<h1 class="display grey text-align padding-title">Connexion&nbsp;<span class="blue">Famille</span></h1>
+<h1 class="display grey text-align padding-title">Espace&nbsp;<span class="blue">Famille</span></h1>
 <section class="form-co">
     <form class="connexion" action="_login.php" method="post">
         <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
@@ -18,4 +18,4 @@
 </section>
 
 <!-- // ----- # FOOTER # ----- // -->
-<?php include '.././_includes./_footer.php' ?>
+<?php include '.././_includes/_footer.php' ?>
