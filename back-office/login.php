@@ -1,7 +1,6 @@
 <!-- // ----- # HEAD # ----- // -->
 <?php include './_includes/_head.php' ?>
-<!-- // ----- # NAV # ----- // -->
-<?php include './_includes./_nav-admin.php' ?>
+
 <!-- section header title -->
 <section class="header-pages">
 </section>
@@ -18,4 +17,4 @@
 </section>
 
 <!-- // ----- # FOOTER # ----- // -->
-<?php include '.././_includes./_footer.php' ?>
+<?php include '.././_includes/_footer.php' ?>

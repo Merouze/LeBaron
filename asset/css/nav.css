@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: column;
 }
+
 .contact-info {
     height: 50px;
     display: flex;
@@ -32,20 +33,22 @@
 }
 
 .nav-links ul li {
-    padding: 0px 10px 0px 10px;
+    /* padding: 0px 10px 0px 10px; */
     display: flex;
     align-items: center;
-    text-shadow: 3px 5px 5px rgba(53,48,49,0.72);}
+    text-shadow: 3px 5px 5px rgba(53, 48, 49, 0.72);
+}
 
 .nav-links ul li:hover {
     text-decoration: none;
     background-color: #039DB5;
     color: #353031;
 }
+
 .nav-links a {
     text-decoration: none;
     color: #353031;
-    margin: 20px
+    padding: 20px
 }
 
 .nav-links {
@@ -87,11 +90,13 @@
 .phone-link {
     color: green;
 }
+
 .icon-user {
-display: flex;
-flex-direction: column;
-justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 nav.info {
     display: flex;
     align-items: center;
@@ -104,11 +109,15 @@ nav.info {
         top: 100px;
         max-height: 30vh;
     }
+
     .d-logo {
         display: contents;
 
     }
 
+    .icon-user {
+        display: flex;
+    }
 
     .burger-menu {
         display: block;
@@ -132,7 +141,7 @@ nav.info {
 
     .nav-links {
         display: none;
-        
+
     }
 
 
@@ -147,6 +156,7 @@ nav.info {
         align-items: center;
         margin: 0;
     }
+
     .nav-info {
         display: flex;
         align-items: center;
@@ -161,13 +171,15 @@ nav.info {
         flex-direction: column;
         align-items: center;
     }
-    
+
 
     .contact-info-cta {
         position: absolute;
         top: 50px;
         flex-direction: row-reverse;
         background-color: white;
+        width: 100%;
+        justify-content: space-around;
     }
 
     .contact-info-cta a {
@@ -184,8 +196,10 @@ nav.info {
         background-color: #353031;
         padding: 5px 15px;
         border-radius: 15px;
-        margin-left: 0;
-
+        margin: 0;
+    }
+    .user-nav {
+        display: none;
     }
 
 }

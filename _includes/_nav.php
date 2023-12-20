@@ -7,12 +7,11 @@
             <p class="info-nav">Permanence téléphonique 7j/7 et 24h/24</p>
         </div>
         <div class="contact-info-cta">
+            <a class="icon-user" href="back-office/login-family.php"><img src="asset\img\icon-user.png" alt="icon user"></a>
             <p><a href="tel:+33231269175">📞 02 31 26 91 75</a></p>
             <p class="cta"><a href="tel:+33231269175">Nous contacter</a></p>
         </div>
-        <!-- <div class="icon-user">
-            <a href="back-office/login-family.php"><img src="asset\img\icon-user-24.png" alt="icon user"></a>
-        </div> -->
+        
 
     </div>
     <div class="nav-links">
@@ -36,6 +35,8 @@
                 </div>
             </ul>
             <li><a href="contact.php">Contact</a></li>
+            <li><a class="user-nav" href="back-office/login-family.php"><img src="asset\img\icon-user.png" alt="icon user"></a>
+
         </ul>
     </div>
     <div class="burger-menu" id="burger-icon">&#9776;</div>

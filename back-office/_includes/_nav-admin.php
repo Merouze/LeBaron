@@ -1,7 +1,7 @@
 <div class="navbar">
     <div class="contact-info">
         <div class="d-logo">
-            <img class="logo" src="asset\img\Logo-LB.png" alt="">
+            <img class="logo" src=".././asset/img/Logo-LB.png" alt="">
         </div>
         <div class="">
             <p class="info-nav">Permanence téléphonique 7j/7 et 24h/24</p>
@@ -11,7 +11,7 @@
             <p class="cta"><a href="tel:+33231269175">Nous contacter</a></p>
         </div>
         <div class="icon-user">
-            <a href="back-office/login-family.php"><img src="asset\img\icon-user-24.png" alt="icon user"></a>
+            <a href="back-office/login-family.php"><img src=".././asset/img/icon-user-24.png" alt="icon user"></a>
         </div>
         
     </div>
