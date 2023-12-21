@@ -5,7 +5,8 @@
 <!-- section header title -->
 <section class="header-pages">
 </section>
-<h1 class="display grey text-align padding-title">Espace&nbsp;<span class="blue">Admin</span></h1>
+<h1 class="display grey text-align padding-title">Ajouter une&nbsp;<span class="blue">Famille</span></h1>
+
 
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>
