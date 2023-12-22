@@ -1,5 +1,5 @@
 
-<?php   require_once './_includes/_dbCo.php';
+<?php   require_once '.././back-office/_includes/_dbCo.php';
         require_once './_includes/_functions.php';
         require_once './_includes/_pages.php';
         session_start();

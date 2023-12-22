@@ -1,12 +1,12 @@
 <?php
-require "../../_includes/_dbCo.php";
+require "../../back-office/_includes/_dbCo.php";
 $dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 session_start();
 $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
-
-if (isset($_POST['send']) && !empty($_POST)) {
-    // Récupérer les données du formulaire
+// var_dump($_POST);
+// exit;
+if (isset($_POST['send'])) {    // Récupérer les données du formulaire
     $name = strip_tags($_POST['name']);
     $mainName = strip_tags($_POST['main-name']);
     $mainLink = $_POST['main-link'];
@@ -30,16 +30,18 @@ if (isset($_POST['send']) && !empty($_POST)) {
     $idDefunt = $dtLb->lastInsertId();
 
     // Requête SQL pour insérer le proche principal
-    $sqlProchePrincipal = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial, id_defunt) VALUES (:mainName, :mainLink, :idDefunt)");
+    $sqlProchePrincipal = $dtLb->prepare("INSERT INTO main_family (main_proche, main_link, id_defunt) VALUES (:mainName, :mainLink, :idDefunt)");
     $sqlProchePrincipal->execute([
         'mainName' => $mainName,
         'mainLink' => $mainLink,
         'idDefunt' => $idDefunt,
     ]);
-
+    
+    $postedData = $_POST;
+    
     // Requête SQL pour insérer les membres de la famille
-    foreach ($familyNames as $index => $familyName) {
-        $familyLinkValue = $familyLink[$index];
+    foreach ($postedData['family-name'] as $index => $familyName) {
+        $familyLinkValue = $postedData['family-link'][$index];
         $sqlFamilyMember = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial, id_defunt) VALUES (:familyName, :familyLink, :idDefunt)");
         $sqlFamilyMember->execute([
             'familyName' => $familyName,
@@ -47,6 +49,8 @@ if (isset($_POST['send']) && !empty($_POST)) {
             'idDefunt' => $idDefunt,
         ]);
     }
+    
+
 
     // Requête SQL pour insérer la cérémonie
     $sqlCeremonie = $dtLb->prepare("INSERT INTO ceremonie (date_ceremonie, heure_ceremonie, lieu_ceremonie, id_defunt) VALUES (:ceremonyDate, :hourCeremony, :locationCeremony, :idDefunt)");
@@ -68,4 +72,3 @@ if (isset($_POST['send']) && !empty($_POST)) {
     header('Location: .././admin.php');
     exit();
 }
-?>

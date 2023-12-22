@@ -1,5 +1,5 @@
 <!-- // ----- # HEAD # ----- // -->
-<?php include './_includes/_head.php' ?>
+<?php include '../back-office/_includes/_head.php' ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
 <?php $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
@@ -8,10 +8,10 @@
 <!-- section header title -->
 <section class="header-pages">
 </section>
-<h1 class="display grey text-align padding-title">Ajouter un&nbsp;<span class="blue">Avis de décès</span></h1>
+<h1 class="display grey text-align padding-title">Modifier un&nbsp;<span class="blue">Avis de décès</span></h1>
 
 <!-- section form add obituary -->
-<form action="./_treatment/_treatment-add-ad.php" method="post">
+<form action="./_treatment/_treatment-modify.php" method="post">
     <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
 
 

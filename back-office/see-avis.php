@@ -1,15 +1,14 @@
 <!-- // ----- # HEAD # ----- // -->
-<?php include './_includes/_head.php' ?>
-
-<?php include './back-office/_treatment/_treatment-display-ad.php' ?>
-
+<?php include '../back-office/_includes/_head.php' ?>
+<?php include '../back-office/_treatment/_treatment-display-ad.php' ?>
 
 <!-- // ----- # NAV # ----- // -->
-<?php include './_includes./_nav.php' ?>
+<?php include './_includes/_nav-admin.php' ?>
 <!-- section header title -->
 <section class="header-pages">
 </section>
-<h1 class="display grey text-align padding-title">Avis de décés et &nbsp;<span class="blue">Condoléances</span></h1>
+<h1 class="display grey text-align padding-title">Avis de&nbsp;<span class="blue">Décès</span></h1>
+
 <!-- section condoleance -->
 <section class="avis-deces">
     <div class="title-top">
@@ -18,7 +17,7 @@
     <div class="list-family">
 
         <?php if ($defunt !== false) : ?>
-    
+
             <!-- <?php var_dump($proches); ?> -->
             <!-- <?php var_dump($prochePrincipale); ?> -->
             <?php if (!empty($prochePrincipale)) : ?>
@@ -42,13 +41,20 @@
         <?php endif; ?>
     </div>
     <div class="link-bottom">
-        <div class="defunt-name">
-            <a href="condoleance.php">Transmettre ses condoléances</a>
-        </div>
+    <div class="defunt-name">
+    <a href='messagecondoleance.php?idDefunt=<?= urlencode($avis['id_defunt']) ?>'>Voir les condoléances</a>
+</div>
+<div class="defunt-name">
+    <a href='modif-avis.php?idDefunt=<?= urlencode($avis['id_defunt']) ?>'>Modifier l'avis de décès</a>
+</div>
+<div class="defunt-name">
+    <a href='./_treatment/_delete.php?idDefunt=<?= urlencode($avis['id_defunt']) ?>' onclick="confirmDelete(<?= $avis['id_defunt'] ?>);">Supprimer l'avis de décès</a>
+</div>
+
+
     </div>
 </section>
 
-<!-- // ----- # FORM # ----- // -->
-<?php include './_includes./_form.php' ?>
+
 <!-- // ----- # FOOTER # ----- // -->
-<?php include './_includes./_footer.php' ?>
+<?php include './_includes/_footer.php' ?>

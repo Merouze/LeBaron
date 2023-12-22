@@ -10,60 +10,37 @@
 
 <section class="display-ad">
     <h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
-    <ul>
-        <li>
-            <ul>
-                <div class="display-mtb20">
-                    <div>
-                        <li>JEANNINE ROMBEAUX (14)</li>
-                        <li class="blue">11/12/23</li>
-                    </div>
-                    <div>
-                        <p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php">Consulter +</a></p>
-                    </div>
-                </div>
-            </ul>
-        <li>
-            <ul>
-                <div class="display-mtb20">
-                    <div>
-                        <li>JEANNINE ROMBEAUX (14)</li>
-                        <li class="blue">11/12/23</li>
-                    </div>
-                    <div>
-                        <p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php">Consulter +</a></p>
-                    </div>
-                </div>
-            </ul>
-        </li>
-        <li>
-            <ul>
-                <div class="display-mtb20">
-                    <div>
-                        <li>JEANNINE ROMBEAUX (14)</li>
-                        <li class="blue">11/12/23</li>
-                    </div>
-                    <div>
-                        <p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php">Consulter +</a></p>
-                    </div>
-                </div>
-            </ul>
-        </li>
-        <li>
-            <ul>
-                <div class="display-mtb20">
-                    <div>
-                        <li>JEANNINE ROMBEAUX (14)</li>
-                        <li class="blue">11/12/23</li>
-                    </div>
-                    <div>
-                        <p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php">Consulter +</a></p>
-                    </div>
-                </div>
-            </ul>
-        </li>
-    </ul>
+    <?php
+    $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
 
+    $sqlGetLastAvis = $dtLb->query("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
+    FROM ceremonie c
+    JOIN defunt d ON c.id_defunt = d.id_defunt
+    ORDER BY c.date_ceremonie DESC
+    LIMIT 4");
+    
+    $lastAvis = $sqlGetLastAvis->fetchAll(PDO::FETCH_ASSOC);
+
+    // Boucle pour générer le code HTML
+    echo '<ul>';
+    foreach ($lastAvis as $avis) {
+        echo '<li>';
+        echo '<ul>';
+        echo '<div class="display-mtb20">';
+        echo '<div>';
+        echo '<li>' . $avis['nom_prenom_defunt'] . ' (' . $avis['age'] . ')</li>';
+        echo '<li class="blue">' . $avis['date_ceremonie'] . '</li>';
+        echo '</div>';
+        echo '<div>';
+        echo '<p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter +</a></p>';
+
+        echo '</div>';
+        echo '</div>';
+        echo '</ul>';
+        echo '</li>';
+    }
+    echo '</ul>';
+    ?>
 
 </section>
 <!-- section obituary -->

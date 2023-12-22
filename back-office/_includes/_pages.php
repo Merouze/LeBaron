@@ -172,10 +172,30 @@ $pages = [
     
         ],
         [
-            'name' => 'nos-condoleances',
-            'file' => 'nos-condoleances.php',
+            'name' => 'see-avis',
+            'file' => 'see-avis.php',
             'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
             'linkCss' => ['.././asset/css/style.css', '.././asset/css/index.css', '.././asset/css/nav.css', '.././asset/css/footer.css', '.././asset/css/form.css','.././asset/css/condoleance.css', '.././asset/css/devis.css'],
+            'linkScript' => ['.././asset/js/fonctions.js', '.././asset/js/script.js'],
+            'language' => 'fr',
+            'onNav' => true
+    
+        ],
+        [
+            'name' => 'modif-avis',
+            'file' => 'modif-avis.php',
+            'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
+            'linkCss' => ['.././asset/css/style.css', '.././asset/css/index.css', '.././asset/css/nav.css', '.././asset/css/footer.css', '.././asset/css/form.css','.././asset/css/condoleance.css', '.././asset/css/devis.css'],
+            'linkScript' => ['.././asset/js/fonctions.js', '.././asset/js/script.js'],
+            'language' => 'fr',
+            'onNav' => true
+    
+        ],
+        [
+            'name' => 'list-avis',
+            'file' => 'list-avis.php',
+            'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
+            'linkCss' => ['.././asset/css/style.css', '.././asset/css/index.css', '.././asset/css/nav.css', '.././asset/css/footer.css', '.././asset/css/form.css','.././asset/css/condoleance.css', '.././asset/css/devis.css', '.././asset/css/admin.css'],
             'linkScript' => ['.././asset/js/fonctions.js', '.././asset/js/script.js'],
             'language' => 'fr',
             'onNav' => true

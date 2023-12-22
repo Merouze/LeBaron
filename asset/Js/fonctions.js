@@ -80,6 +80,15 @@ function removeFamilyMember() {
 }
 
 // ***************************************** */ Btn add member ************************************ 
+    function confirmDelete(idDefunt) {
+        // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+        let confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet avis de décès ?");
+
+        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id du défunt
+        if (confirmation) {
+            window.location.href = `./admin.php`;
+        }
+    }
 
 
 

@@ -22,7 +22,7 @@
                 <li><a href="#">Avis de décès ▼</a></li>
                 <div class="dropdown-content">
                     <li><a href="ajouter-avis.php">Ajouter un Avis</a></li>
-                    <li><a href="modifier-avis.php">Modifier un Avis</a></li>
+                    <li><a href="list-avis.php">Afficher les Avis</a></li>
                 </div>
             </ul>
             <ul class="dropdown">
