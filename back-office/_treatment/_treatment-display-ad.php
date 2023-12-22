@@ -1,5 +1,8 @@
 <?php
+setlocale(LC_TIME, 'fr_FR.utf8'); // Définit le local en français
+
 $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
+
 
 // Requête SQL pour récupérer les informations du défunt
 $sqlSelectDefunt = $dtLb->prepare("SELECT * FROM defunt WHERE id_defunt = :idDefunt");
@@ -23,6 +26,9 @@ $proches = $sqlSelectProche->fetchAll(PDO::FETCH_ASSOC);
 $sqlSelectCeremonie = $dtLb->prepare("SELECT * FROM ceremonie WHERE id_defunt = :idDefunt");
 $sqlSelectCeremonie->execute(['idDefunt' => $idDefunt]);
 $ceremonie = $sqlSelectCeremonie->fetch(PDO::FETCH_ASSOC);
+
+$dateCeremonie = new DateTime($ceremonie['date_ceremonie']);
+$dateCeremonieFormattee = $dateCeremonie->format('l d F Y');
 
 // Requête SQL pour récupérer les informations de l'avis
 $sqlSelectAvis = $dtLb->prepare("SELECT * FROM avis WHERE id_defunt = :idDefunt");

@@ -33,11 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
                     echo '<ul>';
                     echo '<div class="display-mtb20">';
                     echo '<div>';
-                    echo '<li>' . $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans</li>';
-                    echo '<li class="blue">' . $resultat['date_ceremonie'] . '</li>';
+                    echo '<li class="bold grey">' . $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans</li>';
+                    echo '<li class="bold blue">' . $resultat['date_ceremonie'] . '</li>';
                     echo '</div>';
                     echo '<div>';
-                    echo '<p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($resultat['id_defunt']) . '">Consulter +</a></p>';
+                    echo '<p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($resultat['id_defunt']) . '">Consulter</a></p>';
                     echo '</div>';
                     echo '</div>';
                     echo '</ul>';
@@ -71,8 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
         echo '<ul>';
         echo '<div class="display-mtb20">';
         echo '<div>';
-        echo '<li>' . $avis['nom_prenom_defunt'] . ' ' . $avis['age'] . ' ans</li>';
-        echo '<li class="blue">' . $avis['date_ceremonie'] . '</li>';
+        echo '<li class="bold grey">' . $avis['nom_prenom_defunt'] . ' ' . $avis['age'] . ' ans</li>';
+        echo '<li class="bold blue">' . $avis['date_ceremonie'] . '</li>';
         echo '</div>';
         echo '<div>';
         echo '<p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter +</a></p>';
@@ -84,8 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     echo '</ul>';
     ?>
 </section>
-
-
 <!-- section obituary -->
 <section class="obituary mt50 mt100">
     <div class="obituary-text ad">

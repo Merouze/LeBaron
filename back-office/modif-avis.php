@@ -3,6 +3,51 @@
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
 <?php $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+include '.././back-office/_treatment/_treatment-display-ad.php';
+?>
+<?php
+
+// Assurez-vous que vous avez l'ID du défunt que vous souhaitez modifier (vous devrez l'obtenir à partir de votre logique de traitement)
+$idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
+
+// Exécutez une requête pour récupérer les données actuelles du défunt
+$sqlGetDefunt = $dtLb->prepare("SELECT nom_prenom_defunt, date_deces, age FROM defunt WHERE id_defunt = :idDefunt");
+$sqlGetDefunt->execute(['idDefunt' => $idDefunt]);
+$defunt = $sqlGetDefunt->fetch(PDO::FETCH_ASSOC);
+
+// Exécutez une requête pour récupérer les données actuelles des proches
+$sqlGetProche = $dtLb->prepare("SELECT nom_prenom_proche, lien_familial FROM proche WHERE id_defunt = :idDefunt");
+$sqlGetProche->execute(['idDefunt' => $idDefunt]);
+$proche = $sqlGetProche->fetch(PDO::FETCH_ASSOC);
+
+// Exécutez une requête pour récupérer les données actuelles du proche principal
+$sqlGetMainProche = $dtLb->prepare("SELECT main_proche, main_link FROM main_family WHERE id_defunt = :idDefunt");
+$sqlGetMainProche->execute(['idDefunt' => $idDefunt]);
+$Mainproche = $sqlGetMainProche->fetch(PDO::FETCH_ASSOC);
+
+// Exécutez une requête pour récupérer les données actuelles de la ceremonie
+$sqlGetCeremonie = $dtLb->prepare("SELECT date_ceremonie, heure_ceremonie, lieu_ceremonie FROM ceremonie WHERE id_defunt = :idDefunt");
+$sqlGetCeremonie->execute(['idDefunt' => $idDefunt]);
+$ceremonie = $sqlGetCeremonie->fetch(PDO::FETCH_ASSOC);
+
+// Exécutez une requête pour récupérer les données actuelles de l'avis
+$sqlGetAvis = $dtLb->prepare("SELECT avis_contenu FROM avis WHERE id_defunt = :idDefunt");
+$sqlGetAvis->execute(['idDefunt' => $idDefunt]);
+$avis = $sqlGetAvis->fetch(PDO::FETCH_ASSOC);
+
+// Récupérez la valeur du nom et prénom actuel du défunt
+$nomPrenomDefuntActuel = $defunt['nom_prenom_defunt'];
+$dateDeathActuel = $defunt['date_deces'];
+$ageActuel = $defunt['age'];
+$nomProcheActuel = $proche['nom_prenom_proche'];
+$lienActuel = $proche['lien_familial'];
+$mainFamily = $Mainproche['main_proche'];
+$mainLink = $Mainproche['main_link'];
+$getDateCeremonie = $ceremonie['date_ceremonie'];
+$getHourCeremonie = $ceremonie['heure_ceremonie'];
+$getLocationCeremonie = $ceremonie['lieu_ceremonie'];
+$getAvis = $avis['avis_contenu'];
+
 ?>
 
 <!-- section header title -->
@@ -14,13 +59,13 @@
 <form action="./_treatment/_treatment-modify.php" method="post">
     <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
 
-
-    <label for="name">Nom et Prénom du défunt :</label>
-    <input type="text" id="name" name="name" required><br>
-
-    <label for="main-name">Nom et Prénom Proche Principal :</label>
-    <input type="text" id="main-name" name="main-name" required><br>
-    <select name="main-link" class="main-link" required>
+    <label for="new-name">Nom et Prénom du défunt :</label>
+    <input type="text" id="new-name" name="new-name" value="<?= $nomPrenomDefuntActuel ?>" required><br>
+    <?php var_dump($avis);?>
+    <label for="new-main-name">Nom et Prénom Proche Principal :</label>
+    <input type="text" id="new-main-name" name="new-main-name" value="<?= $mainFamily ?>" required><br>
+    <select name="new-main-link" class="main-link" required>
+        <option value="Son epouse"><?= $mainLink ?></option>
         <option value="Son epouse">Son épouse</option>
         <option value="Son epoux">Son époux</option>
         <hr>
@@ -64,9 +109,10 @@
     </select>
 
     <div id="family-members-container">
-        <label for="family-name">Nom et Prénom Famille et Proche :</label>
-        <input type="text" id="family-name" class="family-name" name="family-name[]" required><br>
-        <select name="family-link[]" class="family-name" required>
+        <label for="new-family-name">Nom et Prénom Famille et Proche :</label>
+        <input type="text" id="new-family-name" class="family-name" name="new-family-name[]" value="<?= $nomProcheActuel ?>" required><br>
+        <select name="new-family-link[]" class="family-name"  required>
+            <option value="<?= $lienActuel ?>"><?= $lienActuel ?></option>
             <option value="Sa fille">Sa fille</option>
             <option value="Ses filles">Ses filles</option>
             <option value="Son fils">Son fils</option>
@@ -111,26 +157,26 @@
         <button type="button" onclick="removeFamilyMember()">Supprimer le dernier membre</button>
     </div>
 
-    <label for="death-date">Date du décès :</label>
-    <input type="date" id="death-date" name="death-date" required><br>
+    <label for="new-death-date">Date du décès :</label>
+    <input type="date" id="new-death-date" name="new-death-date" value="<?= $dateDeathActuel ?>" required><br>
 
-    <label for="age-death">Age :</label>
-    <input type="text" id="age-death" name="age-death" required><br>
+    <label for="new-age-death">Age :</label>
+    <input type="text" id="new-age-death" name="new-age-death" value="<?= $ageActuel ?>" required><br>
 
-    <label for="ceremony-date">Date de la cérémonie :</label>
-    <input type="date" id="ceremony-date" name="ceremony-date" required><br>
+    <label for="new-ceremony-date">Date de la cérémonie :</label>
+    <input type="date" id="new-ceremony-date" name="new-ceremony-date" value="<?= $getDateCeremonie ?>" required><br>
 
-    <label for="location_ceremony">Lieu de la cérémonie :</label>
-    <input type="text" id="location_ceremony" name="location_ceremony" required><br>
+    <label for="new-location_ceremony">Lieu de la cérémonie :</label>
+    <input type="text" id="new-location_ceremony" name="new-location_ceremony" value="<?= $getLocationCeremonie ?>" required><br>
 
-    <label for="hour_ceremony">heure de la cérémonie :</label>
-    <input type="time" id="hour_ceremony" name="hour_ceremony" required><br>
+    <label for="new-hour_ceremony">heure de la cérémonie :</label>
+    <input type="time" id="new-hour_ceremony" name="new-hour_ceremony" value="<?= $getHourCeremonie ?>" required><br>
 
 
-    <label for="details">Détails :</label>
-    <textarea id="details" name="details" rows="10" required></textarea><br>
+    <label for="new-details">Détails :</label>
+<textarea id="new-details" name="new-details" rows="10" required><?= $getAvis ?></textarea><br>
 
-    <button name="send" type="submit">Ajouter</button>
+    <button name="update" type="submit">Ajouter</button>
 </form>
 
 <!-- // ----- # FOOTER # ----- // -->

@@ -27,18 +27,16 @@
                 <!-- Affichage des membres de la famille -->
                 <ul>
                     <?php foreach ($proches as $proche) : ?>
-                        <li><?= $proche['nom_prenom_proche'] ?>, <?= $proche['lien_familial'] ?>.</li><br>
+                        <li><?= $proche['nom_prenom_proche'] ?>, <?= $proche['lien_familial'] ?>.</li>
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
-            <p> Ont la tristesse de vous faire part du décès de :</p><br>
+            <p> Ont la tristesse de vous faire part du décès de :</p>
             <p> <?= $defunt['nom_prenom_defunt'] ?></p><br>
             <p>Survenu le <?= $defunt['date_deces'] ?> à l'age de <?= $defunt['age'] ?> ans.</p>
-            <p>La cérémonie sera célébrée le <?= $ceremonie['date_ceremonie'] ?> à <?= $ceremonie['heure_ceremonie'] ?>.</p>
+            <p  class="text-align">La cérémonie sera célébrée le <?= $dateCeremonieFormattee ?> à <?= $ceremonie['heure_ceremonie'] ?>.</p>
             <p>Lieu : <?= $ceremonie['lieu_ceremonie'] ?>.</p>
             <p><?= $avis['avis_contenu'] ?></p>
-        <?php else : ?>
-            <p>Les informations sur le défunt ne sont pas disponibles.</p>
         <?php endif; ?>
     </div>
     <div class="link-bottom">

@@ -1,77 +1,71 @@
 <?php
-// Vérifiez si un ID de défunt est fourni pour la modification
-if (isset($_POST['defunt_id']) && !empty($_POST['defunt_id'])) {
-    $defuntId = $_POST['defunt_id'];
+require "../../back-office/_includes/_dbCo.php";
+$dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sqlUpdateDefunt = $dtLb->prepare("UPDATE defunt SET nom_prenom_defunt = :name, date_deces = :deathDate, age = :ageDeath WHERE id_defunt = :defuntId");
-    $sqlUpdateDefunt->execute([
-        'name' => $name,
-        'deathDate' => $deathDate,
-        'ageDeath' => $ageDeath,
-        'defuntId' => $defuntId,
-    ]);
+session_start();
+$_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 
-    // Continuez avec le reste du code pour les autres tables...
-} else {
-    // Si aucun ID de défunt n'est fourni, il s'agit d'une nouvelle insertion
-    $sqlDefunt = $dtLb->prepare("INSERT INTO defunt (nom_prenom_defunt, date_deces, age) VALUES (:name, :deathDate, :ageDeath)");
+if (isset($_POST['update'])) {
+    // Récupérer les données du formulaire
+    $newName = strip_tags($_POST['new-name']);
+    $newMainName = strip_tags($_POST['new-main-name']);
+    $newMainLink = $_POST['new-main-link'];
+    $newFamilyNames = $_POST['new-family-name'];
+    $newFamilyLinks = $_POST['new-family-link'];
+    $newDeathDate = $_POST['new-death-date'];
+    $newAgeDeath = strip_tags($_POST['new-age-death']);
+    $newCeremonyDate = $_POST['new-ceremony-date'];
+    $newLocationCeremony = strip_tags($_POST['new-location_ceremony']);
+    $newHourCeremony = $_POST['new-hour_ceremony'];
+    $newDetails = strip_tags($_POST['new-details']);
+
+    // Requête SQL pour insérer le défunt
+    $sqlDefunt = $dtLb->prepare("INSERT INTO defunt (nom_prenom_defunt, date_deces, age) VALUES (:newName, :newDeathDate, :newAgeDeath)");
     $sqlDefunt->execute([
-        'name' => $name,
-        'deathDate' => $deathDate,
-        'ageDeath' => $ageDeath,
+        'newName' => $newName,
+        'newDeathDate' => $newDeathDate,
+        'newAgeDeath' => $newAgeDeath,
     ]);
 
-    // Récupérez l'ID du défunt inséré
-    $defuntId = $dtLb->lastInsertId();
-}
+    $idDefunt = $dtLb->lastInsertId();
 
-// Vérifiez si un ID de proche principal est fourni pour la modification
-if (isset($_POST['proche_principal_id']) && !empty($_POST['proche_principal_id'])) {
-    $prochePrincipalId = $_POST['proche_principal_id'];
-
-    $sqlUpdateProchePrincipal = $dtLb->prepare("UPDATE proche SET nom_prenom_proche = :mainName, lien_familial = :mainLink WHERE id_proche = :prochePrincipalId");
-    $sqlUpdateProchePrincipal->execute([
-        'mainName' => $mainName,
-        'mainLink' => $mainLink,
-        'prochePrincipalId' => $prochePrincipalId,
-    ]);
-
-    // Continuez avec le reste du code pour les autres tables...
-} else {
-    // Si aucun ID de proche principal n'est fourni, il s'agit d'une nouvelle insertion
-    $sqlProchePrincipal = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial, id_defunt) VALUES (:mainName, :mainLink, :defuntId)");
+    // Requête SQL pour insérer le proche principal
+    $sqlProchePrincipal = $dtLb->prepare("INSERT INTO main_family (main_proche, main_link, id_defunt) VALUES (:newMainName, :newMainLink, :idDefunt)");
     $sqlProchePrincipal->execute([
-        'mainName' => $mainName,
-        'mainLink' => $mainLink,
-        'defuntId' => $defuntId,
+        'newMainName' => $newMainName,
+        'newMainLink' => $newMainLink,
+        'idDefunt' => $idDefunt,
     ]);
-}
-// Vérifiez si des membres de la famille existent pour la modification
-if (!empty($familyNames)) {
-    foreach ($familyNames as $familyIndex => $familyName) {
-        // Vérifiez si un ID de membre de la famille est fourni pour la modification
-        if (isset($_POST['family_ids'][$familyIndex]) && !empty($_POST['family_ids'][$familyIndex])) {
-            $familyId = $_POST['family_ids'][$familyIndex];
 
-            $sqlUpdateFamilyMember = $dtLb->prepare("UPDATE proche SET nom_prenom_proche = :familyName, lien_familial = :familyLink WHERE id_proche = :familyId");
-            $sqlUpdateFamilyMember->execute([
-                'familyName' => $familyName,
-                'familyLink' => $familyLink[$familyIndex],
-                'familyId' => $familyId,
-            ]);
-
-            // Continuez avec le reste du code pour les autres tables...
-        } else {
-            // Si aucun ID de membre de la famille n'est fourni, il s'agit d'une nouvelle insertion
-            $sqlFamilyMember = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial, id_defunt) VALUES (:familyName, :familyLink, :defuntId)");
-            $sqlFamilyMember->execute([
-                'familyName' => $familyName,
-                'familyLink' => $familyLink[$familyIndex],
-                'defuntId' => $defuntId,
-            ]);
-        }
+    // Requête SQL pour insérer les membres de la famille
+    foreach ($newFamilyNames as $index => $newFamilyName) {
+        $newFamilyLinkValue = $newFamilyLinks[$index];
+        $sqlFamilyMember = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial, id_defunt) VALUES (:newFamilyName, :newFamilyLink, :idDefunt)");
+        $sqlFamilyMember->execute([
+            'newFamilyName' => $newFamilyName,
+            'newFamilyLink' => $newFamilyLinkValue,
+            'idDefunt' => $idDefunt,
+        ]);
     }
+
+    // Requête SQL pour insérer la cérémonie
+    $sqlCeremonie = $dtLb->prepare("INSERT INTO ceremonie (date_ceremonie, heure_ceremonie, lieu_ceremonie, id_defunt) VALUES (:newCeremonyDate, :newHourCeremony, :newLocationCeremony, :idDefunt)");
+    $sqlCeremonie->execute([
+        'newCeremonyDate' => $newCeremonyDate,
+        'newHourCeremony' => $newHourCeremony,
+        'newLocationCeremony' => $newLocationCeremony,
+        'idDefunt' => $idDefunt,
+    ]);
+
+    // Requête SQL pour insérer l'avis
+    $sqlAvis = $dtLb->prepare("INSERT INTO avis (avis_contenu, date_publication, id_defunt) VALUES (:newDetails, NOW(), :idDefunt)");
+    $sqlAvis->execute([
+        'newDetails' => $newDetails,
+        'idDefunt' => $idDefunt,
+    ]);
+
+    // Rediriger l'utilisateur après l'insertion
+    header('Location: .././admin.php');
+    exit();
 }
-
-
 ?>

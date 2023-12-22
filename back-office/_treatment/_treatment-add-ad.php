@@ -36,9 +36,9 @@ if (isset($_POST['send'])) {    // Récupérer les données du formulaire
         'mainLink' => $mainLink,
         'idDefunt' => $idDefunt,
     ]);
-    
+
     $postedData = $_POST;
-    
+
     // Requête SQL pour insérer les membres de la famille
     foreach ($postedData['family-name'] as $index => $familyName) {
         $familyLinkValue = $postedData['family-link'][$index];
@@ -49,7 +49,7 @@ if (isset($_POST['send'])) {    // Récupérer les données du formulaire
             'idDefunt' => $idDefunt,
         ]);
     }
-    
+
 
 
     // Requête SQL pour insérer la cérémonie
