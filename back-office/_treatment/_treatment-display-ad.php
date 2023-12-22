@@ -1,5 +1,4 @@
 <?php
-// ... (votre code précédent pour l'insertion)
 $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
 
 // Requête SQL pour récupérer les informations du défunt

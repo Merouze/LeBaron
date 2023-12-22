@@ -36,8 +36,7 @@
             <p>La cérémonie sera célébrée le <?= $ceremonie['date_ceremonie'] ?> à <?= $ceremonie['heure_ceremonie'] ?>.</p>
             <p>Lieu : <?= $ceremonie['lieu_ceremonie'] ?>.</p>
             <p><?= $avis['avis_contenu'] ?></p>
-        <?php else : ?>
-            <p>Les informations sur le défunt ne sont pas disponibles.</p>
+        
         <?php endif; ?>
     </div>
     <div class="link-bottom">
@@ -47,9 +46,6 @@
 <div class="defunt-name">
     <a href='modif-avis.php?idDefunt=<?= urlencode($avis['id_defunt']) ?>'>Modifier l'avis de décès</a>
 </div>
-<!-- <div class="defunt-name">
-    <a href='./_treatment/_delete.php?idDefunt=<?= urlencode($avis['id_defunt']) ?>' onclick="confirmDelete(<?= $avis['id_defunt'] ?>);">Supprimer l'avis de décès</a>
-</div> -->
 <div class="defunt-name">
     <a href='javascript:void(0);' onclick="confirmDelete(<?= $avis['id_defunt'] ?>);">Supprimer l'avis de décès</a>
 </div>
@@ -57,17 +53,7 @@
 
     </div>
 </section>
-<!-- <script>
-    function confirmDelete(idDefunt) {
-        // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
-        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet avis de décès ?");
 
-        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id du défunt
-        if (confirmation) {
-            window.location.href = `./_treatment/_delete.php?idDefunt=${idDefunt}`;
-        }
-    }
-</script> -->
 <script>
     function confirmDelete(idDefunt) {
         // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
@@ -79,6 +65,7 @@
         }
     }
 </script>
+
 
 
 
