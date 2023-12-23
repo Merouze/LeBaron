@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
 <!-- Afficher les résultats de la recherche -->
 <section class="resultats-recherche">
     <?php if (isset($resultats) && !empty($resultats)) : ?>
-        <h2 class="text-align">Résultats de la recherche</h2>
+        <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul>
             <?php foreach ($resultats as $resultat) : ?>
                 <?php
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     foreach ($lastAvis as $avis) {
         echo '<li>';
         echo '<ul>';
-        echo '<div class="display-mtb20">';
+        echo '<div class="display-mtb20 display_list-ad">';
         echo '<div>';
         echo '<li class="bold grey">' . $avis['nom_prenom_defunt'] . ' ' . $avis['age'] . ' ans</li>';
         echo '<li class="bold blue">' . $avis['date_ceremonie'] . '</li>';

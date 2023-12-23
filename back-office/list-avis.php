@@ -19,12 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
 <!-- section header title -->
 <section class="header-pages">
 </section>
-<h1 class="display grey text-align padding-title">Liste des &nbsp;<span class="blue">Avis de décès</span></h1>
-
 <!-- Afficher les résultats de la recherche -->
 <section class="resultats-recherche">
     <?php if (isset($resultats) && !empty($resultats)) : ?>
-        <h2 class="text-align">Résultats de la recherche</h2>
+        <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul>
             <?php foreach ($resultats as $resultat) : ?>
                 <?php
@@ -32,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
                 foreach ($resultats as $resultat) {
                     echo '<li>';
                     echo '<ul>';
-                    echo '<div class="display-mtb20">';
+                    echo '<div class="display-mtb20 ">';
                     echo '<div class="display-li-ad">';
                     echo '<li class="bold grey">' . $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans</li>';
                     echo '<li class="bold blue">' . $resultat['date_ceremonie'] . '</li>';
@@ -53,7 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
         </ul>
     <?php endif; ?>
 </section>
+<h1 class="display grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>
+
 <section class="display-ad">
+<h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
+
     <?php
     $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
 
@@ -69,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     foreach ($lastAvis as $avis) {
         echo '<li>';
         echo '<ul>';
-        echo '<div class="display-mtb20">';
+        echo '<div class="display-mtb20 display_list-ad">';
         echo '<div class="display-li-ad">';
         echo '<li class="bold grey">' . $avis['nom_prenom_defunt'] . ' ' . $avis['age'] . ' ans</li>';
         echo '<li class="bold blue">' . $avis['date_ceremonie'] . '</li>';
