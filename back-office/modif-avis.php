@@ -47,7 +47,6 @@ $getDateCeremonie = $ceremonie['date_ceremonie'];
 $getHourCeremonie = $ceremonie['heure_ceremonie'];
 $getLocationCeremonie = $ceremonie['lieu_ceremonie'];
 $getAvis = $avis['avis_contenu'];
-
 ?>
 
 <!-- section header title -->
@@ -57,15 +56,14 @@ $getAvis = $avis['avis_contenu'];
 
 <!-- section form add obituary -->
 <form action="./_treatment/_treatment-modify.php" method="post">
+    <input type="hidden" name="idDefunt" value="<?php echo $idDefunt; ?>">
     <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-
     <label for="new-name">Nom et Prénom du défunt :</label>
     <input type="text" id="new-name" name="new-name" value="<?= $nomPrenomDefuntActuel ?>" required><br>
-    <?php var_dump($avis);?>
     <label for="new-main-name">Nom et Prénom Proche Principal :</label>
     <input type="text" id="new-main-name" name="new-main-name" value="<?= $mainFamily ?>" required><br>
     <select name="new-main-link" class="main-link" required>
-        <option value="Son epouse"><?= $mainLink ?></option>
+        <option value="<?= $mainLink ?>"><?= $mainLink ?></option>
         <option value="Son epouse">Son épouse</option>
         <option value="Son epoux">Son époux</option>
         <hr>
@@ -111,7 +109,7 @@ $getAvis = $avis['avis_contenu'];
     <div id="family-members-container">
         <label for="new-family-name">Nom et Prénom Famille et Proche :</label>
         <input type="text" id="new-family-name" class="family-name" name="new-family-name[]" value="<?= $nomProcheActuel ?>" required><br>
-        <select name="new-family-link[]" class="family-name"  required>
+        <select name="new-family-link[]" class="family-name" required>
             <option value="<?= $lienActuel ?>"><?= $lienActuel ?></option>
             <option value="Sa fille">Sa fille</option>
             <option value="Ses filles">Ses filles</option>
@@ -174,9 +172,9 @@ $getAvis = $avis['avis_contenu'];
 
 
     <label for="new-details">Détails :</label>
-<textarea id="new-details" name="new-details" rows="10" required><?= $getAvis ?></textarea><br>
+    <textarea id="new-details" name="new-details" rows="10" required><?= $getAvis ?></textarea><br>
 
-    <button name="update" type="submit">Ajouter</button>
+    <button name="update" type="submit">Modifier</button>
 </form>
 
 <!-- // ----- # FOOTER # ----- // -->

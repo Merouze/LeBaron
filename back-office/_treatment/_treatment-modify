@@ -1,29 +1,19 @@
-<?php
-// var_dump($_POST);
-require "../../back-office/_includes/_dbCo.php";
 
+
+<?php
+require "../../back-office/_includes/_dbCo.php";
 $dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 session_start();
 $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 
-try {
-    var_dump($_POST);
+if (isset($_GET['idDefunt'])) {
 
-    // Récupérer l'ID du défunt
     $idDefunt = isset($_POST['idDefunt']) ? intval($_POST['idDefunt']) : null;
-
-    // Vérifier que l'ID du défunt est présent et est une valeur numérique
-    if (!$idDefunt || !is_numeric($idDefunt)) {
-        throw new Exception("ID du défunt manquant ou invalide.");
-    }
-
-    // Début de la transaction
-    $dtLb->beginTransaction();
-
+   
+if (isset($_POST['update'])) {
     // Récupérer les données du formulaire
-    
-    $idDefunt = $_POST['idDefunt'];
+    $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
     $newName = strip_tags($_POST['new-name']);
     $newMainName = strip_tags($_POST['new-main-name']);
     $newMainLink = $_POST['new-main-link'];
@@ -35,6 +25,7 @@ try {
     $newLocationCeremony = strip_tags($_POST['new-location_ceremony']);
     $newHourCeremony = $_POST['new-hour_ceremony'];
     $newDetails = strip_tags($_POST['new-details']);
+    
 
     // Requête SQL pour mettre à jour le défunt
     $sqlDefunt = $dtLb->prepare("UPDATE defunt SET nom_prenom_defunt = :newName, date_deces = :newDeathDate, age = :newAgeDeath WHERE id_defunt = :idDefunt");
@@ -56,15 +47,17 @@ try {
     // Supprimer les membres de la famille existants
     $sqlDeleteFamilyMembers = $dtLb->prepare("DELETE FROM proche WHERE id_defunt = :idDefunt");
     $sqlDeleteFamilyMembers->execute(['idDefunt' => $idDefunt]);
+    $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
 
     // Réinsérer les membres de la famille mis à jour
     foreach ($newFamilyNames as $index => $newFamilyName) {
         $newFamilyLinkValue = $newFamilyLinks[$index];
-        $sqlFamilyMember = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial, id_defunt) VALUES (:newFamilyName, :newFamilyLink, :idDefunt)");
+        $sqlFamilyMember = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial) VALUES (:newFamilyName, :newFamilyLink) WHERE id_defunt = :idDefunt");
         $sqlFamilyMember->execute([
             'newFamilyName' => $newFamilyName,
             'newFamilyLink' => $newFamilyLinkValue,
             'idDefunt' => $idDefunt,
+
         ]);
     }
 
@@ -84,16 +77,13 @@ try {
         'idDefunt' => $idDefunt,
     ]);
 
-    // Commit de la transaction
-    $dtLb->commit();
+    
+
 
     // Rediriger l'utilisateur après la mise à jour
-    header('Location: \LeBaron\back-office\list-avis.php');
-exit();
+//     header('Location: ./list-avis.php');
+// exit();
 
-} catch (Exception $e) {
+}}
 
-    // Gérer l'erreur (vous pouvez logguer l'erreur, afficher un message à l'utilisateur, etc.)
-    echo "Erreur : " . $e->getMessage();
-}
 ?>
