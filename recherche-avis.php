@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
         echo '<li class="bold blue">' . $avis['date_ceremonie'] . '</li>';
         echo '</div>';
         echo '<div>';
-        echo '<p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter +</a></p>';
+        echo '<p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter</a></p>';
         echo '</div>';
         echo '</div>';
         echo '</ul>';

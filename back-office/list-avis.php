@@ -19,6 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
 <!-- section header title -->
 <section class="header-pages">
 </section>
+<?php
+// Affichage des notifications
+if (isset($_SESSION['notif'])) {
+    $notifType = $_SESSION['notif']['type'];
+    $notifMessage = $_SESSION['notif']['message'];
+
+    echo "<div class='notification $notifType'>$notifMessage</div>";
+
+    // Nettoyer la notification après l'affichage
+    unset($_SESSION['notif']);
+}
+?>
+<!-- <?php var_dump($_SESSION['notif']); ?>  -->
 <!-- Afficher les résultats de la recherche -->
 <section class="resultats-recherche">
     <?php if (isset($resultats) && !empty($resultats)) : ?>
@@ -39,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
                     echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=' . urlencode($resultat['id_defunt']) . '">Consulter</a></p>';
                     echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-avis.php?idDefunt=' . urlencode($resultat['id_defunt']) . '">Modifier</a></p>';
                     echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(' . $resultat['id_defunt'] . ');">Supprimer</a></p>';
-
                     echo '</div>';
                     echo '</div>';
                     echo '</ul>';

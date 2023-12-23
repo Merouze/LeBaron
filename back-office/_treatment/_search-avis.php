@@ -1,9 +1,5 @@
 <?php
-require "../../back-office/_includes/_dbCo.php";
-$dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 session_start();
-$_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 
 // Vérifier si le formulaire de recherche a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
@@ -16,7 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     JOIN defunt d ON c.id_defunt = d.id_defunt WHERE nom_prenom_defunt LIKE :recherche");
     $sqlSearch->execute(['recherche' => "%$recherche%"]);
     $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
+
+    // Vérifier s'il y a des résultats
+    if ($sqlSearch->rowCount() > 0) {
+        $_SESSION['notif'] = array('type' => 'success', 'message' => 'La recherche a donné des résultats.');
+    } else {
+        $_SESSION['notif'] = array('type' => 'warning', 'message' => 'Aucun résultat trouvé pour la recherche.');
+    }
 }
 ?>
-
-
