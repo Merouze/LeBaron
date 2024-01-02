@@ -52,14 +52,31 @@
         </label>
         <input type="text" id="lastname-defunt" name="lastname-defunt" required>
 
+        <label for="date-born">
+            <h4>Date de naissance du défunt <span class="red">*</span></h4>
+        </label>
+        <input type="date" id="date-born" name="date-born" required>
+
+        <label for="location-born">
+            <h4>Lieu de naissance du défunt <span class="red">*</span></h4>
+        </label>
+        <input type="text" id="location-born" name="location-born" required>
+        
+        <label for="cp-born">
+            <h4>Code postale du lieu de naissance <span class="red">*</span></h4>
+        </label>
+        <input type="text" id="cp-born" name="cp-born" required>
+
+
         <label for="date-death">
             <h4>Date du décès <span class="red">*</span></h4>
         </label>
         <input type="date" id="date-death" name="date-death" required>
 
-        <label for="location-death">
+        <label for="location-born">
             <h4>Lieu <span class="red">*</span></h4>
         </label>
+        
         <label>
             <input class="input-radio" type="radio" name="location-death" value="domicile" required>
             Domicile
@@ -107,13 +124,27 @@
             À domicile
         </label>
 
+        <label for="body-care">
+            <h4>Soin de conservation du corps <span class="red">*</span></h4>
+        </label>
         <label>
-            <input class="input-radio" type="checkbox" name="soin-conservation" value="Soin-conservation" required>
-            Soin de conservation du corps
+            <input class="input-radio" type="radio" name="body-care" value="Aucune" required>
+            Aucune
+            <label>
+                <input class="input-radio" type="radio" name="body-care" value="En-chambre-funeraire" required>
+                Préparation du corps
+            </label>
+        </label>
+        <label for="obituary">
+            <h4>Parution avis de décès <span class="red">*</span></h4>
+        </label>
+        <label>
+            <input class="input-radio" type="checkbox" name="obituary" value="obituary" required>
+            Parution d'un avis de décès en ligne
         </label>
 
         <label>
-            <input class="input-radio" type="checkbox" name="avis-deces-presse" value="Avis-deces-presse" required>
+            <input class="input-radio" type="checkbox" name="obituary" value="obituary" required>
             Parution d'un avis de décès dans la presse
         </label>
 
@@ -128,7 +159,7 @@
         </label>
         <label>
             <input class="input-radio" type="radio" name="type-funeral" value="En-chambre-funeraire" required>
-            En chambre funéraire
+            Crémation
         </label>
 
         <label for="city-ceremony">
@@ -165,21 +196,17 @@
         </label>
         <label>
             <input class="input-radio" type="radio" name="type-sepulture" value="En-chambre-funeraire" required>
-            Dispersion des cendres - Colombarium
+            Dêpot des cendres - Colombarium
         </label>
         <label>
             <input class="input-radio" type="radio" name="type-sepulture" value="En-chambre-funeraire" required>
-            Dispersion des cendres - Sépulture
+            Dêpot des cendres - Caveau cinéraire
         </label>
         <label>
             <input class="input-radio" type="radio" name="type-sepulture" value="En-chambre-funeraire" required>
-            Dispersion des cendres - Remise à la famille
+            Dêpot des cendres - Jardin du souvenir
         </label>
-        <label>
-            <input class="input-radio" type="radio" name="type-sepulture" value="En-chambre-funeraire" required>
-            Dispersion des cendres - Dispersion
-        </label>
-
+        
         <label for="message">
             <h4>Message <span class="red">*</span></h4>
         </label>
@@ -229,8 +256,8 @@
 
         <!-- Conditions d'utilisation -->
         <div>
-            <input class="input-radio" type="checkbox" id="accept-conditions" name="accept-conditions" required>
-            <label for="accept-conditions">En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis. Cette demande est gratuite et sans engagement de votre part.</label>
+            <!-- <input class="input-radio" type="checkbox" id="accept-conditions" name="accept-conditions" required> -->
+            <label for="accept-conditions"><input class="input-radio" type="checkbox" id="accept-conditions" name="accept-conditions" required>En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis. Cette demande est gratuite et sans engagement de votre part.</label>
         </div>
 
         <button type="submit">Envoyer votre demande</button>

@@ -19,5 +19,6 @@
 
     <script src="asset/Js/script.js"></script>
 
-    </html>
     </body>
+
+    </html>

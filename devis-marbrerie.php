@@ -71,7 +71,7 @@
         </label>
         <!-- info entretien -->
         <label for="type-entretien">
-            <h4>Autre demande Entretien <span class="red">*</h4></span>
+            <h4>Demande Entretien <span class="red">*</h4></span>
         </label>
         <label>
             <input class="input-radio" type="radio" name="type-entretien" value="aucun" required>
@@ -80,13 +80,14 @@
         <label>
             <input class="input-radio" type="radio" name="type-entretien" value="annuel" required>
             Annuel </label>
-        <input class="input-radio" type="radio" name="type-entretien" value="ponctuel" required>
-        Ponctuel
+        <label>
+            <input class="input-radio" type="radio" name="type-entretien" value="ponctuel" required>
+            Ponctuel
         </label>
 
         <!-- Informations flowering -->
         <label for="flowering">
-            <h4>Autre demande Fleurissement <span class="red">*</span></h4>
+            <h4>Demande Fleurissement <span class="red">*</span></h4>
         </label>
         <label>
             <input class="input-radio" type="radio" name="flowering" value="no-flowering" required>
@@ -96,8 +97,9 @@
             <input class="input-radio" type="radio" name="flowering" value="annuel-flowering" required>
             Annuel
         </label>
-        <input class="input-radio" type="radio" name="flowering" value="ponctuel-flowering" required>
-        Ponctuel </label>
+        <label>
+            <input class="input-radio" type="radio" name="flowering" value="ponctuel-flowering" required>
+            Ponctuel </label>
 
 
         <label for="message-marble">
@@ -108,6 +110,12 @@
 
         <!-- Informations sur le défunt -->
         <h3 class="text-align">Localisation des travaux</h3>
+        <label for="location-fall">
+            <h4>Emplacement et n° de concession
+                <span class="red">*</span>
+            </h4>
+        </label>
+        <input type="text" id="location-fall" name="location-fall" required>
         <label for="cimetary-name">
             <h4>Nom du cimetière <span class="red">*</span></h4>
         </label>
@@ -118,7 +126,7 @@
                 <span class="red">*</span>
             </h4>
         </label>
-        <input type="text" id="location-cimetary" name="location-cimetary" required>
+        <input type="text" id="location-fall" name="location-cimetary" required>
 
         <!-- Vos coordonnées -->
         <h3 class="text-align">Vos coordonnées</h3>

@@ -53,6 +53,15 @@ button:hover {
     background-color: #037b8d;
     border: 1px solid #353031;
 }
+.main-link{
+    margin-bottom: 10px;
+    width: 50%;
+}
+.family-name{
+    margin-bottom: 10px;
+    width: 50%;
+
+}
 /* Responsive styles for mobile */
 @media screen and (max-width: 600px) {
     /* .form{

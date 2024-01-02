@@ -9,30 +9,27 @@
 <h1 class="display grey text-align padding-title">Service&nbsp;<span class="blue">Prévoyance</span></h1>
 <section class="content">
     <div class="text-img">
-        <div class="img"><img src="asset/img/bouquet-coloré.webp" alt="Fleur rose"></div>
         <div class="text">
             <h2>POMPES FUNÈBRES<br><span class="blue">LE BARON</span></h2>
             <h3><span class="">ART</span>ISAN-MARBRIER</h3>
-            <p>Vous souhaitez préserver vos proches dans leur deuil tout en faisant respecter vos dernières volontés ?
+            <br>
+            <p>Vous souhaitez <span class="blue bold">préserver</span> vos proches dans leur deuil tout en faisant respecter <span class="grey bold">vos dernières volontés ?</span>
                 <br>
-                La planification des obsèques consiste à s'assurer que vos souhaits sont connus, afin qu'ils puissent être exécutés le moment venu. Les Pompes Funèbres Le Baron vous accompagne dans la réalisation d'un contrat prévoyance pour décharger vos proches du financement et de l'organisation de vos funérailles.
+                La planification des <span class="blue bold">obsèques</span> consiste à s'assurer que vos souhaits sont <span class="blue bold">connus,</span> afin qu'ils puissent être exécutés le moment venu.<br><span class="grey bold">Les Pompes Funèbres</span> <span class="blue bold">Le Baron</span> vous accompagne dans la réalisation d'un <span class="blue bold">contrat prévoyance</span> pour décharger vos proches du financement et de <span class="grey bold">l'organisation de vos funérailles.</span>
             </p>
-        </div>
-    </div>
-    <div class="text-img">
-        <div class="text">
             <p>
-                N'hésitez pas à nous contacter pour nous transmettre vos attentes. Nos conseillers sont à votre disposition pour vous offrir écoute et conseil.
-                Les Pompes Funèbres Le Baron sont habilitées à vous proposer une solution adaptée pour votre prévoyance obsèques, tant financière qu'organisationnelle.
+                N'hésitez pas à nous <span class="blue bold">contacter</span> pour nous transmettre vos attentes. Nos conseillers sont à votre disposition pour vous offrir écoute et conseil.
+                <span class="grey bold">Les Pompes Funèbres</span> <span class="blue bold">Le Baron</span> sont habilitées à vous proposer une solution adaptée pour votre <span class="blue bold">prévoyance obsèques,</span> tant financière qu'organisationnelle.
             </p>
+            <p class="mt30"><a class="cta-services" href="devis-prevoyance.php">Devis prévoyance ►</a></p>
         </div>
         <div class="img"><img src="asset/img/stele.webp" alt="Rose blanche"></div>
     </div>
 </section>
 
-<!-- // ----- # FORM # ----- // -->
-<?php include './_includes./_form.php' ?>
 <!-- // ----- # MAP # ----- // -->
 <?php include './_includes./_location.php' ?>
+<!-- // ----- # FORM # ----- // -->
+<?php include './_includes./_form.php' ?>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes./_footer.php' ?>

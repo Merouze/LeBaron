@@ -19,7 +19,7 @@
     <input type="text" id="name" name="name" required><br>
 
     <label for="main-name">Nom et Prénom Proche Principal :</label>
-    <input type="text" id="main-name" name="main-name" required><br>
+    <input type="text" id="main-name" name="main-name" required>
     <select name="main-link" class="main-link" required>
         <option value="Son epouse">Son épouse</option>
         <option value="Son epoux">Son époux</option>
@@ -61,11 +61,11 @@
         <hr>
         <option value="Son ami(e)">Son ami(e)</option>
         <option value="Ses ami(e)s">Ses ami(e)s</option>
-    </select>
+    </select><br>
 
     <div id="family-members-container">
         <label for="family-name">Nom et Prénom Famille et Proche :</label>
-        <input type="text" id="family-name" class="family-name" name="family-name[]" required><br>
+        <input type="text" id="family-name" name="family-name[]" required>
         <select name="family-link[]" class="family-name" required>
             <option value="Sa fille">Sa fille</option>
             <option value="Ses filles">Ses filles</option>
@@ -104,8 +104,9 @@
             <hr>
             <option value="Son ami(e)">Son ami(e)</option>
             <option value="Ses ami(e)s">Ses ami(e)s</option>
-        </select>
+        </select><br>
     </div>
+    <br>
     <div class="btn-add">
         <button type="button" onclick="addFamilyMember()">Ajouter un membre</button>
         <button type="button" onclick="removeFamilyMember()">Supprimer le dernier membre</button>
@@ -130,7 +131,7 @@
     <label for="details">Détails :</label>
     <textarea id="details" name="details" rows="10" required></textarea><br>
 
-    <button name="send" type="submit">Ajouter</button>
+    <button name="send" type="submit">Ajouter l'avis de décès</button>
 </form>
 
 <!-- // ----- # FOOTER # ----- // -->
