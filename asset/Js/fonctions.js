@@ -5,34 +5,6 @@ function getToken() {
 }
 // add and delete member family
 
-// function addFamilyMember() {
-//     // Sélectionner le conteneur des membres de la famille
-//     let familyMembersContainer = document.querySelector('#family-members-container');
-
-//     // Créer un nouvel élément div pour le membre de la famille
-//     let newFamilyMember = document.createElement('div');
-
-//     // Créer l'élément input
-//     let inputElement = document.createElement('input');
-//     inputElement.type = 'text';
-//     inputElement.id = 'family-name';
-//     inputElement.name = 'family-name[]';
-//     inputElement.required = true;
-
-//     // Créer l'élément select
-//     let selectElement = document.createElement('select');
-//     selectElement.name = 'family-link[]';
-//     selectElement.className = 'family-name';
-//     selectElement.required = true;
-
-//     // Ajouter l'input et le select à la div
-//     newFamilyMember.appendChild(inputElement);
-//     newFamilyMember.appendChild(selectElement);
-
-//     // Ajouter le nouveau membre de la famille au conteneur
-//     familyMembersContainer.appendChild(newFamilyMember);
-// }
-
 function addFamilyMember() {
     // Sélectionner le conteneur des membres de la famille
     let familyMembersContainer = document.querySelector('#family-members-container');
@@ -78,9 +50,40 @@ function addFamilyMember() {
     // Ajouter le nouveau membre de la famille au conteneur
     familyMembersContainer.appendChild(newFamilyMember);
 }
+function addFamilyMembersOnSubmit() {
+    // Créer un nouvel élément div pour chaque membre de la famille
+    let familyMembersContainer = document.querySelector('#family-members-container');
+    let familyMembers = document.querySelectorAll('.family-member');
 
+    familyMembers.forEach(member => {
+        // Créer l'élément input
+        let inputElement = document.createElement('input');
+        inputElement.type = 'text';
+        inputElement.name = 'new-family-name[]';
+        inputElement.value = member.querySelector('.family-name').value;
+        inputElement.required = true;
 
+        // Créer l'élément select
+        let selectElement = document.createElement('select');
+        selectElement.name = 'new-family-link[]';
+        selectElement.className = 'family-name';
+        selectElement.value = member.querySelector('.family-name').value;
+        selectElement.required = true;
 
+        // Ajouter les options au select
+        let options = [...]; // Vos options ici
+        options.forEach(optionText => {
+            let option = document.createElement('option');
+            option.value = optionText;
+            option.text = optionText;
+            selectElement.appendChild(option);
+        });
+
+        // Ajouter l'input et le select à la div
+        member.appendChild(inputElement);
+        member.appendChild(selectElement);
+    });
+}
 
 
 function removeFamilyMember() {
@@ -103,6 +106,3 @@ function removeFamilyMember() {
 
 // *****************************************  ************************************ 
    
-
-
-

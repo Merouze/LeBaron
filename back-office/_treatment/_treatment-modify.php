@@ -35,6 +35,8 @@ try {
     $newLocationCeremony = strip_tags($_POST['new-location_ceremony']);
     $newHourCeremony = $_POST['new-hour_ceremony'];
     $newDetails = strip_tags($_POST['new-details']);
+    
+   
 
     // Requête SQL pour mettre à jour le défunt
     $sqlDefunt = $dtLb->prepare("UPDATE defunt SET nom_prenom_defunt = :newName, date_deces = :newDeathDate, age = :newAgeDeath WHERE id_defunt = :idDefunt");
@@ -53,23 +55,26 @@ try {
         'idDefunt' => $idDefunt,
     ]);
 
-    // Supprimer les membres de la famille existants
-    $sqlDeleteFamilyMembers = $dtLb->prepare("DELETE FROM proche WHERE id_defunt = :idDefunt");
-    $sqlDeleteFamilyMembers->execute(['idDefunt' => $idDefunt]);
+    // // Supprimer les membres de la famille existants
+    // $sqlDeleteFamilyMembers = $dtLb->prepare("DELETE FROM proche WHERE id_defunt = :idDefunt");
+    // $sqlDeleteFamilyMembers->execute(['idDefunt' => $idDefunt]);
 
-    // Supprimer les membres de la famille existants
+   // Supprimer les membres de la famille existants
 $sqlDeleteFamilyMembers = $dtLb->prepare("DELETE FROM proche WHERE id_defunt = :idDefunt");
 $sqlDeleteFamilyMembers->execute(['idDefunt' => $idDefunt]);
 
 // Réinsérer les membres de la famille mis à jour
 foreach ($newFamilyNames as $index => $newFamilyName) {
     $newFamilyLinkValue = $newFamilyLinks[$index];
+
     $sqlFamilyMember = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial, id_defunt) VALUES (:newFamilyName, :newFamilyLink, :idDefunt)");
     $sqlFamilyMember->execute([
         'newFamilyName' => $newFamilyName,
         'newFamilyLink' => $newFamilyLinkValue,
         'idDefunt' => $idDefunt,
     ]);
+
+
 }
 
 

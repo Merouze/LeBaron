@@ -9,6 +9,7 @@
 </section>
 <h1 class="display grey text-align padding-title">Avis de&nbsp;<span class="blue">Décès</span></h1>
 
+<?php var_dump($proches); ?>
 <!-- section condoleance -->
 <section class="avis-deces">
     <div class="title-top">
