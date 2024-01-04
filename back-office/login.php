@@ -1,7 +1,7 @@
 <!-- // ----- # HEAD # ----- // -->
-<?php include './_includes/_head.php' ?>
+<?php include '../back-office/_includes/_head.php' ?>
 <!-- // ----- # NAV # ----- // -->
-<?php include './_includes/_nav.php' ?>
+<?php include './_includes/_nav-admin.php' ?>
 
 <!-- section header title -->
 <section class="header-pages">

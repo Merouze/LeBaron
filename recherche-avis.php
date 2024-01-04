@@ -5,7 +5,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     // Nettoyer et récupérer la valeur du champ de recherche
     $recherche = strip_tags($_GET['recherche']);
-
+    
     // Exécuter la requête de recherche dans la base de données
     $sqlSearch = $dtLb->prepare("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
     FROM ceremonie c
@@ -17,11 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes./_nav.php' ?>
 <section class="header-pages">
-</section>
-<h1 class="display grey text-align padding-title">Avis de décès et&nbsp;<span class="blue">Condoléances</span></h1>
-
-<!-- Afficher les résultats de la recherche -->
-<section class="resultats-recherche">
+    </section>
+    <h1 class="display grey text-align padding-title">Avis de décès et&nbsp;<span class="blue">Condoléances</span></h1>
+    
+    <!-- Afficher les résultats de la recherche -->
+    <section class="resultats-recherche">
     <?php if (isset($resultats) && !empty($resultats)) : ?>
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul>
@@ -49,14 +49,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
         </ul>
     <?php endif; ?>
 </section>
+<?php
+// Affichage des notifications
+if (isset($_SESSION['notif'])) {
+    $notifType = $_SESSION['notif']['type'];
+    $notifMessage = $_SESSION['notif']['message'];
 
+    echo "<div class='notification $notifType'>$notifMessage</div>";
+
+    // Nettoyer la notification après l'affichage
+    unset($_SESSION['notif']);
+}
+?>
+
+<!-- section obituary -->
+<section class="obituary mt50 mt100">
+    <div class="obituary-text ad">
+        <form class="recherche-ad" action="">
+            <h3 class="text-align white">Recherche par Nom ou Prénom</h3>
+            <label for="recherche"></label>
+            <input name="recherche" class="input-ad" type="text">
+            <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+            <button type="submit" class="cta-ad ">Rechercher</button>
+        </form>
+    </div>
+</section>
 <!-- section li defunt -->
 
 <section class="display-ad">
     <h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
     <?php
     $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
-
+    
     $sqlGetLastAvis = $dtLb->query("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
     FROM ceremonie c
     JOIN defunt d ON c.id_defunt = d.id_defunt
@@ -83,18 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     }
     echo '</ul>';
     ?>
-</section>
-<!-- section obituary -->
-<section class="obituary mt50 mt100">
-    <div class="obituary-text ad">
-        <form class="recherche-ad" action="">
-            <h3 class="text-align white">Recherche par Nom ou Prénom</h3>
-            <label for="recherche"></label>
-            <input name="recherche" class="input-ad" type="text">
-            <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-            <button type="submit" class="cta-ad ">Rechercher</button>
-        </form>
-    </div>
 </section>
 <!-- // ----- # FORM # ----- // -->
 <?php include './_includes./_form.php' ?>

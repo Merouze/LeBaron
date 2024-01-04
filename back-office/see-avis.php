@@ -36,19 +36,19 @@
             <p>La cérémonie sera célébrée le <?= $ceremonie['date_ceremonie'] ?> à <?= $ceremonie['heure_ceremonie'] ?>.</p>
             <p>Lieu : <?= $ceremonie['lieu_ceremonie'] ?>.</p>
             <p><?= $avis['avis_contenu'] ?></p>
-        
+
         <?php endif; ?>
     </div>
     <div class="link-bottom">
-    <div class="defunt-name">
-    <a href='messagecondoleance.php?idDefunt=<?= urlencode($avis['id_defunt']) ?>'>Voir les condoléances</a>
-</div>
-<div class="defunt-name">
-    <a href='modif-avis.php?idDefunt=<?= urlencode($avis['id_defunt']) ?>'>Modifier l'avis de décès</a>
-</div>
-<div class="defunt-name">
-    <a href='javascript:void(0);' onclick="confirmDelete(<?= $avis['id_defunt'] ?>);">Supprimer l'avis de décès</a>
-</div>
+        <div class="defunt-name">
+            <a href='check-message.php?idDefunt=<?= urlencode($avis['id_defunt']) ?>'>Voir les condoléances</a>
+        </div>
+        <div class="defunt-name">
+            <a href='modif-avis.php?idDefunt=<?= urlencode($avis['id_defunt']) ?>'>Modifier l'avis de décès</a>
+        </div>
+        <div class="defunt-name">
+            <a href='javascript:void(0);' onclick="confirmDelete(<?= $avis['id_defunt'] ?>);">Supprimer l'avis de décès</a>
+        </div>
 
 
     </div>

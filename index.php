@@ -79,8 +79,8 @@
 <h2 class="title-obituary">Avis de décès et&nbsp;<span class="blue bold">condoléances</span></h2>
 <section class="obituary">
     <div class="obituary-text">
-    <h2>Avis de décès et condoléances</h2>
-    <p>Avis de décès et condoléances Consultez les avis de décès émis par les Pompes Funèbres Le Baron sur la région de Caen et communes alentours.
+    <h2>Avis de décès et <span class="blue bold">condoléances</span></h2>
+    <p class="obituary-p">Consultez les avis de décès émis par les Pompes Funèbres Le Baron sur la région de Caen et communes alentours.
         Vous pouvez également déposer des condoléances pour témoigner.
     </p>
     <p class="obituary-cta"><a class="cta-obituary" href="recherche-avis.php">Consulter</a></p>

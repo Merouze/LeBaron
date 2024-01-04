@@ -6,14 +6,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     // Nettoyer et récupérer la valeur du champ de recherche
     $recherche = strip_tags($_GET['recherche']);
 
+    $idCondolence = isset($_GET['idCondolence']) ? $_GET['idCondolence'] : null;
+
     // Exécuter la requête de recherche dans la base de données
-    $sqlSearch = $dtLb->prepare("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
-    FROM ceremonie c
-    JOIN defunt d ON c.id_defunt = d.id_defunt WHERE nom_prenom_defunt LIKE :recherche");
+    $sqlSearch = $dtLb->prepare(
+        "SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie, co.id_condolence
+        FROM defunt d
+        LEFT JOIN condolences co ON d.id_defunt = co.id_defunt
+        LEFT JOIN ceremonie c ON d.id_defunt = c.id_defunt
+        WHERE d.nom_prenom_defunt LIKE :recherche"
+    );
     $sqlSearch->execute(['recherche' => "%$recherche%"]);
     $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
+    
 }
 ?>
+
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
 <!-- section header title -->
@@ -34,46 +42,49 @@ if (isset($_SESSION['notif'])) {
 <!-- <?php var_dump($_SESSION['notif']); ?>  -->
 <!-- Afficher les résultats de la recherche -->
 <section class="resultats-recherche">
-    <?php if (isset($resultats) && !empty($resultats)) : ?>
+    <?php
+    // ...
+    if (isset($resultats) && !empty($resultats)) : ?>
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul>
             <?php foreach ($resultats as $resultat) : ?>
-                <?php
-                echo '<ul>';
-                foreach ($resultats as $resultat) {
-                    echo '<li>';
-                    echo '<ul>';
-                    echo '<div class="display-mtb20 ">';
-                    echo '<div class="display-li-ad">';
-                    echo '<li class="bold grey">' . $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans</li>';
-                    echo '<li class="bold blue">' . $resultat['date_ceremonie'] . '</li>';
-                    echo '</div>';
-                    echo '<div class="display-btn-list-ad">';
-                    echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=' . urlencode($resultat['id_defunt']) . '">Consulter</a></p>';
-                    echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-avis.php?idDefunt=' . urlencode($resultat['id_defunt']) . '">Modifier</a></p>';
-                    echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(' . $resultat['id_defunt'] . ');">Supprimer</a></p>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</ul>';
-                    echo '</li>';
-                }
-                echo '</ul>';
-                ?>
+                <li>
+                    <ul>
+                        <div class="display-mtb20 ">
+                            <div class="display-li-ad">
+                                <li class="bold grey"><?= $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans' ?></li>
+                                <li class="bold blue"><?= $resultat['date_ceremonie'] ?></li>
+                            </div>
+                            <div class="display-btn-list-ad">
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-avis.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Modifier</a></p>
+
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Condoléances</a></p>;
+
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(<?= $resultat['id_defunt'] ?>);">Supprimer</a></p>
+                            </div>
+                        </div>
+                    </ul>
+                </li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
+
 </section>
 <h1 class="display grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>
 
 <section class="display-ad">
-<h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
+    <h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
 
     <?php
     $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
+    $idCondolence = isset($_GET['idCondolence']) ? $_GET['idCondolence'] : null;
 
-    $sqlGetLastAvis = $dtLb->query("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
+    $sqlGetLastAvis = $dtLb->query("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie, GROUP_CONCAT(co.id_condolence) AS id_condolence
     FROM ceremonie c
     JOIN defunt d ON c.id_defunt = d.id_defunt
+    LEFT JOIN condolences co ON d.id_defunt = co.id_defunt
+    GROUP BY d.id_defunt
     ORDER BY c.date_ceremonie DESC
     LIMIT 4");
 
@@ -91,6 +102,7 @@ if (isset($_SESSION['notif'])) {
         echo '<div class="display-btn-list-ad">';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter</a></p>';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-avis.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Modifier</a></p>';
+        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=' . urlencode($avis['id_defunt']) . '&idCondolence=' . urlencode($avis['id_condolence']) . '">Condoléances</a></p>';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(' . $avis['id_defunt'] . ');">Supprimer</a></p>';
         echo '</div>';
         echo '</div>';

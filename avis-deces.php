@@ -18,9 +18,10 @@
     <div class="list-family">
 
         <?php if ($defunt !== false) : ?>
-    
-            <!-- <?php var_dump($proches); ?> -->
-            <!-- <?php var_dump($prochePrincipale); ?> -->
+<!--                 
+            <?php var_dump($proches); ?>
+            <?php var_dump($prochePrincipale); ?>
+            <?php var_dump($_GET); ?> -->
             <?php if (!empty($prochePrincipale)) : ?>
                 <!-- Affichage du proche principal -->
                 <p><?= $prochePrincipale[0]['main_proche'] ?> <?= $prochePrincipale[0]['main_link'] ?></p>
@@ -34,14 +35,14 @@
             <p> Ont la tristesse de vous faire part du décès de :</p>
             <p><span class="blue bold"><?= $defunt['nom_prenom_defunt'] ?></span></p><br>
             <p>Survenu le <?= $defunt['date_deces'] ?> à l'age de <?= $defunt['age'] ?> ans.</p>
-            <p  class="text-align">La cérémonie sera célébrée le <?= $dateCeremonieFormattee ?> à <?= $ceremonie['heure_ceremonie'] ?>.</p>
+            <p class="text-align">La cérémonie sera célébrée le <?= $dateCeremonieFormattee ?> à <?= $ceremonie['heure_ceremonie'] ?>.</p>
             <p>Lieu : <?= $ceremonie['lieu_ceremonie'] ?>.</p>
             <p><?= $avis['avis_contenu'] ?></p>
         <?php endif; ?>
     </div>
     <div class="link-bottom">
         <div class="defunt-name">
-            <a href="condoleance.php">Transmettre ses condoléances</a>
+            <a href="condoleance.php?idDefunt=<?= urlencode($_GET['idDefunt']) ?>">Transmettre ses condoléances</a>
         </div>
     </div>
 </section>

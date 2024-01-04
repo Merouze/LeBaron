@@ -28,6 +28,10 @@ body {
 .mt30 {
     margin-top: 30px;
 }
+.check-form {
+    margin-left: 0px;
+    width: auto;
+}
 
 .padding-title {
     padding: 50px 0px 10px 0px;
@@ -118,7 +122,7 @@ ul {
 
 /* <!-- section obituary --> */
 .obituary {
-    max-height: 470px;
+    max-height: 350px;
     font-size: 40px;
     background: url("./../img/bougies-rose-rouge.webp");
     background-size: cover;
@@ -149,6 +153,11 @@ ul {
     max-width: 50vw;
     color: white;
     font-size: 45px;
+
+}
+.obituary-p{
+    margin: 0;
+    padding: 0;
 
 }
 
@@ -257,8 +266,8 @@ ul {
 }
 
 .success {
-    background-color: #4CAF50;
-    color: white;
+    /* background-color: #4CAF50; */
+    color: #4CAF50;
 }
 
 .error {
