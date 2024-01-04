@@ -110,6 +110,7 @@
     <div class="btn-add">
         <button type="button" onclick="addFamilyMember()">Ajouter un membre</button>
         <button type="button" onclick="removeFamilyMember()">Supprimer le dernier membre</button>
+
     </div>
 
     <label for="death-date">Date du décès :</label>
@@ -133,6 +134,7 @@
 
     <button name="send" type="submit">Ajouter l'avis de décès</button>
 </form>
+
 
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>

@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
     // Vérifier s'il y a des résultats
     if ($sqlSearch->rowCount() > 0) {
         $_SESSION['notif'] = array('type' => 'success', 'message' => 'La recherche a donné des résultats.');

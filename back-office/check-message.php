@@ -30,7 +30,7 @@ $condolences = $sqlSelectCondolences->fetchAll(PDO::FETCH_ASSOC);
                 <strong>Nom :</strong> <?= $condolence['nom_expditeur'] ?><br>
                 <strong>Email :</strong> <?= $condolence['email_expditeur'] ?><br>
                 <strong>Message :</strong> <?= $condolence['message'] ?><br>
-                <a href="check-message.php?idCondolence=<?= $idCondolence ?>&idDefunt=<?= $idDefunt ?>">Supprimer</a>
+                <a href="check-message.php?idCondolence=<?= $idCondolence ?>">Supprimer</a>
                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(<?= $condolence['id_defunt'] ?>);">Supprimer</a></p>;
             </li>
         <?php endforeach; ?>

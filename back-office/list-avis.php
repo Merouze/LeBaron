@@ -30,7 +30,7 @@ if (isset($_SESSION['notif'])) {
     unset($_SESSION['notif']);
 }
 ?>
-<h1 class="display grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>
+
 
 <!-- <?php var_dump($_SESSION['notif']); ?>  -->
 <!-- Afficher les résultats de la recherche -->
