@@ -16,51 +16,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
 ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes./_nav.php' ?>
-<section class="header-pages">
-    </section>
-    <h1 class="display grey text-align padding-title">Avis de décès et&nbsp;<span class="blue">Condoléances</span></h1>
-    
-    <!-- Afficher les résultats de la recherche -->
-    <section class="resultats-recherche">
-    <?php if (isset($resultats) && !empty($resultats)) : ?>
-        <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
-        <ul>
-            <?php foreach ($resultats as $resultat) : ?>
-                <?php
-                echo '<ul>';
-                foreach ($resultats as $resultat) {
-                    echo '<li>';
-                    echo '<ul>';
-                    echo '<div class="display-mtb20">';
-                    echo '<div>';
-                    echo '<li class="bold grey">' . $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans</li>';
-                    echo '<li class="bold blue">' . $resultat['date_ceremonie'] . '</li>';
-                    echo '</div>';
-                    echo '<div>';
-                    echo '<p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($resultat['id_defunt']) . '">Consulter</a></p>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</ul>';
-                    echo '</li>';
-                }
-                echo '</ul>';
-                ?>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
-</section>
+<!-- Afficher les résultats de la recherche -->
 <?php
+
 // Affichage des notifications
 if (isset($_SESSION['notif'])) {
     $notifType = $_SESSION['notif']['type'];
     $notifMessage = $_SESSION['notif']['message'];
-
+    
     echo "<div class='notification $notifType'>$notifMessage</div>";
-
+    
     // Nettoyer la notification après l'affichage
     unset($_SESSION['notif']);
 }
 ?>
+<h1 class="display grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>
+<section class="resultats-recherche">
+    <?php
+    if (isset($resultats) && !empty($resultats)) : ?>
+        <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
+        <ul>
+            <?php foreach ($resultats as $resultat) : ?>
+                <li>
+                    <ul>
+                        <div class="display-mtb20 ">
+                            <div class="display-li-ad">
+                                <li class="bold grey"><?= $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans' ?></li>
+                                <li class="bold blue"><?= $resultat['date_ceremonie'] ?></li>
+                            </div>
+                            <div class="display-btn-list-ad">
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="avis-deces.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
+                            </div>
+                        </div>
+                    </ul>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+</section>
 
 <!-- section obituary -->
 <section class="obituary mt50 mt100">

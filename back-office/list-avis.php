@@ -5,20 +5,13 @@
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     // Nettoyer et récupérer la valeur du champ de recherche
     $recherche = strip_tags($_GET['recherche']);
-
     $idCondolence = isset($_GET['idCondolence']) ? $_GET['idCondolence'] : null;
-
     // Exécuter la requête de recherche dans la base de données
-    $sqlSearch = $dtLb->prepare(
-        "SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie, co.id_condolence
-        FROM defunt d
-        LEFT JOIN condolences co ON d.id_defunt = co.id_defunt
-        LEFT JOIN ceremonie c ON d.id_defunt = c.id_defunt
-        WHERE d.nom_prenom_defunt LIKE :recherche"
-    );
+    $sqlSearch = $dtLb->prepare("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
+    FROM ceremonie c
+    JOIN defunt d ON c.id_defunt = d.id_defunt WHERE nom_prenom_defunt LIKE :recherche");
     $sqlSearch->execute(['recherche' => "%$recherche%"]);
     $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
-    
 }
 ?>
 
@@ -32,18 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
 if (isset($_SESSION['notif'])) {
     $notifType = $_SESSION['notif']['type'];
     $notifMessage = $_SESSION['notif']['message'];
-
     echo "<div class='notification $notifType'>$notifMessage</div>";
-
     // Nettoyer la notification après l'affichage
     unset($_SESSION['notif']);
 }
 ?>
+<h1 class="display grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>
+
 <!-- <?php var_dump($_SESSION['notif']); ?>  -->
 <!-- Afficher les résultats de la recherche -->
 <section class="resultats-recherche">
     <?php
-    // ...
     if (isset($resultats) && !empty($resultats)) : ?>
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul>
@@ -71,7 +63,19 @@ if (isset($_SESSION['notif'])) {
     <?php endif; ?>
 
 </section>
-<h1 class="display grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>
+<!-- section obituary -->
+<section class="obituary mt50 mt100">
+    <div class="obituary-text ad">
+        <form class="recherche-ad" action="">
+            <h3 class="text-align white">Recherche par Nom ou Prénom</h3>
+            <label for="recherche"></label>
+            <input name="recherche" class="input-ad" type="text">
+            <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+            <button type="submit" class="cta-ad ">Rechercher</button>
+        </form>
+    </div>
+</section>
+<!-- Afficher les derniers avis de deces publiés -->
 
 <section class="display-ad">
     <h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
@@ -113,19 +117,6 @@ if (isset($_SESSION['notif'])) {
     ?>
 </section>
 
-</section>
-<!-- section obituary -->
-<section class="obituary mt50 mt100">
-    <div class="obituary-text ad">
-        <form class="recherche-ad" action="">
-            <h3 class="text-align white">Recherche par Nom ou Prénom</h3>
-            <label for="recherche"></label>
-            <input name="recherche" class="input-ad" type="text">
-            <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-            <button type="submit" class="cta-ad ">Rechercher</button>
-        </form>
-    </div>
-</section>
 <script>
     function confirmDelete(idDefunt) {
         // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
