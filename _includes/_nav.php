@@ -7,10 +7,10 @@
             <p class="info-nav">Permanence téléphonique 7j/7 et 24h/24</p>
         </div>
         <div class="contact-info-cta">
-            <a class="icon-user" href="back-office/login-family.php"><img src="asset\img\icon-user.png" alt="icon user"></a>
+            <a class="icon-user" href="login-family.php"><img src="asset\img\icon-user.png" alt="icon user"></a>
             <p><a href="tel:+33231269175">📞 02 31 26 91 75</a></p>
             <p class="cta"><a href="tel:+33231269175">Nous contacter</a></p>
-            <a class="user-icon" href="back-office/login-family.php"><img src="asset\img\icon-user-white.png" alt="icon user"></a>
+            <a class="user-icon" href="login-family.php"><img src="asset\img\icon-user-white.png" alt="icon user"></a>
         </div>
         
 

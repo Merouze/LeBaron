@@ -26,10 +26,10 @@ window.onscroll = function() {
 function scrollFunction() {
   // Si le défilement est supérieur à 20 pixels, affichez le bouton
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      document.getElementById("myBtn").style.display = "block";
+    document.getElementById("myBtn").style.display = "block";
   } else {
-      // Sinon, masquez le bouton
-      document.getElementById("myBtn").style.display = "none";
+    // Sinon, masquez le bouton
+    document.getElementById("myBtn").style.display = "none";
   }
 }
 
@@ -38,4 +38,24 @@ function topFunction() {
   document.body.scrollTop = 0; // Pour Safari
   document.documentElement.scrollTop = 0; // Pour les autres navigateurs
 }
+
+// ***************************************** */ check all checkbox ************************************ 
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("checkAll").addEventListener("change", function() {
+      const checkboxes = document.getElementsByClassName("condolence-checkbox");
+      for (let i = 0; i < checkboxes.length; i++) {
+          checkboxes[i].checked = this.checked;
+      }
+  });
+
+  const form = document.querySelector(".form-check");
+
+  form.addEventListener("submit", function(event) {
+      const checkboxes = document.getElementsByClassName("condolence-checkbox");
+      for (let i = 0; i < checkboxes.length; i++) {
+          checkboxes[i].value = checkboxes[i].checked ? checkboxes[i].value : 0;
+      }
+  });
+});
 

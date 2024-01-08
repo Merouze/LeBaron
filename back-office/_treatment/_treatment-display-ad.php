@@ -9,8 +9,6 @@ $sqlSelectDefunt = $dtLb->prepare("SELECT * FROM defunt WHERE id_defunt = :idDef
 $sqlSelectDefunt->execute(['idDefunt' => $idDefunt]);
 $defunt = $sqlSelectDefunt->fetch(PDO::FETCH_ASSOC);
 
-
-
 // Requête SQL pour récupérer les informations du proche principale
 
 $sqlSelectProchePrincipal = $dtLb->prepare("SELECT main_proche, main_link FROM main_family WHERE id_defunt = :idDefunt");

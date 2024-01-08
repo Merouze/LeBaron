@@ -29,6 +29,8 @@ try {
     $newMainLink = $_POST['new-main-link'];
     $newFamilyNames = $_POST['new-family-name'];
     $newFamilyLinks = $_POST['new-family-link'];
+    // $FamilyNames = $_POST['family-name[]'];
+    // $FamilyLinks = $_POST['family-link[]'];
     $newDeathDate = $_POST['new-death-date'];
     $newAgeDeath = strip_tags($_POST['new-age-death']);
     $newCeremonyDate = $_POST['new-ceremony-date'];
@@ -75,6 +77,17 @@ foreach ($newFamilyNames as $index => $newFamilyName) {
     ]);
 
 
+}
+// Ajouter les nouveaux membres de la famille
+foreach ($_POST['family-name'] as $index => $FamilyName) {
+    $FamilyLinkValue = $_POST['family-link'][$index];
+
+    $sqlFamilyMember = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial, id_defunt) VALUES (:FamilyName, :FamilyLink, :idDefunt)");
+    $sqlFamilyMember->execute([
+        'FamilyName' => $FamilyName,
+        'FamilyLink' => $FamilyLinkValue,
+        'idDefunt' => $idDefunt,
+    ]);
 }
 
 

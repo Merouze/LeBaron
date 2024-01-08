@@ -7,7 +7,6 @@ include '.././back-office/_treatment/_treatment-display-ad.php';
 ?>
 <?php
 
-// Assurez-vous que vous avez l'ID du défunt que vous souhaitez modifier (vous devrez l'obtenir à partir de votre logique de traitement)
 $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
 
 // Exécutez une requête pour récupérer les données actuelles du défunt
@@ -53,7 +52,8 @@ $getAvis = $avis['avis_contenu'];
 <section class="header-pages">
 </section>
 <h1 class="display grey text-align padding-title">Modifier un&nbsp;<span class="blue">Avis de décès</span></h1>
-<?php var_dump($proche); ?>
+
+<!-- <?php var_dump($proche); ?> -->
 
 <!-- section form modif obituary -->
 <form action="./_treatment/_treatment-modify.php" method="post" onsubmit="addFamilyMembersOnSubmit()">
@@ -73,6 +73,7 @@ $getAvis = $avis['avis_contenu'];
         <option value="Son fils">Son fils</option>
         <option value="Ses fils">Ses fils</option>
         <option value="Ses enfants">Ses enfants</option>
+        <option value="Sa belle fille">Sa belle fille</option>
         <option value="Son gendre">Son gendre</option>
         <hr>
         <option value="Sa soeur">Sa soeur</option>
@@ -107,97 +108,54 @@ $getAvis = $avis['avis_contenu'];
         <option value="Ses ami(e)s">Ses ami(e)s</option>
     </select>
     <div id="family-members-container">
-    <?php foreach ($proches as $proche) : ?>
-        <div class="family-member">
-            <label for="new-family-name[]">Nom et Prénom Famille et Proche :</label>
-            <input type="text" id="new-family-name[]" class="family-name" name="new-family-name[]" value="<?= $proche['nom_prenom_proche'] ?>" required>
-
-            <select name="new-family-link[]" class="family-name" required>
-                <option value="<?= $proche['lien_familial'] ?>"><?= $proche['lien_familial'] ?></option>
-                <option value="Sa fille">Sa fille</option>
-            <option value="Ses filles">Ses filles</option>
-            <option value="Son fils">Son fils</option>
-            <option value="Ses fils">Ses fils</option>
-            <option value="Ses enfants">Ses enfants</option>
-            <option value="Son gendre">Son gendre</option>
-            <hr>
-            <option value="Sa soeur">Sa soeur</option>
-            <option value="Ses soeurs">Ses soeurs</option>
-            <option value="Son frere">Son frère</option>
-            <option value="Ses freres">Ses frères</option>
-            <option value="Ses freres et soeurs">Ses frères et soeurs</option>
-            <hr>
-            <option value="Son petit-fils">Son petit-fils</option>
-            <option value="Sa petite-fille">Sa petite-fille</option>
-            <option value="Ses petits-enfants">Ses petits-enfants</option>
-            <option value="Ses arrière-petit-fils">Ses arrière-petit-fils</option>
-            <option value="Ses arrière-petite-fille">Ses arrière-petite-fille</option>
-            <option value="Ses arrières-petits-enfants">Ses arrières-petits-enfants</option>
-            <hr>
-            <option value="Son neveux">Son neuveux</option>
-            <option value="Sa niece">Sa nièce</option>
-            <option value="Ses neveux">Ses neveux</option>
-            <hr>
-            <option value="Son cousin">Son cousin</option>
-            <option value="Ses cousins">Ses cousins</option>
-            <option value="Sa cousine">Sa cousine</option>
-            <option value="Ses cousines">Ses cousines</option>
-            <hr>
-            <option value="Sa tante">Sa tante</option>
-            <option value="Ses tantes">Ses tantes</option>
-            <option value="Son oncle">Son oncle</option>
-            <option value="Ses oncles">Ses oncles</option>
-            <option value="Ses oncles et tantes">Ses oncles et tantes</option>
-            <hr>
-            <option value="Son ami(e)">Son ami(e)</option>
-            <option value="Ses ami(e)s">Ses ami(e)s</option>            </select>
-        </div>
-    <?php endforeach; ?>
-</div>
-    <!-- <div id="family-members-container">
-        <label for="new-family-name">Nom et Prénom Famille et Proche :</label>
-        <input type="text" id="new-family-name" class="family-name" name="new-family-name[]" value="<?= $nomProcheActuel ?>" required><br>
-        <select name="new-family-link[]" class="family-name" required>
-            <option value="<?= $lienActuel ?>"><?= $lienActuel ?></option>
-            <option value="Sa fille">Sa fille</option>
-            <option value="Ses filles">Ses filles</option>
-            <option value="Son fils">Son fils</option>
-            <option value="Ses fils">Ses fils</option>
-            <option value="Ses enfants">Ses enfants</option>
-            <option value="Son gendre">Son gendre</option>
-            <hr>
-            <option value="Sa soeur">Sa soeur</option>
-            <option value="Ses soeurs">Ses soeurs</option>
-            <option value="Son frere">Son frère</option>
-            <option value="Ses freres">Ses frères</option>
-            <option value="Ses freres et soeurs">Ses frères et soeurs</option>
-            <hr>
-            <option value="Son petit-fils">Son petit-fils</option>
-            <option value="Sa petite-fille">Sa petite-fille</option>
-            <option value="Ses petits-enfants">Ses petits-enfants</option>
-            <option value="Ses arrière-petit-fils">Ses arrière-petit-fils</option>
-            <option value="Ses arrière-petite-fille">Ses arrière-petite-fille</option>
-            <option value="Ses arrières-petits-enfants">Ses arrières-petits-enfants</option>
-            <hr>
-            <option value="Son neveux">Son neuveux</option>
-            <option value="Sa niece">Sa nièce</option>
-            <option value="Ses neveux">Ses neveux</option>
-            <hr>
-            <option value="Son cousin">Son cousin</option>
-            <option value="Ses cousins">Ses cousins</option>
-            <option value="Sa cousine">Sa cousine</option>
-            <option value="Ses cousines">Ses cousines</option>
-            <hr>
-            <option value="Sa tante">Sa tante</option>
-            <option value="Ses tantes">Ses tantes</option>
-            <option value="Son oncle">Son oncle</option>
-            <option value="Ses oncles">Ses oncles</option>
-            <option value="Ses oncles et tantes">Ses oncles et tantes</option>
-            <hr>
-            <option value="Son ami(e)">Son ami(e)</option>
-            <option value="Ses ami(e)s">Ses ami(e)s</option>
-        </select>
-    </div> -->
+        <?php foreach ($proches as $proche) : ?>
+            <div class="family-member">
+                <label for="new-family-name[]">Nom et Prénom Famille et Proche :</label>
+                <input type="text" id="new-family-name[]" class="family-name" name="new-family-name[]" value="<?= $proche['nom_prenom_proche'] ?>" required>
+                <select name="new-family-link[]" class="family-name" required>
+                    <option value="<?= $proche['lien_familial'] ?>"><?= $proche['lien_familial'] ?></option>
+                    <option value="Sa fille">Sa fille</option>
+                    <option value="Ses filles">Ses filles</option>
+                    <option value="Son fils">Son fils</option>
+                    <option value="Ses fils">Ses fils</option>
+                    <option value="Ses enfants">Ses enfants</option>
+                    <option value="Sa belle fille">Sa belle fille</option>
+                    <option value="Son gendre">Son gendre</option>
+                    <hr>
+                    <option value="Sa soeur">Sa soeur</option>
+                    <option value="Ses soeurs">Ses soeurs</option>
+                    <option value="Son frere">Son frère</option>
+                    <option value="Ses freres">Ses frères</option>
+                    <option value="Ses freres et soeurs">Ses frères et soeurs</option>
+                    <hr>
+                    <option value="Son petit-fils">Son petit-fils</option>
+                    <option value="Sa petite-fille">Sa petite-fille</option>
+                    <option value="Ses petits-enfants">Ses petits-enfants</option>
+                    <option value="Ses arrière-petit-fils">Ses arrière-petit-fils</option>
+                    <option value="Ses arrière-petite-fille">Ses arrière-petite-fille</option>
+                    <option value="Ses arrières-petits-enfants">Ses arrières-petits-enfants</option>
+                    <hr>
+                    <option value="Son neveux">Son neuveux</option>
+                    <option value="Sa niece">Sa nièce</option>
+                    <option value="Ses neveux">Ses neveux</option>
+                    <hr>
+                    <option value="Son cousin">Son cousin</option>
+                    <option value="Ses cousins">Ses cousins</option>
+                    <option value="Sa cousine">Sa cousine</option>
+                    <option value="Ses cousines">Ses cousines</option>
+                    <hr>
+                    <option value="Sa tante">Sa tante</option>
+                    <option value="Ses tantes">Ses tantes</option>
+                    <option value="Son oncle">Son oncle</option>
+                    <option value="Ses oncles">Ses oncles</option>
+                    <option value="Ses oncles et tantes">Ses oncles et tantes</option>
+                    <hr>
+                    <option value="Son ami(e)">Son ami(e)</option>
+                    <option value="Ses ami(e)s">Ses ami(e)s</option>
+                </select>
+            </div>
+        <?php endforeach; ?>
+    </div>
     <div class="btn-add">
         <button type="button" onclick="addFamilyMember()">Ajouter un membre</button>
         <button type="button" onclick="removeFamilyMember()">Supprimer le dernier membre</button>

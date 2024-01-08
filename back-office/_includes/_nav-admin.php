@@ -10,7 +10,6 @@
             <a class="icon-user" href="back-office/login-family.php"><img src=".././asset\img\icon-user.png" alt="icon user"></a>
             <p><a href="tel:+33231269175">📞 02 31 26 91 75</a></p>
             <p class="cta"><a href="tel:+33231269175">Nous contacter</a></p>
-            <a class="user-icon" href="back-office/login-family.php"><img src=".././asset\img\icon-user-white.png" alt="icon user"></a>
         </div>
 
 
@@ -33,7 +32,6 @@
                     <li><a href="devis-prevoyance.php">Devis Prévoyance</a></li>
                 </div>
             </ul>
-            <li><a href="contact.php">Ajouter une famille</a></li>
             <li><a href="contact.php">Se Déconnecter</a></li>
         </ul>
     </div>

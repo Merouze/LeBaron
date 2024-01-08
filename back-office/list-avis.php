@@ -42,7 +42,7 @@ if (isset($_SESSION['notif'])) {
             <?php foreach ($resultats as $resultat) : ?>
                 <li>
                     <ul>
-                        <div class="display-mtb20 ">
+                        <div class="display-mtb20 display_list-ad display-search-admin ">
                             <div class="display-li-ad">
                                 <li class="bold grey"><?= $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans' ?></li>
                                 <li class="bold blue"><?= $resultat['date_ceremonie'] ?></li>
@@ -50,9 +50,8 @@ if (isset($_SESSION['notif'])) {
                             <div class="display-btn-list-ad">
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-avis.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Modifier</a></p>
-
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Condoléances</a></p>;
-
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Condoléances</a></p>
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="add-family.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Ajouter un compte</a></p>
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(<?= $resultat['id_defunt'] ?>);">Supprimer</a></p>
                             </div>
                         </div>
@@ -77,7 +76,7 @@ if (isset($_SESSION['notif'])) {
 </section>
 <!-- Afficher les derniers avis de deces publiés -->
 
-<section class="display-ad">
+<section class="resultats-recherche">
     <h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
 
     <?php
@@ -106,7 +105,8 @@ if (isset($_SESSION['notif'])) {
         echo '<div class="display-btn-list-ad">';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter</a></p>';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-avis.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Modifier</a></p>';
-        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=' . urlencode($avis['id_defunt']) . '&idCondolence=' . urlencode($avis['id_condolence']) . '">Condoléances</a></p>';
+        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Condoléances</a></p>';
+        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="add-family.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Ajouter un compte</a></p>';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(' . $avis['id_defunt'] . ');">Supprimer</a></p>';
         echo '</div>';
         echo '</div>';

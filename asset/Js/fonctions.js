@@ -27,7 +27,8 @@ function addFamilyMember() {
 
     // Ajouter les options au select
     let options = [
-        "Sa fille", "Ses filles", "Son fils", "Ses fils", "Ses enfants", "Son gendre",
+        "Sa fille", "Ses filles", "Son fils", "Ses fils", "Ses enfants", "Sa belle fille", "Son gendre",
+        
         "Sa soeur", "Ses soeurs", "Son frere", "Ses freres", "Ses freres et soeurs",
         "Son petit-fils", "Sa petite-fille", "Ses petits-enfants", "Ses arrière-petit-fils",
         "Ses arrière-petite-fille", "Ses arrières-petits-enfants", "Son neveux", "Sa niece",
@@ -50,41 +51,6 @@ function addFamilyMember() {
     // Ajouter le nouveau membre de la famille au conteneur
     familyMembersContainer.appendChild(newFamilyMember);
 }
-function addFamilyMembersOnSubmit() {
-    // Créer un nouvel élément div pour chaque membre de la famille
-    let familyMembersContainer = document.querySelector('#family-members-container');
-    let familyMembers = document.querySelectorAll('.family-member');
-
-    familyMembers.forEach(member => {
-        // Créer l'élément input
-        let inputElement = document.createElement('input');
-        inputElement.type = 'text';
-        inputElement.name = 'new-family-name[]';
-        inputElement.value = member.querySelector('.family-name').value;
-        inputElement.required = true;
-
-        // Créer l'élément select
-        let selectElement = document.createElement('select');
-        selectElement.name = 'new-family-link[]';
-        selectElement.className = 'family-name';
-        selectElement.value = member.querySelector('.family-name').value;
-        selectElement.required = true;
-
-        // Ajouter les options au select
-        let options = [...]; // Vos options ici
-        options.forEach(optionText => {
-            let option = document.createElement('option');
-            option.value = optionText;
-            option.text = optionText;
-            selectElement.appendChild(option);
-        });
-
-        // Ajouter l'input et le select à la div
-        member.appendChild(inputElement);
-        member.appendChild(selectElement);
-    });
-}
-
 
 function removeFamilyMember() {
     let familyMembersContainer = document.getElementById('family-members-container');

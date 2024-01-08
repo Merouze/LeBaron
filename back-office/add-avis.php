@@ -29,6 +29,7 @@
         <option value="Son fils">Son fils</option>
         <option value="Ses fils">Ses fils</option>
         <option value="Ses enfants">Ses enfants</option>
+        <option value="Sa belle fille">Sa belle fille</option>
         <option value="Son gendre">Son gendre</option>
         <hr>
         <option value="Sa soeur">Sa soeur</option>
@@ -72,6 +73,7 @@
             <option value="Son fils">Son fils</option>
             <option value="Ses fils">Ses fils</option>
             <option value="Ses enfants">Ses enfants</option>
+            <option value="Son gendre">Sa belle fille</option>
             <option value="Son gendre">Son gendre</option>
             <hr>
             <option value="Sa soeur">Sa soeur</option>

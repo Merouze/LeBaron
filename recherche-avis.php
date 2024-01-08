@@ -31,6 +31,7 @@ if (isset($_SESSION['notif'])) {
 }
 ?>
 <h1 class="display grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>
+<!-- Afficher les résultats de la recherche -->
 <section class="resultats-recherche">
     <?php
     if (isset($resultats) && !empty($resultats)) : ?>
@@ -39,13 +40,13 @@ if (isset($_SESSION['notif'])) {
             <?php foreach ($resultats as $resultat) : ?>
                 <li>
                     <ul>
-                        <div class="display-mtb20 ">
+                        <div class="display-mtb20 display_list-ad display-search-admin ">
                             <div class="display-li-ad">
                                 <li class="bold grey"><?= $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans' ?></li>
                                 <li class="bold blue"><?= $resultat['date_ceremonie'] ?></li>
                             </div>
-                            <div class="display-btn-list-ad">
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="avis-deces.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
+                            <div class="display-btn-list-ad-cl">
+                            <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="avis-deces.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
                             </div>
                         </div>
                     </ul>
@@ -55,6 +56,7 @@ if (isset($_SESSION['notif'])) {
     <?php endif; ?>
 
 </section>
+
 
 <!-- section obituary -->
 <section class="obituary mt50 mt100">
@@ -87,7 +89,7 @@ if (isset($_SESSION['notif'])) {
     foreach ($lastAvis as $avis) {
         echo '<li>';
         echo '<ul>';
-        echo '<div class="display-mtb20 display_list-ad">';
+        echo '<div class="display-mtb20 display_list-ad-cl">';
         echo '<div>';
         echo '<li class="bold grey">' . $avis['nom_prenom_defunt'] . ' ' . $avis['age'] . ' ans</li>';
         echo '<li class="bold blue">' . $avis['date_ceremonie'] . '</li>';
