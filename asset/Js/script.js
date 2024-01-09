@@ -43,19 +43,44 @@ function topFunction() {
 
 document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("checkAll").addEventListener("change", function() {
-      const checkboxes = document.getElementsByClassName("condolence-checkbox");
-      for (let i = 0; i < checkboxes.length; i++) {
-          checkboxes[i].checked = this.checked;
-      }
+    const checkboxes = document.getElementsByClassName("condolence-checkbox");
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = this.checked;
+    }
   });
-
+  
   const form = document.querySelector(".form-check");
-
+  
   form.addEventListener("submit", function(event) {
-      const checkboxes = document.getElementsByClassName("condolence-checkbox");
-      for (let i = 0; i < checkboxes.length; i++) {
-          checkboxes[i].value = checkboxes[i].checked ? checkboxes[i].value : 0;
-      }
+    const checkboxes = document.getElementsByClassName("condolence-checkbox");
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].value = checkboxes[i].checked ? checkboxes[i].value : 0;
+    }
   });
 });
+// ***************************************** */ print ************************************ 
+    document.getElementById('printButton').addEventListener('click', function () {
+        printCondolences();
+    });
+
+    function printCondolences() {
+        // Copiez la liste des messages de condoléances à imprimer
+        var printContent = document.getElementById('condolencesList').cloneNode(true);
+
+        // Créez une fenêtre d'impression
+        var printWindow = window.open('', '_blank');
+        printWindow.document.open();
+
+        // Ajoutez le contenu à imprimer à la fenêtre
+        printWindow.document.write('<html><head><title>Messages de condoléances</title></head><body>');
+        printWindow.document.write('<h1>Messages de condoléances :</h1>');
+        printWindow.document.write(printContent.innerHTML);
+        printWindow.document.write('</body></html>');
+
+        // Fermez le document
+        printWindow.document.close();
+
+        // Imprimez la fenêtre
+        printWindow.print();
+    }
 

@@ -55,6 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input class="input-check" type="checkbox" id="checkAll"></label>
     <figure class="figure">Les messages cochés sont publié sur l'espace famille</figure>
 </div>
+<div><!-- Ajouter le bouton Imprimer -->
+<button onclick="window.print()">Imprimer</button>
+</div>
+
+<div id="condolencesList">
 <?php if (!empty($condolences)) : ?>
     <form class="form-check" action="" method="post">
         <ul class="align-content">
@@ -77,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php else : ?>
     <p>Aucun message de condoléances trouvé.</p>
 <?php endif; ?>
+</div>
 </section>
 
 <script>
