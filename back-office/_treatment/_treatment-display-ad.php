@@ -7,6 +7,7 @@ $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
 // Requête SQL pour récupérer les informations du défunt
 $sqlSelectDefunt = $dtLb->prepare("SELECT * FROM defunt WHERE id_defunt = :idDefunt");
 $sqlSelectDefunt->execute(['idDefunt' => $idDefunt]);
+
 $defunt = $sqlSelectDefunt->fetch(PDO::FETCH_ASSOC);
 
 // Requête SQL pour récupérer les informations du proche principale
@@ -25,8 +26,22 @@ $sqlSelectCeremonie = $dtLb->prepare("SELECT * FROM ceremonie WHERE id_defunt = 
 $sqlSelectCeremonie->execute(['idDefunt' => $idDefunt]);
 $ceremonie = $sqlSelectCeremonie->fetch(PDO::FETCH_ASSOC);
 
+// Convertir la date en objet DateTime
 $dateCeremonie = new DateTime($ceremonie['date_ceremonie']);
-$dateCeremonieFormattee = $dateCeremonie->format('l d F Y');
+
+// Définir la localisation en français
+$locale = 'fr_FR';
+$formatter = new IntlDateFormatter($locale, IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+// Formater la date en français
+$dateCeremonieFormattee = $formatter->format($dateCeremonie);
+$ceremonie = new DateTime($ceremonie['heure_ceremonie']);
+$heureCeremonieFormattee = $ceremonie->format('H:i');
+
+// Requête SQL pour récupérer les informations de la cérémonie
+$sqlSelectCeremonie = $dtLb->prepare("SELECT * FROM ceremonie WHERE id_defunt = :idDefunt");
+$sqlSelectCeremonie->execute(['idDefunt' => $idDefunt]);
+$ceremonie = $sqlSelectCeremonie->fetch(PDO::FETCH_ASSOC);
+
 
 // Requête SQL pour récupérer les informations de l'avis
 $sqlSelectAvis = $dtLb->prepare("SELECT * FROM avis WHERE id_defunt = :idDefunt");

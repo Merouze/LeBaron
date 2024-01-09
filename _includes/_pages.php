@@ -101,8 +101,28 @@ $pages = [
 
     ],
     [
-        'name' => 'see-message',
-        'file' => 'see-message.php',
+        'name' => 'index-family',
+        'file' => 'index-family.php',
+        'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
+        'linkCss' => ['./asset/css/style.css', './asset/css/index.css', './asset/css/nav.css', './asset/css/footer.css', './asset/css/form.css', './asset/css/condoleance.css'],
+        'linkScript' => ['./asset/js/fonctions.js', './asset/js/script.js'],
+        'language' => 'fr',
+        'onNav' => true
+
+    ],
+    [
+        'name' => 'obituary-family',
+        'file' => 'obituary-family.php',
+        'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
+        'linkCss' => ['./asset/css/style.css', './asset/css/index.css', './asset/css/nav.css', './asset/css/footer.css', './asset/css/form.css', './asset/css/condoleance.css'],
+        'linkScript' => ['./asset/js/fonctions.js', './asset/js/script.js'],
+        'language' => 'fr',
+        'onNav' => true
+
+    ],
+    [
+        'name' => 'condolences-family',
+        'file' => 'condolences-family.php',
         'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
         'linkCss' => ['./asset/css/style.css', './asset/css/index.css', './asset/css/nav.css', './asset/css/footer.css', './asset/css/form.css', './asset/css/condoleance.css'],
         'linkScript' => ['./asset/js/fonctions.js', './asset/js/script.js'],

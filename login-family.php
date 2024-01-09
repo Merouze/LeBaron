@@ -4,33 +4,42 @@
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes./_nav.php' ?>
 <?php
+
 // Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer les données du formulaire
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    // Vérifier si la clé 'admin' existe dans $_POST
+    if (isset($_POST['email'])) {
+        $email = strip_tags($_POST['email']);
+        $password = strip_tags($_POST['password']);
+        
+        // Rechercher l'utilisateur dans la base de données
+        $query = $dtLb->prepare("SELECT email, mot_de_passe, id_defunt FROM user_famille WHERE email = :email");
+        $query->execute(['email' => $email]);
+        
+        
+        $user = $query->fetch();
+        $_SESSION["id_defunt"] = $user['id_defunt'];
+        
+        // Vérifier si la requête a renvoyé des résultats avant d'accéder à $result['password']
+        if ($query->rowCount() == 1 && password_verify($password, $user['mot_de_passe'])) {
+            
+            $hash = $user['mot_de_passe'];
 
-   // Rechercher l'utilisateur dans la base de données
-$query = $dtLb->prepare("SELECT id_user, email, mot_de_passe, id_defunt FROM user_famille WHERE email = :email");
-$query->execute(['email' => $email]);
-$user = $query->fetch();
+            if (password_verify($password, $hash)) {
+                // Utilisateur authentifié, rediriger vers l'espace administrateur
+                $_SESSION["loggedin"] = true;
+                // Ajouter un message de bienvenue à la session
+                $_SESSION["welcome_message"] = "<h1 class='display grey text-align padding-title'>Bienvenue</h1>";
 
-// Vérifier si l'utilisateur existe et si le mot de passe est correct
-if ($user && password_verify($password, $user['mot_de_passe'])) {
-    // Stocker des informations dans la session
-    $_SESSION['id_user'] = $user['id_user'];
-    $_SESSION['email'] = $user['email'];
-    $_SESSION['id_defunt'] = $user['id_defunt']; // Récupérer également l'ID du défunt
 
-    // Rediriger vers l'espace famille
-    header("Location: see-message.php?idDefunt=" . urlencode($user['id_defunt'])); // Utiliser l'ID du défunt dans la redirection
-    exit;
-} else {
-    // Identifiants invalides, afficher un message d'erreur
-    $_SESSION['error'] = 'Identifiants invalides';
-    header("Location: connexion-famille.php");
-    exit;
-}
+                header("location: ./index-family.php");
+            } else {
+                // Identifiants invalides, afficher un message d'erreur
+                $_SESSION['error'] = 'Identifiants invalides';
+                // header("location: ./login.php");
+            };
+        }
+    }
 }
 ?>
 

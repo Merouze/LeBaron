@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <button onclick="window.print()">Imprimer</button>
 </div>
 
+
 <div id="condolencesList">
 <?php if (!empty($condolences)) : ?>
     <form class="form-check" action="" method="post">
