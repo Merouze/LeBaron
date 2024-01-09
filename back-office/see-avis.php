@@ -1,7 +1,8 @@
 <!-- // ----- # HEAD # ----- // -->
 <?php include '../back-office/_includes/_head.php' ?>
 <?php include '../back-office/_treatment/_treatment-display-ad.php' ?>
-
+<!-- // ----- # check-login # ----- // -->
+<?php include './_includes/_check-login.php' ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
 <!-- section header title -->

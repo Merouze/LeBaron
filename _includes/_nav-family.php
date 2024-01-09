@@ -20,8 +20,9 @@
             <ul class="dropdown">
                 <li><a href="#">Avis de décès ▼</a></li>
                 <div class="dropdown-content">
-                    <li><a href="avis-deces.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Voir l'Avis de Décès</a></li>
-                    <li><a href="see-message.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Voir les Condoléances</a></li>
+                <li><a href="avis-deces.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Voir l'Avis de Décès</a></li>
+            <li><a href="see-message.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Voir les Condoléances</a></li>
+
                 </div>
             </ul>
             <li><a href="contact.php">Se Déconnecter</a></li>

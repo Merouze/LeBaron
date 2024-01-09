@@ -1,5 +1,7 @@
 <!-- // ----- # HEAD # ----- // -->
 <?php include './_includes/_head.php' ?>
+<!-- // ----- # check-login # ----- // -->
+<?php include './_includes/_check-login.php' ?>
 <?php
 // Vérifier si le formulaire de recherche a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {

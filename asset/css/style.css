@@ -4,6 +4,10 @@
     font-weight: normal;
     font-style: normal;
 }
+.figure {
+    color: #039DB5;
+    font-size: 12px;
+}
 
 body {
     font-family: 'Barlow-ExtraLight', sans-serif;
@@ -309,17 +313,35 @@ ul {
     width: auto;
 }
 .form-check {
-    margin: 0px;
+    margin: auto;
     padding: 0px;
     align-items: flex-start;
 }
 .align-content {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    
+}
+/* ********************** display condoleances family ****************** */
+.align-div {
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
     align-items: center;
+    margin: auto;
+    
+}
+.border-message {
+    border: 1px solid #039DB5;
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
 }
-
 
 /* map */
 @media screen and (max-width: 960px) {

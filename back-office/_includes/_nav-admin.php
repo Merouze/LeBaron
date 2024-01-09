@@ -11,8 +11,6 @@
             <p><a href="tel:+33231269175">📞 02 31 26 91 75</a></p>
             <p class="cta"><a href="tel:+33231269175">Nous contacter</a></p>
         </div>
-
-
     </div>
     <div class="nav-links">
         <ul>
@@ -32,7 +30,7 @@
                     <li><a href="devis-prevoyance.php">Devis Prévoyance</a></li>
                 </div>
             </ul>
-            <li><a href="contact.php">Se Déconnecter</a></li>
+            <li><a href=".././back-office/_treatment/_logout.php">Se Déconnecter</a></li>
         </ul>
     </div>
     <div class="burger-menu" id="burger-icon">&#9776;</div>

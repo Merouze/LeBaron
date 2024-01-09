@@ -2,6 +2,9 @@
 <?php include '../back-office/_includes/_head.php' ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
+<!-- // ----- # check-login # ----- // -->
+<?php include './_includes/_check-login.php' ?>
+
 <?php $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 include '.././back-office/_treatment/_treatment-display-ad.php';
 ?>

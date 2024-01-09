@@ -2,8 +2,8 @@
 <?php include './_includes/_head.php' ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
-<?php $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
-?>
+<!-- // ----- # check-login # ----- // -->
+<?php include './_includes/_check-login.php' ?>
 
 <!-- section header title -->
 <section class="header-pages">
