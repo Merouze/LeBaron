@@ -56,7 +56,9 @@
     justify-content: flex-end;
     height: 60px;
 }
-
+.justify {
+    justify-content: center;
+}
 .dropdown-content {
     display: none;
     position: absolute;

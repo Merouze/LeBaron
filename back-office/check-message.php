@@ -50,41 +50,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <section class="header-pages">
 </section>
 <h1 class="display grey text-align padding-title">Messages de condoléances :</span></h1>
-<!-- Afficher les messages de condoléances -->
-<div> <label for="checkAll">Tout cocher / décocher
-    <input class="input-check" type="checkbox" id="checkAll"></label>
-    <figure class="figure">Les messages cochés sont publié sur l'espace famille</figure>
-</div>
-<div><!-- Ajouter le bouton Imprimer -->
-<button onclick="window.print()">Imprimer</button>
-</div>
-
-
+<!-- section message condolences -->
 <div id="condolencesList">
-<?php if (!empty($condolences)) : ?>
-    <form class="form-check" action="" method="post">
-        <ul class="align-content">
-            <?php foreach ($condolences as $condolence) : ?>
-                <li class="border-check">
-                    <strong>Nom :</strong> <?= $condolence['nom_expditeur'] ?><br>
-                    <strong>Email :</strong> <?= $condolence['email_expditeur'] ?><br>
-                    <strong>Message :</strong> <?= $condolence['message'] ?><br>
-                    <input class="input-check" type="hidden" name="condolence_ids[]" value="<?= $condolence['id_condolence'] ?>">
-                    <label for="publish<?= $condolence['id_condolence'] ?>"><strong>Publier :</strong></label>
-                    <input class="input-check condolence-checkbox" type="checkbox" name="publish[<?= $condolence['id_condolence'] ?>]" id="publish<?= $condolence['id_condolence'] ?>" value="<?= $condolence['id_condolence'] ?>" <?= $condolence['is_published'] ? 'checked' : '' ?>>
-                    <p class="obituary-cta">
-                        <a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(<?= $condolence['id_condolence'] ?>)">Supprimer le message</a>
-                    </p>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-        <button class="cta-btn-list-ad" type="submit">Enregistrer</button>
-    </form>
-<?php else : ?>
-    <p>Aucun message de condoléances trouvé.</p>
-<?php endif; ?>
+    <?php if (!empty($condolences)) : ?>
+        <form class="form-check" action="" method="post">
+            <ul class="align-content">
+                <?php foreach ($condolences as $condolence) : ?>
+                    <li class="border-check">
+                        <strong>Nom :</strong> <?= $condolence['nom_expditeur'] ?><br>
+                        <strong>Email :</strong> <?= $condolence['email_expditeur'] ?><br>
+                        <strong>Message :</strong> <?= $condolence['message'] ?><br>
+                        <input class="input-check" type="hidden" name="condolence_ids[]" value="<?= $condolence['id_condolence'] ?>">
+                        <label for="publish<?= $condolence['id_condolence'] ?>"><strong>Publier :</strong></label>
+                        <input class="input-check condolence-checkbox" type="checkbox" name="publish[<?= $condolence['id_condolence'] ?>]" id="publish<?= $condolence['id_condolence'] ?>" value="<?= $condolence['id_condolence'] ?>" <?= $condolence['is_published'] ? 'checked' : '' ?>>
+                        <p class="obituary-cta">
+                            <a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(<?= $condolence['id_condolence'] ?>)">Supprimer le message</a>
+                        </p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <div class="btn-form-check">
+                <div> <label for="checkAll">Tout cocher / décocher
+                        <input class="input-check" type="checkbox" id="checkAll"></label>
+                    <figure class="figure">Les messages cochés sont publié sur l'espace famille</figure>
+                </div>
+                <div>
+                    <button class="cta-btn-list-ad" type="submit">Enregistrer</button>
+                    <!-- btn print -->
+                    <button class="cta-btn-list-ad" onclick="window.print()">Imprimer</button>
+                </div>
+            </div>
+        </form>
+    <?php else : ?>
+        <p>Aucun message de condoléances trouvé.</p>
+    <?php endif; ?>
 </div>
-</section>
 
 <script>
     function confirmDelete(idCondolence) {

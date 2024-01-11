@@ -49,7 +49,21 @@ $getDateCeremonie = $ceremonie['date_ceremonie'];
 $getHourCeremonie = $ceremonie['heure_ceremonie'];
 $getLocationCeremonie = $ceremonie['lieu_ceremonie'];
 $getAvis = $avis['avis_contenu'];
-?>
+
+if (!$idDefunt || !is_numeric($idDefunt)) {
+    // Ajouter les nouveaux membres de la famille
+foreach ($_POST['family-name'] as $index => $FamilyName) {
+    $FamilyLinkValue = $_POST['family-link'][$index];
+
+    $sqlFamilyMember = $dtLb->prepare("INSERT INTO proche (nom_prenom_proche, lien_familial, id_defunt) VALUES (:FamilyName, :FamilyLink, :idDefunt)");
+    $sqlFamilyMember->execute([
+        'FamilyName' => $FamilyName,
+        'FamilyLink' => $FamilyLinkValue,
+        'idDefunt' => $idDefunt,
+    ]);
+}}
+    
+    ?>
 
 <!-- section header title -->
 <section class="header-pages">

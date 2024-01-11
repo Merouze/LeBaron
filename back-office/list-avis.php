@@ -14,27 +14,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     JOIN defunt d ON c.id_defunt = d.id_defunt WHERE nom_prenom_defunt LIKE :recherche");
     $sqlSearch->execute(['recherche' => "%$recherche%"]);
     $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
+    // Vérifier s'il y a des résultats
+    if ($sqlSearch->rowCount() > 0) {
+        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Résultat trouvé.'];
+    } else {
+        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Aucun résultat trouvé pour la recherche.'];
+    }
 }
 ?>
-
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
 <!-- section header title -->
-<section class="header-pages">
-</section>
 <?php
-// Affichage des notifications
-if (isset($_SESSION['notif'])) {
-    $notifType = $_SESSION['notif']['type'];
-    $notifMessage = $_SESSION['notif']['message'];
-    echo "<div class='notification $notifType'>$notifMessage</div>";
-    // Nettoyer la notification après l'affichage
+// Display notifs
+if (isset($_SESSION["notif"])) {
+    $notifType = $_SESSION["notif"]["type"];
+    $notifMessage = $_SESSION["notif"]["message"];
+    echo '<div class="notification ' . $notifType . '">' . $notifMessage . '</div>';
     unset($_SESSION['notif']);
 }
 ?>
-
-
-<!-- <?php var_dump($_SESSION['notif']); ?>  -->
+<section class="header-pages">
+</section>
 <!-- Afficher les résultats de la recherche -->
 <section class="resultats-recherche">
     <?php
@@ -64,6 +65,7 @@ if (isset($_SESSION['notif'])) {
     <?php endif; ?>
 
 </section>
+<!-- <?php var_dump($_SESSION); ?> -->
 <!-- section obituary -->
 <section class="obituary mt50 mt100">
     <div class="obituary-text ad">
@@ -77,7 +79,6 @@ if (isset($_SESSION['notif'])) {
     </div>
 </section>
 <!-- Afficher les derniers avis de deces publiés -->
-
 <section class="resultats-recherche">
     <h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
 
@@ -118,7 +119,6 @@ if (isset($_SESSION['notif'])) {
     echo '</ul>';
     ?>
 </section>
-
 <script>
     function confirmDelete(idDefunt) {
         // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler

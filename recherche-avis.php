@@ -5,27 +5,29 @@
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     // Nettoyer et récupérer la valeur du champ de recherche
     $recherche = strip_tags($_GET['recherche']);
-    
     // Exécuter la requête de recherche dans la base de données
     $sqlSearch = $dtLb->prepare("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
     FROM ceremonie c
     JOIN defunt d ON c.id_defunt = d.id_defunt WHERE nom_prenom_defunt LIKE :recherche");
     $sqlSearch->execute(['recherche' => "%$recherche%"]);
     $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
+    // Vérifier s'il y a des résultats
+    if ($sqlSearch->rowCount() > 0) {
+        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Résultat trouvé.'];
+    } else {
+        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Aucun résultat trouvé pour la recherche.'];
+    }
 }
 ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes./_nav.php' ?>
 <!-- Afficher les résultats de la recherche -->
 <?php
-
 // Affichage des notifications
 if (isset($_SESSION['notif'])) {
     $notifType = $_SESSION['notif']['type'];
     $notifMessage = $_SESSION['notif']['message'];
-    
     echo "<div class='notification $notifType'>$notifMessage</div>";
-    
     // Nettoyer la notification après l'affichage
     unset($_SESSION['notif']);
 }
@@ -46,7 +48,7 @@ if (isset($_SESSION['notif'])) {
                                 <li class="bold blue"><?= $resultat['date_ceremonie'] ?></li>
                             </div>
                             <div class="display-btn-list-ad-cl">
-                            <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="avis-deces.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="avis-deces.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
                             </div>
                         </div>
                     </ul>
@@ -54,10 +56,7 @@ if (isset($_SESSION['notif'])) {
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
-
 </section>
-
-
 <!-- section obituary -->
 <section class="obituary mt50 mt100">
     <div class="obituary-text ad">
@@ -71,20 +70,16 @@ if (isset($_SESSION['notif'])) {
     </div>
 </section>
 <!-- section li defunt -->
-
 <section class="display-ad">
     <h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
     <?php
     $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
-    
     $sqlGetLastAvis = $dtLb->query("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
     FROM ceremonie c
     JOIN defunt d ON c.id_defunt = d.id_defunt
     ORDER BY c.date_ceremonie DESC
     LIMIT 4");
-
     $lastAvis = $sqlGetLastAvis->fetchAll(PDO::FETCH_ASSOC);
-
     echo '<ul>';
     foreach ($lastAvis as $avis) {
         echo '<li>';

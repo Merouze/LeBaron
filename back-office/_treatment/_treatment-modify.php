@@ -8,7 +8,7 @@ session_start();
 $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 
 try {
-    var_dump($_POST);
+    // var_dump($_POST);
 
     // Récupérer l'ID du défunt
     $idDefunt = isset($_POST['idDefunt']) ? intval($_POST['idDefunt']) : null;
@@ -56,10 +56,6 @@ try {
         'newMainLink' => $newMainLink,
         'idDefunt' => $idDefunt,
     ]);
-
-    // // Supprimer les membres de la famille existants
-    // $sqlDeleteFamilyMembers = $dtLb->prepare("DELETE FROM proche WHERE id_defunt = :idDefunt");
-    // $sqlDeleteFamilyMembers->execute(['idDefunt' => $idDefunt]);
 
    // Supprimer les membres de la famille existants
 $sqlDeleteFamilyMembers = $dtLb->prepare("DELETE FROM proche WHERE id_defunt = :idDefunt");
@@ -119,7 +115,7 @@ foreach ($_POST['family-name'] as $index => $FamilyName) {
     exit();
 } catch (Exception $e) {
     // Gérer l'erreur (vous pouvez logguer l'erreur, afficher un message à l'utilisateur, etc.)
-    $_SESSION['notif'] = array('type' => 'error', 'message' => 'Erreur lors de la mise à jour : ' . $e->getMessage());
+    $_SESSION['notif'] = ['type' => 'error', 'message' => 'Erreur lors de la mise à jour : ' . $e->getMessage()];
     // Rediriger l'utilisateur avec une notification d'erreur
     header('Location: /LeBaron/back-office/list-avis.php');
     exit();

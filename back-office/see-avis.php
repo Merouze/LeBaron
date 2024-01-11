@@ -9,24 +9,22 @@
 <section class="header-pages">
 </section>
 <h1 class="display grey text-align padding-title">Avis de&nbsp;<span class="blue">Décès</span></h1>
-
-<?php var_dump($proches); ?>
+<!-- <?php var_dump($proches); ?> -->
 <!-- section condoleance -->
 <section class="avis-deces">
     <div class="title-top">
         <h2 class="defunt-name white"><?= $defunt['nom_prenom_defunt'] ?></h2>
     </div>
     <div class="list-family">
-
         <?php if ($defunt !== false) : ?>
-
             <!-- <?php var_dump($proches); ?> -->
             <!-- <?php var_dump($prochePrincipale); ?> -->
             <?php if (!empty($prochePrincipale)) : ?>
                 <!-- Affichage du proche principal -->
-                <p><?= $prochePrincipale[0]['main_proche'] ?> <?= $prochePrincipale[0]['main_link'] ?></p>
-                <!-- Affichage des membres de la famille -->
                 <ul>
+                <li class="bold blue"><?= $prochePrincipale[0]['main_proche'] ?> <?= $prochePrincipale[0]['main_link'] ?>.</li>
+                <br>
+                <!-- Affichage des membres de la famille -->
                     <?php foreach ($proches as $proche) : ?>
                         <li><?= $proche['nom_prenom_proche'] ?>, <?= $proche['lien_familial'] ?>.</li><br>
                     <?php endforeach; ?>
@@ -51,11 +49,8 @@
         <div class="defunt-name">
             <a href='javascript:void(0);' onclick="confirmDelete(<?= $avis['id_defunt'] ?>);">Supprimer l'avis de décès</a>
         </div>
-
-
     </div>
 </section>
-
 <script>
     function confirmDelete(idDefunt) {
         // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
@@ -67,10 +62,5 @@
         }
     }
 </script>
-
-
-
-
-
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>

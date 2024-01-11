@@ -32,10 +32,8 @@ if (isset($_SESSION['notif'])) {
 ?>
 <section class="header-pages">
 </section>
-<?php var_dump($idDefunt); ?>
-
 <h1 class="display grey text-align padding-title">Espace&nbsp;<span class="blue">Famille</span></h1>
-<div class="nav-links">
+<div class="nav-links justify">
     <ul>
         <li><a href="obituary-family.php?idDefunt=<?= urlencode($idDefunt) ?>">Voir l'Avis de Décès</a></li>
         <li><a href="condolences-family.php?idDefunt=<?= urlencode($idDefunt) ?>">Voir les Condoléances</a></li>
