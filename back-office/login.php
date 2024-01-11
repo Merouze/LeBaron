@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $welcomeMessage = urlencode($_SESSION["welcome_message"]);
 
                 header("location: ../back-office/admin.php?welcome_message=$welcomeMessage");
-                // header("location: ../back-office/admin.php");
                 exit();
             }
         }
