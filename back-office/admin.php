@@ -7,7 +7,7 @@
 <!-- section header title -->
 <section class="header-pages">
 </section>
-<div>
+<div class="display-flex">
     <?php
     // Récupérer le message de bienvenue depuis le paramètre GET
     $welcomeMessage = isset($_GET['welcome_message']) ? urldecode($_GET['welcome_message']) : '';
@@ -15,7 +15,6 @@
         echo $welcomeMessage;
     }
     ?>
-
     <h1 class="mb50 display grey text-align padding-title">Espace&nbsp;<span class="blue">admin</span></h1>
     <?php
     // Affichage des notifications ou erreurs

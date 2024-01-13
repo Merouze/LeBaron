@@ -27,6 +27,9 @@ if (isset($_GET['idDefunt'])) {
     // Supprimer les informations de la cérémonie
     $sqlDeleteCeremonie = $dtLb->prepare("DELETE FROM ceremonie WHERE id_defunt = :idDefunt");
     $sqlDeleteCeremonie->execute(['idDefunt' => $idDefunt]);
+    // Supprimer les informations de la condolences
+    $sqlDeleteCondolences = $dtLb->prepare("DELETE FROM condolences WHERE id_defunt = :idDefunt");
+    $sqlDeleteCondolences->execute(['idDefunt' => $idDefunt]);
 
     // Vérifier si la suppression a réussi
     if ($sqlDeleteDefunt->rowCount() > 0 || $sqlDeleteAvis->rowCount() > 0 || $sqlDeleteProchePrincipal->rowCount() > 0 || $sqlDeleteFamille->rowCount() > 0 || $sqlDeleteCeremonie->rowCount() > 0) {

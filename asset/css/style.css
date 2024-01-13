@@ -4,6 +4,15 @@
     font-weight: normal;
     font-style: normal;
 }
+
+/* Styles spécifiques à l'impression */
+@media print {
+    .no-print {
+        display: none;
+    }
+
+}
+
 .figure {
     color: #039DB5;
     font-size: 12px;
@@ -245,6 +254,7 @@ ul {
     justify-content: space-evenly;
     width: 50vw;
 }
+
 .display-btn-list-ad-cl {
     display: flex;
     justify-content: flex-end;
@@ -281,11 +291,11 @@ ul {
     flex-direction: column;
     justify-content: space-evenly;
 }
+
 .display-flex-center {
     display: flex;
     justify-content: center;
 }
-
 
 /* ********************** display notif ****************** */
 .notification {
@@ -305,6 +315,7 @@ ul {
     background-color: #f44336;
     color: white;
 }
+
 /* ********************** display condoleances admin ****************** */
 .border-check {
     border: 1px solid #039DB5;
@@ -312,26 +323,31 @@ ul {
     margin: 10px;
     padding: 10px;
 }
+
 .input-check {
     width: auto;
 }
+
 .form-check {
     margin: auto;
     padding: 0px;
     /* align-items: flex-start; */
 }
+
 .align-content {
     display: flex;
     flex-direction: column;
     width: 100%;
-    
+
 }
+
 .btn-form-check {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    
+
 }
+
 /* ********************** display condoleances family ****************** */
 .align-div {
     display: flex;
@@ -339,8 +355,9 @@ ul {
     width: 40vw;
     align-items: center;
     margin: auto;
-    
+
 }
+
 .border-message {
     border: 1px solid #039DB5;
     margin: 10px;
@@ -349,8 +366,9 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    
+
 }
+
 
 /* map */
 @media screen and (max-width: 960px) {
@@ -378,6 +396,7 @@ ul {
     }
 }
 
+
 @media screen and (max-width: 600px) {
     body h1 {
         margin-left: 10px;
@@ -392,14 +411,14 @@ ul {
 
     }
 
-    .display {
+    /* .display {
         display: flex;
         position: absolute;
         top: 60vh;
         color: #353031;
         font-size: 21px;
         padding: 165px 0px 0px 0px;
-    }
+    } */
 
     /* <!-- section obituary --> */
     .obituary {
@@ -460,6 +479,19 @@ ul {
         max-width: 100vw;
         margin: 50px auto;
         padding-top: 30px;
+    }
+
+    .display {
+        display: flex;
+
+        color: #353031;
+        font-size: 21px;
+        padding: 165px 0px 0px 0px;
+    }
+
+    .display-flex {
+        display: flex;
+        justify-content: center;
     }
 
 

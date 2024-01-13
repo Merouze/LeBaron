@@ -4,7 +4,6 @@ function getToken() {
     return document.querySelector('body').getAttribute('data-token')
 }
 // add and delete member family
-
 function addFamilyMember() {
     // Sélectionner le conteneur des membres de la famille
     let familyMembersContainer = document.querySelector('#family-members-container');
@@ -28,7 +27,7 @@ function addFamilyMember() {
     // Ajouter les options au select
     let options = [
         "Sa fille", "Ses filles", "Son fils", "Ses fils", "Ses enfants", "Sa belle fille", "Son gendre",
-        
+
         "Sa soeur", "Ses soeurs", "Son frere", "Ses freres", "Ses freres et soeurs",
         "Son petit-fils", "Sa petite-fille", "Ses petits-enfants", "Ses arrière-petit-fils",
         "Ses arrière-petite-fille", "Ses arrières-petits-enfants", "Son neveux", "Sa niece",
@@ -51,7 +50,6 @@ function addFamilyMember() {
     // Ajouter le nouveau membre de la famille au conteneur
     familyMembersContainer.appendChild(newFamilyMember);
 }
-
 function removeFamilyMember() {
     let familyMembersContainer = document.getElementById('family-members-container');
 
@@ -67,8 +65,25 @@ function removeFamilyMember() {
         containers[0].querySelector('input').value = '';
         containers[0].querySelector('select').value = '';
     }
+}// delete condolence 
+function confirmDeleteMessage(idCondolence) {
+    // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce message de condoléance ?");
+
+    // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id du défunt
+    if (confirmation) {
+        window.location.href = `./_treatment/_treatment_message.php?idCondolence=${idCondolence}&idDefunt=<?= $idDefunt ?>`;
+    }
 }
+// delete obituary 
+function confirmDelete(idDefunt) {
+    // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet avis de décès ?");
 
-
+    // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id du défunt
+    if (confirmation) {
+        window.location.href = `./_treatment/_delete.php?idDefunt=${idDefunt}`;
+    }
+}
 // *****************************************  ************************************ 
-   
+
