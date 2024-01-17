@@ -7,6 +7,17 @@
     <p class="subtile">« Artisan-Marbrier<br>depuis 1966. »</p>
     <p class="cta-header-padding"><a class="cta-header" href="#section-services">NOS SERVICES ►</a></p>
 </section>
+    <?php
+    // Affichage des notifications ou erreurs
+    if (isset($_SESSION['notif'])) {
+        echo '<span class="mb50 display-flex-center success">' . $_SESSION['notif'] . '</span>';
+        unset($_SESSION['notif']);
+    }
+    if (isset($_SESSION['error'])) {
+        echo '<p class="mb50 display-flex-center error">' . $_SESSION['error'] . '</p>';
+        unset($_SESSION['error']);
+    }
+    ?>
 
 <!-- section presentation -->
 <section class="content">
@@ -26,7 +37,7 @@
     </div>
     <div class="text-img">
         <div class="text">
-            <p><span class="grey bold">Les Pompes Funèbres</span> <span class="blue bold">Le Baron</span> se situent à <span class="grey bold">Vieux,</span> commune au sud du Caen.
+            <p><span class="grey bold">Les Pompes Funèbres</span> <span class="blue bold">Le Baron</span> se situent à <span class="grey bold">Vieux,</span> commune au sud de Caen.
                 Préparation de <span class="blue bold">cérémonie d'inhumation</span> ou de <span class="blue bold">crémation</span>, choix des
                 <span class="blue bold">marbreries</span> et des articles funéraires, gestion des démarches et
                 formalités administratives, souscription d'un contrat de <span class="blue bold">prévoyance obsèques…</span> <br>
@@ -73,8 +84,10 @@
 </section>
 <?php include './_includes./_location.php' ?>
 <?php include './_includes./_form.php' ?>
-
-
+<?php
+// var_dump($_SESSION);
+//         exit;
+        ?>
 <!-- section obituary -->
 <h2 class="title-obituary">Avis de décès et&nbsp;<span class="blue bold">condoléances</span></h2>
 <section class="obituary">

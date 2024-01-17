@@ -16,7 +16,7 @@
 
     </div>
 
-    <form action="#" method="post" id="devis-form">
+    <form action="./back-office/_treatment/_devis-prev.php" method="post" id="devis-form">
         <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
 
         <p><span class="grey bold">Vous souhaitez souscrire un contrat prévoyance pour préserver vos proches financièrement ou bien pour organiser vos obsèques en amont ?</span>
@@ -32,33 +32,33 @@
             <h4>Votre demande concerne <span class="red">*</span></h4>
         </label>
         <label>
-            <input class="input-radio" type="radio" name="type-obs" value="organise-finance-obseques" required>
+            <input class="input-radio" type="radio" name="type-obs" value="Organiser-Financer-Obseques" required>
             Organiser et financer ses obsèques
         </label>
         <label>
-            <input class="input-radio" type="radio" name="type-obs" value="finance-obseques" required>
+            <input class="input-radio" type="radio" name="type-obs" value="Financer-Obseques" required>
             Financer ses obsèques </label>
         <!-- Type Contrat -->
         <label for="time-finance">
             <h4>Avez-vous un souhait quant à la durée du contrat ? <span class="red">*</span></h4>
         </label>
         <label>
-            <input class="input-radio" type="radio" name="time-finance" value="one-payment" required>
+            <input class="input-radio" type="radio" name="time-finance" value="Comptant" required>
             Paiement en une seule fois </label>
         <label>
-            <input class="input-radio" type="radio" name="time-finance" value="one-year" required>
+            <input class="input-radio" type="radio" name="time-finance" value="Un-an" required>
             1 an </label>
         <label>
-            <input class="input-radio" type="radio" name="time-finance" value="five-year" required>
+            <input class="input-radio" type="radio" name="time-finance" value="Cinq-ans" required>
             5 ans </label>
         <label>
-            <input class="input-radio" type="radio" name="time-finance" value="ten-year" required>
+            <input class="input-radio" type="radio" name="time-finance" value="Dix-ans" required>
             10 ans </label>
         <label>
-            <input class="input-radio" type="radio" name="time-finance" value="five-year" required>
+            <input class="input-radio" type="radio" name="time-finance" value="Quinze-ans" required>
             15 ans </label>
         <label>
-            <input class="input-radio" type="radio" name="time-finance" value="twenty-year" required>
+            <input class="input-radio" type="radio" name="time-finance" value="Vingt-ans" required>
             20 ans </label>
 
 
@@ -79,16 +79,16 @@
             <h4>Situation familiale <span class="red">*</span></h4>
         </label>
         <label>
-            <input class="input-radio" type="radio" name="family-situation" value="situation-union" required>
+            <input class="input-radio" type="radio" name="family-situation" value="Célibataire, séparé(e), divorcé(e), veuf ou veuve" required>
             Célibataire, séparé(e), divorcé(e), veuf ou veuve </label>
         <label>
-            <input class="input-radio" type="radio" name="family-situation" value="maried" required>
+            <input class="input-radio" type="radio" name="family-situation" value="Marié" required>
             Marié(e) </label>
         <label>
-            <input class="input-radio" type="radio" name="family-situation" value="free-union" required>
+            <input class="input-radio" type="radio" name="family-situation" value="Union-libre" required>
             Union libre </label>
         <label>
-            <input class="input-radio" type="radio" name="family-situation" value="pacse" required>
+            <input class="input-radio" type="radio" name="family-situation" value="Pacsé" required>
             Pacsé(e) </label>
         <label for="birthdate">
             <h4>Date de naissance <span class="red">*</span></h4>
@@ -136,7 +136,7 @@
             <label for="accept-conditions">En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis. Cette demande est gratuite et sans engagement de votre part.</label>
         </div>
 
-        <button type="submit">Envoyer votre demande</button>
+        <button name="d-prev" type="submit">Envoyer votre demande</button>
     </form>
     <p class="info-form text-align">Vos données personnelles font l'objet d'un traitement informatique par l'éditeur du site sur le fondement de votre consentement pour répondre à vos demandes d'informations et/ou de devis. Pour en savoir plus et pour exercer vos droits, <span class="blue">consultez notre politique de données personnelles.</span></p>
 

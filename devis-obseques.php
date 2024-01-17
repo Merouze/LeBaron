@@ -16,7 +16,7 @@
 
     </div>
 
-    <form action="#" method="post" id="devis-form">
+    <form action="./back-office/_treatment/_devis-obs.php" method="post" id="devis-form">
         <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
 
         <p><span class="grey bold">Vous devez organiser les obsèques d'un proche ou souhaitez simplement des informations ?</span>
@@ -32,11 +32,11 @@
             <h4>Votre demande concerne <span class="red">*</span></h4>
         </label>
         <label>
-            <input class="input-radio" type="radio" name="type-demande" value="Aucune" required>
+            <input class="input-radio" type="radio" name="type-demande" value="Déces-survenu" required>
             Un décès survenu
         </label>
         <label>
-            <input class="input-radio" class="input-radio" type="radio" name="type-demande" value="En-chambre-funeraire" required>
+            <input class="input-radio" class="input-radio" type="radio" name="type-demande" value="Deces-a-venir" required>
             Un décès à venir
         </label>
 
@@ -61,7 +61,7 @@
             <h4>Lieu de naissance du défunt <span class="red">*</span></h4>
         </label>
         <input type="text" id="location-born" name="location-born" required>
-        
+
         <label for="cp-born">
             <h4>Code postale du lieu de naissance <span class="red">*</span></h4>
         </label>
@@ -76,7 +76,7 @@
         <label for="location-born">
             <h4>Lieu <span class="red">*</span></h4>
         </label>
-        
+
         <label>
             <input class="input-radio" type="radio" name="location-death" value="domicile" required>
             Domicile
@@ -139,13 +139,13 @@
             <h4>Parution avis de décès <span class="red">*</span></h4>
         </label>
         <label>
-            <input class="input-radio" type="checkbox" name="obituary" value="obituary" required>
-            Parution d'un avis de décès en ligne
+            <input class="input-radio" type="checkbox" name="obituary-online">
+            Avis de décès en ligne
         </label>
 
         <label>
-            <input class="input-radio" type="checkbox" name="obituary" value="obituary" required>
-            Parution d'un avis de décès dans la presse
+            <input class="input-radio" type="checkbox" name="obituary-press">   
+            Avis de décès dans la presse
         </label>
 
         <!-- La cérémonie -->
@@ -206,7 +206,7 @@
             <input class="input-radio" type="radio" name="type-sepulture" value="En-chambre-funeraire" required>
             Dêpot des cendres - Jardin du souvenir
         </label>
-        
+
         <label for="message">
             <h4>Message <span class="red">*</span></h4>
         </label>
@@ -260,12 +260,11 @@
             <label for="accept-conditions"><input class="input-radio" type="checkbox" id="accept-conditions" name="accept-conditions" required>En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis. Cette demande est gratuite et sans engagement de votre part.</label>
         </div>
 
-        <button type="submit">Envoyer votre demande</button>
+        <button name="d-obs" type="submit">Envoyer votre demande</button>
     </form>
     <p class="info-form text-align">Vos données personnelles font l'objet d'un traitement informatique par l'éditeur du site sur le fondement de votre consentement pour répondre à vos demandes d'informations et/ou de devis. Pour en savoir plus et pour exercer vos droits, <span class="blue">consultez notre politique de données personnelles.</span></p>
 
 </section>
-
 
 
 <!-- // ----- # FOOTER # ----- // -->

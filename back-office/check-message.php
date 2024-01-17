@@ -21,8 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $condolenceIds = [$condolenceIds];
     }
     try {
-
-        // Mettez à jour la base de données pour chaque message de condoléances
         // Mettez à jour la base de données pour chaque message de condoléances
         foreach ($condolenceIds as $condolenceId) {
             $condolenceId = intval($condolenceId);
@@ -34,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sqlUpdate = $dtLb->prepare("UPDATE condolences SET is_published = :is_published WHERE id_condolence = :condolence_id");
             $sqlUpdate->execute(['is_published' => $publish, 'condolence_id' => $condolenceId]);
         }
+        $_SESSION['notif'] = array('type' => 'success', 'message' => 'Les données ont été mises à jour avec succès.');
+
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
     }

@@ -19,7 +19,7 @@
 
         <?php if ($defunt !== false) : ?>
             <?php if (!empty($prochePrincipale)) : ?>
-                <ul>
+                <ul class="text-align">
                 <!-- Affichage du proche principal -->
                 <li class="bold blue"><?= $prochePrincipale[0]['main_proche'] ?>, <?= $prochePrincipale[0]['main_link'] ?>.</li>
                 <br>
@@ -33,8 +33,8 @@
             <p><span class="blue bold"><?= $defunt['nom_prenom_defunt'] ?></span></p><br>
             <p>Survenu le <?= $defunt['date_deces'] ?> à l'age de <?= $defunt['age'] ?> ans.</p>
             <p class="text-align">La cérémonie sera célébrée le <?= $dateCeremonieFormattee ?> à <?= $heureCeremonieFormattee ?>.</p>
-            <p>Lieu : <?= $ceremonie['lieu_ceremonie'] ?>.</p>
-            <p><?= $avis['avis_contenu'] ?></p>
+            <p>Lieu : <?= $ceremonieData['lieu_ceremonie'] ?>.</p>
+            <p class="text-align"><?= $avis['avis_contenu'] ?></p>
         <?php endif; ?>
     </div>
     <div class="link-bottom">

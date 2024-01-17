@@ -21,7 +21,7 @@
             <!-- <?php var_dump($prochePrincipale); ?> -->
             <?php if (!empty($prochePrincipale)) : ?>
                 <!-- Affichage du proche principal -->
-                <ul>
+                <ul class="text-align">
                 <li class="bold blue"><?= $prochePrincipale[0]['main_proche'] ?> <?= $prochePrincipale[0]['main_link'] ?>.</li>
                 <br>
                 <!-- Affichage des membres de la famille -->
@@ -32,10 +32,12 @@
             <?php endif; ?>
             <p> Ont la tristesse de vous faire part du décès de :</p><br>
             <p><span class="blue bold"><?= $defunt['nom_prenom_defunt'] ?></span></p><br>
-            <p>Survenu le <?= $defunt['date_deces'] ?> à l'age de <?= $defunt['age'] ?> ans.</p>
-            <p>La cérémonie sera célébrée le <?= $ceremonie['date_ceremonie'] ?> à <?= $ceremonie['heure_ceremonie'] ?>.</p>
-            <p>Lieu : <?= $ceremonie['lieu_ceremonie'] ?>.</p>
-            <p><?= $avis['avis_contenu'] ?></p>
+            <p>Survenu le <?= $dateDeDecesFormattee ?>,</p>
+            <p>A l'age de <?= $defunt['age'] ?> ans.</p>
+            <p class="text-align">La cérémonie sera célébrée le <?= $dateCeremonieFormattee ?>.</p>
+            <p class="text-align">A <?= $heureCeremonieFormattee ?> heures.</p>
+            <p>Lieu : <?= $ceremonieData['lieu_ceremonie'] ?>.</p>
+            <p class="text-align"><?= $avis['avis_contenu'] ?></p>
 
         <?php endif; ?>
     </div>

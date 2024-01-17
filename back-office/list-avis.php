@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     JOIN defunt d ON c.id_defunt = d.id_defunt WHERE nom_prenom_defunt LIKE :recherche");
     $sqlSearch->execute(['recherche' => "%$recherche%"]);
     $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
+
     // Vérifier s'il y a des résultats
     if ($sqlSearch->rowCount() > 0) {
         $_SESSION['notif'] = ['type' => 'success', 'message' => 'Résultat trouvé.'];
@@ -42,13 +43,20 @@ if (isset($_SESSION["notif"])) {
     if (isset($resultats) && !empty($resultats)) : ?>
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul>
-            <?php foreach ($resultats as $resultat) : ?>
+            <?php foreach ($resultats as $resultat) :
+                // Créer un objet DateTime pour la date de la cérémonie
+                $dateCeremonie = new DateTime($resultat['date_ceremonie']);
+
+                // Formater la date en jours/mois/année
+                $dateFormatee = $dateCeremonie->format('d/m/Y');
+            ?>
+
                 <li>
                     <ul>
                         <div class="display-mtb20 display_list-ad display-search-admin ">
                             <div class="display-li-ad">
                                 <li class="bold grey"><?= $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans' ?></li>
-                                <li class="bold blue"><?= $resultat['date_ceremonie'] ?></li>
+                                <li class="bold blue"><?= $dateFormatee ?></li>
                             </div>
                             <div class="display-btn-list-ad">
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
@@ -63,8 +71,8 @@ if (isset($_SESSION["notif"])) {
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
-
 </section>
+
 <!-- <?php var_dump($_SESSION); ?> -->
 <!-- section obituary -->
 <section class="obituary mt50 mt100">
@@ -98,12 +106,17 @@ if (isset($_SESSION["notif"])) {
     // Boucle pour générer le code HTML
     echo '<ul>';
     foreach ($lastAvis as $avis) {
+        // Créer un objet DateTime pour la date de la cérémonie
+        $dateCeremonie = new DateTime($avis['date_ceremonie']);
+
+        // Formater la date en jours/mois/année
+        $dateFormatee = $dateCeremonie->format('d/m/Y');
         echo '<li>';
         echo '<ul>';
         echo '<div class="display-mtb20 display_list-ad">';
         echo '<div class="display-li-ad">';
         echo '<li class="bold grey">' . $avis['nom_prenom_defunt'] . ' ' . $avis['age'] . ' ans</li>';
-        echo '<li class="bold blue">' . $avis['date_ceremonie'] . '</li>';
+        echo '<li class="bold blue">' . $dateFormatee . '</li>'; // Modifier cette ligne
         echo '</div>';
         echo '<div class="display-btn-list-ad">';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter</a></p>';
@@ -119,6 +132,7 @@ if (isset($_SESSION["notif"])) {
     echo '</ul>';
     ?>
 </section>
+
 <script>
     function confirmDelete(idDefunt) {
         // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler

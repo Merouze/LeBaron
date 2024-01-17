@@ -39,13 +39,19 @@ if (isset($_SESSION['notif'])) {
     if (isset($resultats) && !empty($resultats)) : ?>
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul>
-            <?php foreach ($resultats as $resultat) : ?>
+            <?php foreach ($resultats as $resultat) :
+                // Créer un objet DateTime pour la date de la cérémonie
+                $dateCeremonie = new DateTime($resultat['date_ceremonie']);
+
+                // Formater la date en jours/mois/année
+                $dateFormatee = $dateCeremonie->format('d/m/Y');
+                ?>
                 <li>
                     <ul>
                         <div class="display-mtb20 display_list-ad display-search-admin ">
                             <div class="display-li-ad">
                                 <li class="bold grey"><?= $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans' ?></li>
-                                <li class="bold blue"><?= $resultat['date_ceremonie'] ?></li>
+                                <li class="bold blue"><?= $dateFormatee ?></li>
                             </div>
                             <div class="display-btn-list-ad-cl">
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="avis-deces.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
@@ -82,12 +88,17 @@ if (isset($_SESSION['notif'])) {
     $lastAvis = $sqlGetLastAvis->fetchAll(PDO::FETCH_ASSOC);
     echo '<ul>';
     foreach ($lastAvis as $avis) {
+          // Créer un objet DateTime pour la date de la cérémonie
+          $dateCeremonie = new DateTime($avis['date_ceremonie']);
+
+          // Formater la date en jours/mois/année
+          $dateFormatee = $dateCeremonie->format('d/m/Y');
         echo '<li>';
         echo '<ul>';
         echo '<div class="display-mtb20 display_list-ad-cl">';
         echo '<div>';
         echo '<li class="bold grey">' . $avis['nom_prenom_defunt'] . ' ' . $avis['age'] . ' ans</li>';
-        echo '<li class="bold blue">' . $avis['date_ceremonie'] . '</li>';
+        echo '<li class="bold blue">' . $dateFormatee . '</li>';
         echo '</div>';
         echo '<div>';
         echo '<p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter</a></p>';

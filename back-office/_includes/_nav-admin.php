@@ -25,9 +25,9 @@
             <ul class="dropdown">
                 <li><a href="#">Les Devis ▼</a></li>
                 <div class="dropdown-content">
-                    <li><a href="devis-obseques.php">Devis Obsèques</a></li>
-                    <li><a href="devis-marbrerie.php">Devis Marbrerie</a></li>
-                    <li><a href="devis-prevoyance.php">Devis Prévoyance</a></li>
+                    <li><a href="list-devis-obs.php">Devis Obsèques</a></li>
+                    <li><a href="list-devis-mar.php">Devis Marbrerie</a></li>
+                    <li><a href="list-devis-prev.php">Devis Prévoyance</a></li>
                 </div>
             </ul>
             <li><a href=".././back-office/_treatment/_logout.php">Se Déconnecter</a></li>

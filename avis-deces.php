@@ -18,29 +18,29 @@
     <div class="list-family">
 
         <?php if ($defunt !== false) : ?>
-<!--                 
+            <!--                 
             <?php var_dump($proches); ?>
             <?php var_dump($prochePrincipale); ?>
             <?php var_dump($_GET); ?> -->
             <?php if (!empty($prochePrincipale)) : ?>
-                <ul>
-                <!-- Affichage du proche principal -->
-                <li class="blue bold"><?= $prochePrincipale[0]['main_proche'] ?>, <?= $prochePrincipale[0]['main_link'] ?>.</li>
-                <br>
-                <!-- Affichage des membres de la famille -->
+                <ul class="text-align">
+                    <!-- Affichage du proche principal -->
+                    <li class="blue bold"><?= $prochePrincipale[0]['main_proche'] ?>,</span> <?= $prochePrincipale[0]['main_link'] ?>.</li>
+                    <br>
+                    <!-- Affichage des membres de la famille -->
                     <?php foreach ($proches as $proche) : ?>
                         <li><?= $proche['nom_prenom_proche'] ?>, <?= $proche['lien_familial'] ?>.</li>
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
             <p> Ont la tristesse de vous faire part du décès de :</p>
-            <p><span class="blue bold"><?= $defunt['nom_prenom_defunt'] ?>.
-        
-        </span></p><br>
-            <p>Survenu le <?= $defunt['date_deces'] ?> à l'age de <?= $defunt['age'] ?> ans.</p>
-            <p class="text-align">La cérémonie sera célébrée le <?= $dateCeremonieFormattee ?> à <?= $heureCeremonieFormattee ?>.</p>
-            <p>Lieu : <?= $ceremonie['lieu_ceremonie'] ?>.</p>
-            <p><?= $avis['avis_contenu'] ?></p>
+            <p><span class="blue bold"><?= $defunt['nom_prenom_defunt'] ?>.</span></p><br>
+            <p>Survenu le <span class="blue bold"><?= $dateDeDecesFormattee ?>,</span></p>
+            <p>A l'age de <span class="blue bold"><?= $defunt['age'] ?> ans.</span></p>
+            <p class="text-align">La cérémonie sera célébrée le <span class="blue bold"><?= $dateCeremonieFormattee ?>.</span></p>
+            <p class="text-align">A <span class="blue bold"><?= $heureCeremonieFormattee ?> heures.</p>
+            <p><span class="grey bold">Lieu :</span> <?= $ceremonieData['lieu_ceremonie'] ?>.</p>
+            <p class="text-align"><?= $avis['avis_contenu'] ?></p>
         <?php endif; ?>
     </div>
     <div class="link-bottom">
