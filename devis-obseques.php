@@ -131,7 +131,7 @@
             <input class="input-radio" type="radio" name="body-care" value="Aucune" required>
             Aucune
             <label>
-                <input class="input-radio" type="radio" name="body-care" value="En-chambre-funeraire" required>
+                <input class="input-radio" type="radio" name="body-care" value="Préparation du corps" required>
                 Préparation du corps
             </label>
         </label>
@@ -144,7 +144,7 @@
         </label>
 
         <label>
-            <input class="input-radio" type="checkbox" name="obituary-press">   
+            <input class="input-radio" type="checkbox" name="obituary-press">
             Avis de décès dans la presse
         </label>
 
@@ -158,7 +158,7 @@
             Inhumation
         </label>
         <label>
-            <input class="input-radio" type="radio" name="type-funeral" value="En-chambre-funeraire" required>
+            <input class="input-radio" type="radio" name="type-funeral" value="Crémation" required>
             Crémation
         </label>
 
@@ -175,7 +175,7 @@
             Civile
         </label>
         <label>
-            <input class="input-radio" type="radio" name="type-ceremony" value="En-chambre-funeraire" required>
+            <input class="input-radio" type="radio" name="type-ceremony" value="Religieuse" required>
             Religieuse
         </label>
 
@@ -195,15 +195,15 @@
             Type de sépulture - Caveau existant
         </label>
         <label>
-            <input class="input-radio" type="radio" name="type-sepulture" value="En-chambre-funeraire" required>
+            <input class="input-radio" type="radio" name="type-sepulture" value="Colombarium" required>
             Dêpot des cendres - Colombarium
         </label>
         <label>
-            <input class="input-radio" type="radio" name="type-sepulture" value="En-chambre-funeraire" required>
+            <input class="input-radio" type="radio" name="type-sepulture" value="Caveau cinéraire" required>
             Dêpot des cendres - Caveau cinéraire
         </label>
         <label>
-            <input class="input-radio" type="radio" name="type-sepulture" value="En-chambre-funeraire" required>
+            <input class="input-radio" type="radio" name="type-sepulture" value="EJardin du souvenir" required>
             Dêpot des cendres - Jardin du souvenir
         </label>
 
@@ -252,11 +252,12 @@
         <label for="hour-contact">
             <h4>Horaire préférentiel pour être contacté <span class="red">*</span></h4>
         </label>
-        <input type="text" id="hour-contact" name="hour-contact" required>
+        <input type="time" id="hour-contact" name="hour-contact" required>
+       
+
 
         <!-- Conditions d'utilisation -->
         <div>
-            <!-- <input class="input-radio" type="checkbox" id="accept-conditions" name="accept-conditions" required> -->
             <label for="accept-conditions"><input class="input-radio" type="checkbox" id="accept-conditions" name="accept-conditions" required>En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis. Cette demande est gratuite et sans engagement de votre part.</label>
         </div>
 

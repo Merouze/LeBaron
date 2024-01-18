@@ -142,7 +142,7 @@ if (isset($_SESSION["notif"])) {
 
         // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
         if (confirmation) {
-            window.location.href = `./_treatment/_delete-estimate.php?idEstimate=${idEstimate}`;
+            window.location.href = `./_treatment/_delete-estimate-obs.php?idEstimate=${idEstimate}`;
         }
     }
 </script>

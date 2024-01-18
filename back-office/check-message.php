@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="output.pdf" style="color: black;" target="_blank">Télécharger le PDF</a>
 <a href="output.pdf" style="color: black;" target="_blank">Télécharger le PDF</a>
 
-        <a class="cta-btn-list-ad cta-obituary" href="print-template.php?idDefunt=<?= urlencode($idDefunt) ?>">Imprimer</a>
+        <a class="cta-btn-list-ad cta-obituary" href="_treatment/_print-condolence.php?idDefunt=<?= urlencode($idDefunt) ?>">Imprimer</a>
 </p>
     </div>
 </div>

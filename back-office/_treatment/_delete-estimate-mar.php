@@ -1,0 +1,40 @@
+<?php
+require "../../back-office/_includes/_dbCo.php";
+$dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+session_start();
+$_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+
+// Assurez-vous que l'ID de l'estimation est passé dans l'URL
+if (isset($_GET['idEstimate'])) {
+    require "../../back-office/_includes/_dbCo.php";
+    $dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Récupérer l'ID de l'estimation depuis l'URL
+    $idEstimate = $_GET['idEstimate'];
+
+    try {
+        // Requête SQL pour supprimer l'estimation
+        $stmt = $dtLb->prepare("DELETE FROM devis_mar WHERE id_estimate = :id_estimate");
+
+        // Liaison du paramètre
+        $stmt->bindParam(':id_estimate', $idEstimate);
+
+        // Exécution de la requête
+        $stmt->execute();
+
+        // Redirection après la suppression
+        header("Location: .././list-devis-mar.php");
+        exit();
+    } catch (PDOException $e) {
+        // Gérer les erreurs de la suppression
+        echo "Erreur : " . $e->getMessage();
+        exit();
+    }
+} else {
+   // Redirection vers une page appropriée après la suppression
+   header("Location: .././list-devis-mar.php");
+   exit();
+}
+
+?>

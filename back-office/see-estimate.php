@@ -17,60 +17,74 @@ if ($idEstimate && count($resultats) > 0) {
     $resultat = $resultats[0]; // Prenez le premier résultat, car il devrait y en avoir un seul avec l'ID unique
     // Créer un objet DateTime pour la date de la demande
     $dateDemande = new DateTime($resultat['date_demande']);
+    $dateBorn = new DateTime($resultat['date_naissance']);
     // Formater la date en jours/mois/année
     $dateFormatee = $dateDemande->format('d/m/Y');
-    ?>
-    <!-- // ----- # NAV # ----- // -->
-    <?php include './_includes/_nav-admin.php' ?>
-    <!-- section header title -->
-    <?php
-    echo '<ul >';
-echo '<li>';
-echo '<ul>';
-echo '<div class="display-mtb20 display_list-ad">';
-echo '<div class="display-li-ad">';
-echo '<li class="bold grey">' . $resultat['prenom'] . ' ' . $resultat['nom'] . ' ans</li>';
-echo '<li class="bold blue">' . $dateFormatee . '</li>';
-echo '<li>Type de demande: ' . $resultat['type_demande'] . '</li>';
-echo '<li>Type de contrat: ' . $resultat['type_contrat'] . '</li>';
-echo '<li>Situation familiale: ' . $resultat['situation_familiale'] . '</li>';
-echo '<li>Date de naissance: ' . $resultat['date_naissance'] . '</li>';
-echo '<li>Profession: ' . $resultat['profession'] . '</li>';
-echo '<li>Ville: ' . $resultat['ville'] . '</li>';
-echo '<li>Email: ' . $resultat['email'] . '</li>';
-echo '<li>Téléphone: ' . $resultat['tel'] . '</li>';
-echo '<li>Horaire de contact: ' . $resultat['horaire_contact'] . '</li>';
-echo '<li>Message: ' . $resultat['message'] . '</li>';
-echo '<li>Accepte les conditions: ' . $resultat['accept_conditions'] . '</li>';
-echo '<li>Traité: ' . $resultat['traite'] . '</li>';
-echo '<li>Date de demande: ' . $resultat['date_demande'] . '</li>';
-// Ajoutez d'autres colonnes ici en suivant le même modèle
-echo '</div>';
-echo '<div class="display-btn-list-ad">';
-// ... (autres parties du code)
-echo '</div>';
-echo '</div>';
-echo '</ul>';
-echo '</li>';
-echo '</ul>';
-
-} else {
-    // Afficher un message si aucun résultat n'est trouvé
-    echo 'Aucun résultat trouvé.';
+    $dateBornFormatee = $dateBorn->format('d/m/Y');
 }
 ?>
+<!-- // ----- # NAV # ----- // -->
+<?php include './_includes/_nav-admin.php' ?>
+<!-- section header title -->
 
-<!-- 
-    <script>
-        function confirmDelete(idDefunt) {
-            // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
-            var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet avis de décès ?");
+<div class="border-check">
+    <ul class="border-check">
+        <h3>Infos client</h3>
+        <?= '<li><span class="bold">Nom :</span> ' . $resultat['prenom'] . ' ' . $resultat['nom'] . '</li>'; ?>
+        <?= '<li><span class="bold">Situation familiale :</span> ' . $resultat['situation_familiale'] . '</li>'; ?>
+        <?= '<li><span class="bold">Date de naissance :</span> ' . $dateBornFormatee . '</li>'; ?>
+        <?= '<li><span class="bold">Profession :</span> ' . $resultat['profession'] . '</li>'; ?>
+        <?= '<li><span class="bold">Ville :</span> ' . $resultat['ville'] . '</li>'; ?>
+        <?= '<li><span class="bold">Téléphone :</span> ' . $resultat['tel'] . '</li>'; ?>
+        <?= '<li><span class="bold">Email :</span> ' . $resultat['email'] . '</li>'; ?>
+        <?= '<li><span class="bold">Horaire de contact :</span> ' . $resultat['horaire_contact'] . '</li>'; ?>
+        <?= '<li><span class="bold">Message :</span> ' . $resultat['message'] . '</li>'; ?>
+    </ul>
 
-        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id du défunt
+    <ul class="border-check">
+        <h3>Infos demande</h3>
+        <?= '<li><span class="bold">Type de demande :</span> ' . $resultat['type_demande'] . '</li>'; ?>
+        <?= '<li><span class="bold">Type de contrat :</span> ' . $resultat['type_contrat'] . '</li>'; ?>
+        <?= '<li><span class="bold">Accepte les conditions :</span> ' . $resultat['accept_conditions'] . '</li>'; ?>
+
+
+    </ul>
+</div>
+
+<div class="text-align">
+    <p><?= '<li class="bold grey">' . $resultat['prenom'] . ' ' . $resultat['nom'] . '</li>'; ?> voila la proposition de service et les prix suite a votre demande en date du <?= '<p>' . $dateFormatee . '</p>'; ?>
+        nhésitez pas à revenir vers nous pour plus d'information.
+    </p>
+</div>
+
+<form method="post" action="_treatment/_treatment-estimate-prev.php">
+    <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+    <div>
+
+        <label for="prix"><?= '<li class="bold grey">' . $resultat['prenom'] . ' ' . $resultat['nom'] . '</li>'; ?> voila la proposition de service et les prix suite a votre demande en date du <?= '<p>' . $dateFormatee . '</p>'; ?>
+        nhésitez pas à revenir vers nous pour plus d'information. :</label>
+        <input type="text" id="prix" name="prix" required>
+
+        <label for="commentaire">Commentaire :</label>
+        <textarea id="commentaire" name="commentaire"></textarea>
+    </div>
+
+
+
+    <button type="submit" name="submitTraitement">Valider le traitement</button>
+</form>
+
+
+<script>
+    function confirmDeleteEstimate(idEstimate) {
+        // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cette demande de devis ?");
+
+        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
         if (confirmation) {
-            window.location.href = `./_treatment/_delete.php?idDefunt=${idDefunt}`;
+            window.location.href = `./_treatment/_delete-estimate-prev.php?idEstimate=${idEstimate}`;
         }
     }
-</script> -->
+</script>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>

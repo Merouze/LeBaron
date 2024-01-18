@@ -77,7 +77,7 @@ if (isset($_SESSION["notif"])) {
         echo '</div>';
         echo '<div class="display-btn-list-ad">';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate-mar.php?idEstimate=' . urlencode($list['id_estimate']) . '">Consulter</a></p>';
-        // echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(' . $avis['id_defunt'] . ');">Supprimer</a></p>';
+        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(' . $list['id_estimate'] . ');">Supprimer</a></p>';
         echo '</div>';
         echo '</div>';
         echo '</ul>';
@@ -111,10 +111,7 @@ if (isset($_SESSION["notif"])) {
                             </div>
                             <div class="display-btn-list-ad">
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate-mar.php?idEstimate=<?= urlencode($resultat['id_estimate']) ?>">Consulter</a></p>
-                                <!-- <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-avis.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Modifier</a></p>
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Condoléances</a></p>
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="add-family.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Ajouter un compte</a></p>
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(<?= $resultat['id_defunt'] ?>);">Supprimer</a></p> -->
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(<?= $resultat['id_estimate'] ?>);">Supprimer</a></p>
                             </div>
                         </div>
                     </ul>
@@ -138,15 +135,14 @@ if (isset($_SESSION["notif"])) {
     </div>
 </section>
 
-
 <script>
-    function confirmDelete(idDefunt) {
+    function confirmDeleteEstimate(idEstimate) {
         // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
-        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet avis de décès ?");
+        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cette demande de devis ?");
 
-        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id du défunt
+        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
         if (confirmation) {
-            window.location.href = `./_treatment/_delete.php?idDefunt=${idDefunt}`;
+            window.location.href = `./_treatment/_delete-estimate-mar.php?idEstimate=${idEstimate}`;
         }
     }
 </script>

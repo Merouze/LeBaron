@@ -23,30 +23,13 @@ if ($idEstimate && count($resultats) > 0) {
     <!-- // ----- # NAV # ----- // -->
     <?php include './_includes/_nav-admin.php' ?>
     <!-- section header title -->
-    <?php 
+<?php
     echo '<ul>';
     echo '<li>';
     echo '<ul>';
     echo '<div class="display-mtb20 display_list-ad">';
     echo '<div class="display-li-ad">';
-    echo '<li class="bold grey">' . $resultat['firstname'] . ' ' . $resultat['lastname'] . ' ans</li>';
-    echo '<li class="bold blue">' . $dateFormatee . '</li>';
-    echo '<li><span class="bold grey">Type de demande:</span> ' . $resultat['type_works'] . '</li>';
-    echo '<li>Type de contrat: ' . $resultat['type_monument'] . '</li>';
-    echo '<li>Situation familiale: ' . $resultat['type_entretien'] . '</li>';
-    echo '<li>Date de naissance: ' . $resultat['flowering'] . '</li>';
-    echo '<li>Profession: ' . $resultat['message_marble'] . '</li>';
-    echo '<li>Ville: ' . $resultat['location_fall'] . '</li>';
-    echo '<li>Email: ' . $resultat['cimetary_name'] . '</li>';
-    echo '<li>Téléphone: ' . $resultat['location_cimetary'] . '</li>';
-    echo '<li>Horaire de contact: ' . $resultat['firstname'] . '</li>';
-    echo '<li>Message: ' . $resultat['lastname'] . '</li>';
-    echo '<li>Accepte les conditions: ' . $resultat['city'] . '</li>';
-    echo '<li>Traité: ' . $resultat['mail'] . '</li>';
-    echo '<li>Date de demande: ' . $resultat['hour_contact'] . '</li>';
-    echo '<li>Date de demande: ' . $resultat['accept_conditions'] . '</li>';
-    echo '<li>Date de demande: ' . $resultat['traite'] . '</li>';
-    echo '<li>Date de demande: ' . $resultat['date_demande'] . '</li>';
+
     // Ajoutez d'autres colonnes ici
     echo '</div>';
     echo '<div class="display-btn-list-ad">';
@@ -56,14 +39,39 @@ if ($idEstimate && count($resultats) > 0) {
     echo '</ul>';
     echo '</li>';
     echo '</ul>';
-    
 } else {
-    var_dump($resultat['date_demande']);                
+    var_dump($resultat['date_demande']);
     // Afficher un message si aucun résultat n'est trouvé
     echo 'Aucun résultat trouvé.';
 }
 ?>
+<div class="border-check">
+    <h2>Infos Travaux</h2>
+    <p>
+        <?= '<li ><span class="bold grey">Date de demande :</span> ' . $dateFormatee . '</li>'; ?>
+        <?= '<li><span class="bold grey">Nature des travaux :</span> ' . $resultat['type_works'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Type de monument :</span> ' . $resultat['type_monument'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Demande Entretien :</span> ' . $resultat['type_entretien'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Demande Fleurissement :</span> ' . $resultat['flowering'] . '</li>'; ?>
+        <?= '<li><span class="bold grey"> Emplacement et n° de concession:</span> ' . $resultat['location_fall'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Nom du cimetière :</span> ' . $resultat['cimetary_name'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Ville et/ou code postal du cimetière :</span> ' . $resultat['location_cimetary'] . '</li>'; ?>
+    </p>
+</div>
+<div class="border-check">
+    <h2>Infos Client</h2>
+    <p>
 
+        <?= '<li><span class="bold grey">Prénom :</span> ' . $resultat['firstname'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Nom :</span> ' . $resultat['lastname'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Ville :</span> ' . $resultat['city'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Mail :</span> ' . $resultat['mail'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Message :</span> ' . $resultat['message_marble'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Horaire de contact :</span> ' . $resultat['hour_contact'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Conditions acceptés:</span> ' . $resultat['accept_conditions'] . '</li>'; ?>
+        <?= '<li><span class="bold grey">Devis traité:</span> ' . $resultat['traite'] . '</li>'; ?>
+    </p>
+</div>
 <!-- 
     <script>
         function confirmDelete(idDefunt) {
