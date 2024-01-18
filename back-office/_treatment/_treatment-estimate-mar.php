@@ -1,11 +1,12 @@
 
 <?php
+
 require "../../back-office/_includes/_dbCo.php";
 
 $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
 
 // Exécuter la requête de recherche dans la base de données
-$sqlDisplay = $dtLb->prepare("SELECT * FROM devis_prevoyance WHERE id_estimate = :id_estimate");
+$sqlDisplay = $dtLb->prepare("SELECT * FROM devis_mar WHERE id_estimate = :id_estimate");
 $sqlDisplay->execute(['id_estimate' => $idEstimate]);
 
 // Récupérer les résultats après l'exécution de la requête
@@ -41,7 +42,7 @@ $htmlCondolences .= '<div>
                     </div>';
 $htmlCondolences .= '<h1>Proposition <span class="blue">devis :</span></h1>';
 $htmlCondolences .= '<div class="text-align">
-    <p><span class="bold">' . $resultat['prenom'] . '</span> <span class="bold blue">' . $resultat['nom'] . '</span> ;</p>
+    <p><span class="bold">' . $resultat['firstname'] . '</span> <span class="bold blue">' . $resultat['lastname'] . '</span> ;</p>
     <p>Voici notre proposition de service et de prix suite à votre demande en date du <span class="blue">' . $dateFormatee . '.</span> N\'hésitez pas à revenir vers nous pour plus d\'information.</p>
 </div>';
 
@@ -68,4 +69,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Assurez-vous de gérer les erreurs et les succès de manière appropriée dans votre application
 }
 ?>
-

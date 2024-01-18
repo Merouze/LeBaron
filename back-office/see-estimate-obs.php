@@ -72,7 +72,6 @@ if ($idEstimate && count($resultats) > 0) {
     <?= '<li><span class="bold grey">Type de demande:</span> ' . $resultat['type_demande'] . '</li>'; ?>
     <?= '<li><span class="bold grey">Présentation du corps :</span> ' . $resultat['presentation_corps'] . '</li>'; ?>
         <?= '<li><span class="bold grey">Soin de conservation du corps :</span> ' . $resultat['body_care'] . '</li>'; ?>
-
         <?= '<li><span class="bold grey">Type d\'obsèques:</span> ' . $resultat['type_funeral'] . '</li>'; ?>
         <?= '<li><span class="bold grey">Type de cérémonie :</span> ' . $resultat['type_ceremony'] . '</li>'; ?>
         <?= '<li><span class="bold grey">Type de sépulture :</span> ' . $resultat['type_sepulture'] . '</li>'; ?>
@@ -97,7 +96,28 @@ if ($idEstimate && count($resultats) > 0) {
         <?= '<li><span class="bold grey">Message :</span> ' . $resultat['message'] . '</li>'; ?>
     </p>
 </div>
+<form method="post" action="_treatment/_treatment-estimate-obs.php">
+<?= '<p><span class="bold grey">Type de demande:</span> ' . $resultat['type_demande'] . '</p>'; ?>
+    <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+    <div>
+        <label for="presentation">Présentation du corps : <?=$resultat['presentation_corps'];?>
+</label>
+        <input type="text" id="presentation" name="presentation" required>
+        <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+        <label for="details-presentation">Détails :</label>
+        <textarea id="details-presentation" name="details-presentation"></textarea>
+    </div>
+    <div>
+        <label for="body-care">Soin de conservation du corps : <?=$resultat['body_care'];?></label>
+        <input type="text" id="body-care" name="body-care" required>
+        <label for="details-body-care">Détails :</label>
+        <textarea id="details-body-care" name="details-body-care"></textarea>
+    </div>
 
+
+
+    <button type="submit" name="submitTraitement">Valider le traitement</button>
+</form>
 <!-- 
     <script>
         function confirmDelete(idDefunt) {

@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['idDefunt'])) {
 
 
     $html .= '<div class="navbar">
-            <div class="contact-info">
+             <div class="contact-info">
                     <p href="admin.php"><img class="logo" src="../../asset/img/logo-LB.png" alt="logo"></p>
             </div>
             <div class="align-right">

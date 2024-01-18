@@ -5,7 +5,7 @@ require "../../back-office/_includes/_dbCo.php";
 $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
 
 // Exécuter la requête de recherche dans la base de données
-$sqlDisplay = $dtLb->prepare("SELECT * FROM devis_prevoyance WHERE id_estimate = :id_estimate");
+$sqlDisplay = $dtLb->prepare("SELECT * FROM devis_obs WHERE id_estimate = :id_estimate");
 $sqlDisplay->execute(['id_estimate' => $idEstimate]);
 
 // Récupérer les résultats après l'exécution de la requête
@@ -41,17 +41,37 @@ $htmlCondolences .= '<div>
                     </div>';
 $htmlCondolences .= '<h1>Proposition <span class="blue">devis :</span></h1>';
 $htmlCondolences .= '<div class="text-align">
-    <p><span class="bold">' . $resultat['prenom'] . '</span> <span class="bold blue">' . $resultat['nom'] . '</span> ;</p>
+    <p><span class="bold">' . $resultat['firstname'] . '</span> <span class="bold blue">' . $resultat['lastname'] . '</span> ;</p>
     <p>Voici notre proposition de service et de prix suite à votre demande en date du <span class="blue">' . $dateFormatee . '.</span> N\'hésitez pas à revenir vers nous pour plus d\'information.</p>
 </div>';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérez les données du formulaire
-    $prix = $_POST["prix"];
-    $commentaire = $_POST["commentaire"];
+    $presentation = $_POST["presentation"];
+    $detailsPresentation = $_POST["details-presentation"];
+    $bodyCare = $_POST["body-care"];
+    $detailsBodyCare = $_POST["details-body-care"];
+
+
+    $htmlDevis = '<style>
+    
+    .blue {
+        color: #039DB5;
+    }
+    .grey {
+        color: #353031;
+    }
+    .bold {
+        font-weight: bold;
+    }
+    .align-right {
+        text-align: right;
+    }
+</style>';
 
     // Créez le HTML à convertir en PDF
-    $htmlDevis = "<p>Prix: $prix</p><p>Commentaire: $commentaire</p>";
+    $htmlDevis = "<p class='grey'>Présentation du corps :</span> $presentation</p><p>Détails: $detailsPresentation</p>
+    <p>Soin de conservation du corps : $bodyCare</p><p>Détails: $detailsBodyCare</p>";
 
     // Instanciez mPDF
     $mpdf = new \Mpdf\Mpdf();
@@ -60,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mpdf->WriteHTML($htmlCondolences . $htmlDevis);
 
     // Affichez le PDF dans le navigateur avec la possibilité de télécharger
-    $mpdf->Output('devis.pdf', \Mpdf\Output\Destination::INLINE);
+    $mpdf->Output('devis-obseques.pdf', \Mpdf\Output\Destination::INLINE);
 
     // Le reste du code peut être exécuté après Output(), si nécessaire
     // ...

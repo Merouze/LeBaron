@@ -51,20 +51,13 @@ if ($idEstimate && count($resultats) > 0) {
     </ul>
 </div>
 
-<div class="text-align">
-    <p><?= '<li class="bold grey">' . $resultat['prenom'] . ' ' . $resultat['nom'] . '</li>'; ?> voila la proposition de service et les prix suite a votre demande en date du <?= '<p>' . $dateFormatee . '</p>'; ?>
-        nhésitez pas à revenir vers nous pour plus d'information.
-    </p>
-</div>
-
 <form method="post" action="_treatment/_treatment-estimate-prev.php">
     <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
     <div>
 
-        <label for="prix"><?= '<li class="bold grey">' . $resultat['prenom'] . ' ' . $resultat['nom'] . '</li>'; ?> voila la proposition de service et les prix suite a votre demande en date du <?= '<p>' . $dateFormatee . '</p>'; ?>
-        nhésitez pas à revenir vers nous pour plus d'information. :</label>
+        
         <input type="text" id="prix" name="prix" required>
-
+        <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
         <label for="commentaire">Commentaire :</label>
         <textarea id="commentaire" name="commentaire"></textarea>
     </div>
@@ -73,7 +66,6 @@ if ($idEstimate && count($resultats) > 0) {
 
     <button type="submit" name="submitTraitement">Valider le traitement</button>
 </form>
-
 
 <script>
     function confirmDeleteEstimate(idEstimate) {

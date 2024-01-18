@@ -72,6 +72,21 @@ if ($idEstimate && count($resultats) > 0) {
         <?= '<li><span class="bold grey">Devis traité:</span> ' . $resultat['traite'] . '</li>'; ?>
     </p>
 </div>
+<form method="post" action="_treatment/_treatment-estimate-mar.php">
+    <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+    <div>
+
+        
+        <input type="text" id="prix" name="prix" required>
+        <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+        <label for="commentaire">Commentaire :</label>
+        <textarea id="commentaire" name="commentaire"></textarea>
+    </div>
+
+
+
+    <button type="submit" name="submitTraitement">Valider le traitement</button>
+</form>
 <!-- 
     <script>
         function confirmDelete(idDefunt) {
