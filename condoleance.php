@@ -33,7 +33,6 @@
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
 
                 <button type="submit">Envoyer</button>
-                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                 <input type="hidden" name="idDefunt" value="<?= $idDefunt ?>">
                 <p>Vos condoléances ne seront visible que par les proches via leur espace famille.</p>
             </form>

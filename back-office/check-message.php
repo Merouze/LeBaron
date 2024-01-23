@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <figure class="figure">Les messages cochés sont publié sur l'espace famille</figure>
     </div>
     <div>
-        <button class="cta-btn-list-ad" type="submit">Enregistrer</button>
+        <button class="cta-btn-list-ad" type="submit">Publier</button>
         <button class="cta-btn-list-ad"><a target="_blank" href="_treatment/_print-condolence.php?idDefunt=<?= urlencode($idDefunt) ?>">Voir le pdf</a></button>        
     </div>
 </div>

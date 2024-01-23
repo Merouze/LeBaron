@@ -44,13 +44,15 @@ if (isset($_SESSION["notif"])) {
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul>
             <?php foreach ($resultats as $resultat) :
+                $sqlCountCondolences = $dtLb->prepare("SELECT COUNT(id_condolence) AS nb_condolences FROM condolences WHERE id_defunt = :id_defunt AND is_published = 0");
+                $sqlCountCondolences->execute(['id_defunt' => $resultat['id_defunt']]);
+                $row = $sqlCountCondolences->fetch(PDO::FETCH_ASSOC);
+                $nbCondolences = $row['nb_condolences'];
                 // Créer un objet DateTime pour la date de la cérémonie
                 $dateCeremonie = new DateTime($resultat['date_ceremonie']);
-
                 // Formater la date en jours/mois/année
                 $dateFormatee = $dateCeremonie->format('d/m/Y');
             ?>
-
                 <li>
                     <ul>
                         <div class="display-mtb20 display_list-ad display-search-admin ">
@@ -61,7 +63,7 @@ if (isset($_SESSION["notif"])) {
                             <div class="display-btn-list-ad">
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Consulter</a></p>
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-avis.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Modifier</a></p>
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Condoléances</a></p>
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Condoléances (<?= $nbCondolences ?>)</a></p>
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="add-family.php?idDefunt=<?= urlencode($resultat['id_defunt']) ?>">Ajouter un compte</a></p>
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(<?= $resultat['id_defunt'] ?>);">Supprimer</a></p>
                             </div>
@@ -106,6 +108,10 @@ if (isset($_SESSION["notif"])) {
     // Boucle pour générer le code HTML
     echo '<ul>';
     foreach ($lastAvis as $avis) {
+        $sqlCountCondolences = $dtLb->prepare("SELECT COUNT(id_condolence) AS nb_condolences FROM condolences WHERE id_defunt = :id_defunt AND is_published = 0");
+        $sqlCountCondolences->execute(['id_defunt' => $avis['id_defunt']]);
+        $row = $sqlCountCondolences->fetch(PDO::FETCH_ASSOC);
+        $nbCondolences = $row['nb_condolences'];
         // Créer un objet DateTime pour la date de la cérémonie
         $dateCeremonie = new DateTime($avis['date_ceremonie']);
 
@@ -121,7 +127,7 @@ if (isset($_SESSION["notif"])) {
         echo '<div class="display-btn-list-ad">';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter</a></p>';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-avis.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Modifier</a></p>';
-        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Condoléances</a></p>';
+        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="check-message.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Condoléances (' . $nbCondolences . ')</a></p>';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="add-family.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Ajouter un compte</a></p>';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDelete(' . $avis['id_defunt'] . ');">Supprimer</a></p>';
         echo '</div>';

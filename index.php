@@ -17,7 +17,7 @@
         echo '<p class="mb50 display-flex-center error">' . $_SESSION['error'] . '</p>';
         unset($_SESSION['error']);
     }
-    var_dump($_SESSION);
+    // var_dump($_SESSION);
     ?>
 
 <!-- section presentation -->
