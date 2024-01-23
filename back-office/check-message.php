@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sqlUpdate->execute(['is_published' => $publish, 'condolence_id' => $condolenceId]);
         }
         $_SESSION['notif'] = array('type' => 'success', 'message' => 'Les données ont été mises à jour avec succès.');
-
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
     }
@@ -77,14 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div>
         <button class="cta-btn-list-ad" type="submit">Enregistrer</button>
-        <!-- btn print -->
-        <!-- <button id="printButton" class="printButton cta-btn-list-ad" onclick="window.print()">Imprimer</button> -->
-        <p class="obituary-ct no-print">
-        <a href="output.pdf" style="color: black;" target="_blank">Télécharger le PDF</a>
-<a href="output.pdf" style="color: black;" target="_blank">Télécharger le PDF</a>
-
-        <a class="cta-btn-list-ad cta-obituary" href="_treatment/_print-condolence.php?idDefunt=<?= urlencode($idDefunt) ?>">Imprimer</a>
-</p>
+        <button class="cta-btn-list-ad"><a target="_blank" href="_treatment/_print-condolence.php?idDefunt=<?= urlencode($idDefunt) ?>">Voir le pdf</a></button>        
     </div>
 </div>
 </form>

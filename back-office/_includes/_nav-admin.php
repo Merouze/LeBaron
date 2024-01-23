@@ -23,7 +23,7 @@
                 </div>
             </ul>
             <ul class="dropdown">
-                <li><a href="#">Les Devis ▼</a></li>
+                <li><a href="#">Devis Reçu(s) ▼</a></li>
                 <div class="dropdown-content">
                     <li><a href="list-devis-obs.php">Devis Obsèques</a></li>
                     <li><a href="list-devis-mar.php">Devis Marbrerie</a></li>

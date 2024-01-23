@@ -32,6 +32,7 @@ $condolences = $sqlSelectCondolences->fetchAll(PDO::FETCH_ASSOC);
                         <strong>Nom :</strong> <?= $condolence['nom_expditeur'] ?><br>
                         <strong>Email :</strong> <?= $condolence['email_expditeur'] ?><br>
                         <strong>Message :</strong> <?= $condolence['message'] ?><br>
+                        <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                         <input class="input-check" type="hidden" name="condolence_ids[]" value="<?= $condolence['id_condolence'] ?>">
                     </li>
                 <?php endforeach; ?>

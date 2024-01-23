@@ -43,10 +43,5 @@
         </div>
     </div>
 </section>
-<!-- <div class="nav-links justify">
-    <ul>
-        <li><a href="condolences-family.php?idDefunt=<?= urlencode($idDefunt) ?>">Voir les Condoléances</a></li>
-    </ul>
-</div> -->
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes./_footer.php' ?>

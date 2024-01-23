@@ -60,29 +60,28 @@ if (isset($_SESSION["notif"])) {
     // Récupérez les résultats après l'exécution de la requête
     $lists = $sqlDisplay->fetchAll(PDO::FETCH_ASSOC);
     // Boucle pour générer le code HTML
-    echo '<ul>';
     foreach ($lists as $list) {
         // Créer un objet DateTime pour la date de la cérémonie
         $dateCeremonie = new DateTime($list['date_demande']);
         // Formater la date en jours/mois/année
         $dateFormatee = $dateCeremonie->format('d/m/Y');
-        echo '<li>';
-        echo '<ul>';
-        echo '<div class="display-mtb20 display_list-ad">';
-        echo '<div class="display-li-ad">';
-        echo '<li class="bold grey">' . $list['firstname'] . ' ' . $list['lastname'] . '</li>';
-        echo '<li class="bold blue">' . $dateFormatee . '</li>';
-        echo '</div>';
-        echo '<div class="display-btn-list-ad">';
-        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate-obs.php?idEstimate=' . urlencode($list['id_estimate']) . '">Consulter</a></p>';
-        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(' . $list['id_estimate'] . ');">Supprimer</a></p>';
-        echo '</div>';
-        echo '</div>';
-        echo '</ul>';
-        echo '</li>';
     }
-    echo '</ul>';
-    ?>
+?>
+        <?php foreach ($lists as $list) : ?>
+            <ul>
+        <div class="display-mtb20 display_list-ad display-search-admin ">
+            <div class="display-li-ad">
+                <li></li>
+                <li class="bold grey"><?= $list['firstname'] . ' ' . $list['lastname'] . '' ?></li>
+                <li class="bold blue"><?= $dateFormatee ?></li>
+            </div>
+            <div class="display-btn-list-ad">
+                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate-obs.php?idEstimate=<?= urlencode($list['id_estimate']) ?>">Consulter</a></p>
+                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(<?= $list['id_estimate'] ?>);">Supprimer</a></p>
+            </div>
+        </div>
+    </ul>
+        <?php endforeach; ?>
 </section>
 
 <!-- Afficher les résultats de la recherche -->
@@ -99,21 +98,19 @@ if (isset($_SESSION["notif"])) {
                 $dateFormatee = $dateDemande->format('d/m/Y');
             ?>
 
-                <li>
-                    <ul>
-                        <div class="display-mtb20 display_list-ad display-search-admin ">
-                            <div class="display-li-ad">
-                                <li></li>
-                                <li class="bold grey"><?= $resultat['firstname'] . ' ' . $resultat['lastname'] . '' ?></li>
-                                <li class="bold blue"><?= $dateFormatee ?></li>
-                            </div>
-                            <div class="display-btn-list-ad">
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate-obs.php?idEstimate=<?= urlencode($resultat['id_estimate']) ?>">Consulter</a></p>
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(<?= $resultat['id_estimate'] ?>);">Supprimer</a></p>
-                            </div>
+                <ul>
+                    <div class="display-mtb20 display_list-ad display-search-admin ">
+                        <div class="display-li-ad">
+                            <li></li>
+                            <li class="bold grey"><?= $resultat['firstname'] . ' ' . $resultat['lastname'] . '' ?></li>
+                            <li class="bold blue"><?= $dateFormatee ?></li>
                         </div>
-                    </ul>
-                </li>
+                        <div class="display-btn-list-ad">
+                            <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate-obs.php?idEstimate=<?= urlencode($resultat['id_estimate']) ?>">Consulter</a></p>
+                            <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(<?= $resultat['id_estimate'] ?>);">Supprimer</a></p>
+                        </div>
+                    </div>
+                </ul>
                 <!-- <?php var_dump($resultats); ?> -->
             <?php endforeach; ?>
         </ul>

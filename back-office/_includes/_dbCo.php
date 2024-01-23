@@ -1,6 +1,8 @@
 <?php
 
- require ".././vendor/autoload.php";
+//  require ".././vendor/autoload.php";
+ require "/wamp64/www/LeBaron/vendor/autoload.php";
+ 
 
  try {
     // Get environnement configuration

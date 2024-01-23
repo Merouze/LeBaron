@@ -15,6 +15,7 @@
         <a href="tel:+33231269175" class="contact-btn">NOUS CONTACTER</a>
     </div>
         <form action="./back-office/_treatment/_devis-mar.php" method="post" id="devis-form">
+            
             <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
 
             <p><span class="grey bold">Vous souhaitez obtenir un devis ou bien des informations sur notre service de marbrerie ?</span>
@@ -156,12 +157,13 @@
             <label for="hour-contact">
                 <h4>Horaire préférentiel pour être contacté <span class="red">*</span></h4>
             </label>
-            <input type="text" id="hour-contact" name="hour-contact" required>
+            <input type="time" id="hour-contact" name="hour-contact" required>
 
             <!-- Conditions d'utilisation -->
             <div>
                 <input class="check-form" type="checkbox" id="accept-conditions" name="accept-conditions" required>
-                <label for="accept-conditions">En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis. Cette demande est gratuite et sans engagement de votre part.</label>
+                <label for="accept-conditions"><p>En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis.</p>
+                <p>Cette demande est gratuite et sans engagement de votre part.</p></label>
             </div>
 
             <button name="d-mar" type="submit">Envoyer votre demande</button>

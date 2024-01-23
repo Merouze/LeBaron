@@ -4,6 +4,8 @@
     <h2>Contactez-nous</h2>
     <label for="firstname">Prénom :</label>
     <input class="input-width" type="text" id="firstname" name="firstname" placeholder="Votre Prénom" required>
+    <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+
 
     <label for="lastname">Nom :</label>
     <input class="input-width" type="text" id="lastname" name="lastname" placeholder="Votre Nom" required>
@@ -13,10 +15,6 @@
 
     <label for="message">Message :</label>
     <textarea id="message" name="message" rows="6" placeholder="Votre message" required></textarea>
-
-    <!-- <label for="captcha">Captcha :</label> -->
-    <!-- <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>"> -->
-
     
     <div>
         <input type="checkbox" id="rgpd" name="rgpd" required>

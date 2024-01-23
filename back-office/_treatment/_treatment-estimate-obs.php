@@ -48,33 +48,53 @@ $htmlCondolences .= '<div class="text-align">
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérez les données du formulaire
     $presentation = $_POST["presentation"];
-    $detailsPresentation = $_POST["details-presentation"];
+    $prixPresentation = $_POST["prix-presentation"];
     $bodyCare = $_POST["body-care"];
-    $detailsBodyCare = $_POST["details-body-care"];
-
-
-    $htmlDevis = '<style>
-    
-    .blue {
-        color: #039DB5;
-    }
-    .grey {
-        color: #353031;
-    }
-    .bold {
-        font-weight: bold;
-    }
-    .align-right {
-        text-align: right;
-    }
-</style>';
-
-    // Créez le HTML à convertir en PDF
-    $htmlDevis = "<p class='grey'>Présentation du corps :</span> $presentation</p><p>Détails: $detailsPresentation</p>
-    <p>Soin de conservation du corps : $bodyCare</p><p>Détails: $detailsBodyCare</p>";
+    $prixBodyCare = $_POST["prix-body-care"];
+    $commentaire = $_POST["commentaire"];
 
     // Instanciez mPDF
     $mpdf = new \Mpdf\Mpdf();
+
+    // Créez le HTML à convertir en PDF
+    $htmlDevis = '<style>
+        .blue {
+            color: #039DB5;
+        }
+        .grey {
+            color: #353031;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .align-right {
+            text-align: right;
+        }
+        .estimate {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #039DB5;
+            border-radius: 5px;
+        }
+    </style>';
+
+    // Ajoutez le HTML au document
+    $htmlDevis .= "<div class='estimate'><p><span  class='bold'>Présentation du corps :</span> $presentation</p> 
+    <p><span  class='bold'>Prix :</span> $prixPresentation</p></div>";
+
+    $htmlDevis .= "<div class='estimate'><span  class='bold'>Soin de conservation du corps :</span> $bodyCare</> 
+    <p><span  class='bold'>Prix :</span> $prixBodyCare</p></div>";
+
+    $htmlDevis .= "<p><span  class='bold'>Soin de conservation du corps :</span> $bodyCare</p>";
+    $htmlDevis .= "<p><span  class='bold'>Prix :</span> $prixBodyCare</p>";
+
+    $htmlDevis .= "<p><span  class='bold'>Soin de conservation du corps :</span> $bodyCare</p>";
+    $htmlDevis .= "<p><span  class='bold'>Prix :</span> $prixBodyCare</p>";
+
+    $htmlDevis .= "<p><span  class='bold'>Soin de conservation du corps :</span> $bodyCare</p>";
+    $htmlDevis .= "<p><span  class='bold'>Prix :</span> $prixBodyCare</p>";
+
+    $htmlDevis .= "<p><span  class='bold'>Commentaire :</span> $commentaire</p>";
 
     // Ajoutez le HTML au document
     $mpdf->WriteHTML($htmlCondolences . $htmlDevis);
@@ -87,5 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Assurez-vous de gérer les erreurs et les succès de manière appropriée dans votre application
 }
+
 ?>
 

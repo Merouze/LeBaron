@@ -1,8 +1,48 @@
 <?php
 require "../../back-office/_includes/_dbCo.php";
 $dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+use \Mailjet\Resources;
+
 
 session_start();
+
+if (isset($_POST['firstname']) && isset($_POST['mail'])) {
+    $mj = new \Mailjet\Client($_ENV['MJ_APIKEY_PUBLIC'], $_ENV['MJ_APIKEY_PRIVATE'], true, ['version' => 'v3.1']);
+    
+    $firstname = "Prénom : " . $_POST['firstname'];
+    $lastname = "Nom : " . $_POST['lastname'];
+    $email = $_POST['mail'];
+    $message = "Message : " . $_POST['message'];
+
+    $body = [
+        'Messages' => [
+            [
+                'From' => [
+                    'Email' => "p.lim61@hotmail.fr",
+                ],
+                'To' => [
+                    [
+                        'Email' => "p.lim61@hotmail.fr",
+                        'Name' => "Aurélien"
+                    ]
+                ],
+                'Subject' => "Nouveau Devis Marbrerie.",
+                'TextPart' => "Un nouveau devis venant de Devis Marbrerie.",
+                'HTMLPart' => "<h1>Nouveau Devis Marbrerie</h1><p>$firstname</p><p>$lastname</p><p>$message</p><p>$email</p>",
+            ]
+        ]
+    ];
+
+    $response = $mj->post(Resources::$Email, ['body' => $body]);
+
+    if ($response->success()) {
+      // La requête Mailjet a réussi, vous pouvez définir une notification de succès
+      $_SESSION['notif'] = "L'e-mail a été envoyé avec succès!";
+  } else {
+      // Gestion des erreurs
+      $_SESSION['error'] = "Erreur lors de l'envoi de l'e-mail : " . $response->getReasonPhrase();
+  }
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['token']) && isset($_POST['d-mar'])) {
     try {

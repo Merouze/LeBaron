@@ -65,7 +65,8 @@ function removeFamilyMember() {
         containers[0].querySelector('input').value = '';
         containers[0].querySelector('select').value = '';
     }
-}// delete condolence 
+}
+// delete condolence 
 function confirmDeleteMessage(idCondolence) {
     // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
     const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce message de condoléance ?");
@@ -85,5 +86,6 @@ function confirmDelete(idDefunt) {
         window.location.href = `./_treatment/_delete.php?idDefunt=${idDefunt}`;
     }
 }
+
 // *****************************************  ************************************ 
 

@@ -258,7 +258,8 @@
 
         <!-- Conditions d'utilisation -->
         <div>
-            <label for="accept-conditions"><input class="input-radio" type="checkbox" id="accept-conditions" name="accept-conditions" required>En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis. Cette demande est gratuite et sans engagement de votre part.</label>
+            <label for="accept-conditions"><input class="check-form" type="checkbox" id="accept-conditions" name="accept-conditions" required><p>En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis.</p>
+            <p>Cette demande est gratuite et sans engagement de votre part.</p></label>
         </div>
 
         <button name="d-obs" type="submit">Envoyer votre demande</button>

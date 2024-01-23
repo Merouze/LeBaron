@@ -116,7 +116,7 @@ if (isset($_SESSION["notif"])) {
         echo '<div class="display-mtb20 display_list-ad">';
         echo '<div class="display-li-ad">';
         echo '<li class="bold grey">' . $avis['nom_prenom_defunt'] . ' ' . $avis['age'] . ' ans</li>';
-        echo '<li class="bold blue">' . $dateFormatee . '</li>'; // Modifier cette ligne
+        echo '<li class="bold blue">' . $dateFormatee . '</li>';
         echo '</div>';
         echo '<div class="display-btn-list-ad">';
         echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-avis.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter</a></p>';

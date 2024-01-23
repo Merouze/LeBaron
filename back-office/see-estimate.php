@@ -27,56 +27,45 @@ if ($idEstimate && count($resultats) > 0) {
 <?php include './_includes/_nav-admin.php' ?>
 <!-- section header title -->
 
-<div class="border-check">
-    <ul class="border-check">
-        <h3>Infos client</h3>
-        <?= '<li><span class="bold">Nom :</span> ' . $resultat['prenom'] . ' ' . $resultat['nom'] . '</li>'; ?>
-        <?= '<li><span class="bold">Situation familiale :</span> ' . $resultat['situation_familiale'] . '</li>'; ?>
-        <?= '<li><span class="bold">Date de naissance :</span> ' . $dateBornFormatee . '</li>'; ?>
-        <?= '<li><span class="bold">Profession :</span> ' . $resultat['profession'] . '</li>'; ?>
-        <?= '<li><span class="bold">Ville :</span> ' . $resultat['ville'] . '</li>'; ?>
-        <?= '<li><span class="bold">Téléphone :</span> ' . $resultat['tel'] . '</li>'; ?>
-        <?= '<li><span class="bold">Email :</span> ' . $resultat['email'] . '</li>'; ?>
-        <?= '<li><span class="bold">Horaire de contact :</span> ' . $resultat['horaire_contact'] . '</li>'; ?>
-        <?= '<li><span class="bold">Message :</span> ' . $resultat['message'] . '</li>'; ?>
-    </ul>
+<section class="infos-estimate">
+    <div class="border-check">
+        <ul class="border-check">
+            <h3>Infos client</h3>
+            <?= '<li><span class="bold">Nom :</span> ' . $resultat['prenom'] . ' ' . $resultat['nom'] . '</li>'; ?>
+            <?= '<li><span class="bold">Situation familiale :</span> ' . $resultat['situation_familiale'] . '</li>'; ?>
+            <?= '<li><span class="bold">Date de naissance :</span> ' . $dateBornFormatee . '</li>'; ?>
+            <?= '<li><span class="bold">Profession :</span> ' . $resultat['profession'] . '</li>'; ?>
+            <?= '<li><span class="bold">Ville :</span> ' . $resultat['ville'] . '</li>'; ?>
+            <?= '<li><span class="bold">Téléphone :</span> ' . $resultat['tel'] . '</li>'; ?>
+            <?= '<li><span class="bold">Email :</span> ' . $resultat['email'] . '</li>'; ?>
+            <?= '<li><span class="bold">Horaire de contact :</span> ' . $resultat['horaire_contact'] . '</li>'; ?>
+            <?= '<li><span class="bold">Message :</span> ' . $resultat['message'] . '</li>'; ?>
+        </ul>
 
-    <ul class="border-check">
-        <h3>Infos demande</h3>
-        <?= '<li><span class="bold">Type de demande :</span> ' . $resultat['type_demande'] . '</li>'; ?>
-        <?= '<li><span class="bold">Type de contrat :</span> ' . $resultat['type_contrat'] . '</li>'; ?>
-        <?= '<li><span class="bold">Accepte les conditions :</span> ' . $resultat['accept_conditions'] . '</li>'; ?>
+        <ul class="border-check">
+            <h3>Infos demande</h3>
+            <?= '<li><span class="bold">Type de demande :</span> ' . $resultat['type_demande'] . '</li>'; ?>
+            <?= '<li><span class="bold">Type de contrat :</span> ' . $resultat['type_contrat'] . '</li>'; ?>
+            <?= '<li><span class="bold">Accepte les conditions :</span> ' . $resultat['accept_conditions'] . '</li>'; ?>
 
 
-    </ul>
-</div>
-
-<form method="post" action="_treatment/_treatment-estimate-prev.php">
-    <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
-    <div>
-
-        
-        <input type="text" id="prix" name="prix" required>
-        <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-        <label for="commentaire">Commentaire :</label>
-        <textarea id="commentaire" name="commentaire"></textarea>
+        </ul>
     </div>
 
+    <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-prev.php">
+        <div>
+            <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+            <input type="text" id="prix" name="prix" required>
+            <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+            <label for="commentaire">Commentaire :</label>
+            <textarea id="commentaire" name="commentaire"></textarea>
+        </div>
 
 
-    <button type="submit" name="submitTraitement">Valider le traitement</button>
-</form>
 
-<script>
-    function confirmDeleteEstimate(idEstimate) {
-        // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
-        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cette demande de devis ?");
 
-        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
-        if (confirmation) {
-            window.location.href = `./_treatment/_delete-estimate-prev.php?idEstimate=${idEstimate}`;
-        }
-    }
-</script>
+        <button type="submit" name="submitTraitement">Valider le traitement</button>
+    </form>
+</section>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>

@@ -123,7 +123,7 @@
         <label for="hour-contact">
             <h4>Horaire préférentiel pour être contacté <span class="red">*</span></h4>
         </label>
-        <input type="text" id="hour-contact" name="hour-contact" required>
+        <input type="time" id="hour-contact" name="hour-contact" required>
 
         <label for="message-pre">
             <h4>Message <span class="red">*</span></h4>
@@ -132,8 +132,8 @@
 
         <!-- Conditions d'utilisation -->
         <div>
-            <input class="input-radio" type="checkbox" id="accept-conditions" name="accept-conditions" required>
-            <label for="accept-conditions">En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis. Cette demande est gratuite et sans engagement de votre part.</label>
+            <input class="check-form" type="checkbox" id="accept-conditions" name="accept-conditions" required>
+            <label for="accept-conditions"><p>En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis.</p><p>Cette demande est gratuite et sans engagement de votre part.</p></label>
         </div>
 
         <button name="d-prev" type="submit">Envoyer votre demande</button>
