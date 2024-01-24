@@ -43,7 +43,6 @@ if (isset($_POST['firstname']) && isset($_POST['mail'])) {
   }
 
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['token']) && isset($_POST['d-obs'])) {
     try {
         // Récupération des données du formulaire

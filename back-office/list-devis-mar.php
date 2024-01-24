@@ -44,7 +44,7 @@ if (isset($_SESSION["notif"])) {
 <section class="header-pages">
     </section>
     <h1 class="text-align bold grey">Les devis marbrerie<span class="blue"> à traiter</span></h1>
-    <?= "<p class='text-align'>Il y a actuellement $totalDevis devis à traiter.</p>" ?>
+    <?= "<p class='text-align'>Il y a actuellement <span class='blue bold'>$totalDevis</span> devis à traiter.</p>" ?>
 
     <!-- display estimate no checking -->
 <section class="resultats-recherche">

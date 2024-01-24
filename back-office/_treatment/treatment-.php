@@ -1,17 +1,18 @@
-
 <?php
+
 require "../../back-office/_includes/_dbCo.php";
 
 $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
 
 // Exécuter la requête de recherche dans la base de données
-$sqlDisplay = $dtLb->prepare("SELECT * FROM devis_obs WHERE id_estimate = :id_estimate");
+$sqlDisplay = $dtLb->prepare("SELECT * FROM devis_mar WHERE id_estimate = :id_estimate");
 $sqlDisplay->execute(['id_estimate' => $idEstimate]);
 
 // Récupérer les résultats après l'exécution de la requête
 $resultat = $sqlDisplay->fetch(PDO::FETCH_ASSOC);
 $dateDemande = new DateTime($resultat['date_demande']);
 $dateFormatee = $dateDemande->format('d/m/Y');
+
 
 // Génération du contenu stylisé du PDF pour les condoléances
 $htmlCondolences = '<style>
@@ -61,7 +62,7 @@ if (isset($_POST['submitTraitement'])) {
     <div class="align-center">
     <img src="../../asset/img/logo-LB-footer.png" alt="logo">
         <h3>Pompes Funèbres <span class="blue">Le Baron.</span></h3>
-           2 Rte de Maltot 14930 Vieux, 02.31.26.91.75 7j/7 et 24h/24.
+        7j/7 et 24h/24, 2 Rte de Maltot, 14930 Vieux. 02.31.26.91.75.
 </div>';
 
     // Instanciez mPDF
@@ -71,8 +72,25 @@ if (isset($_POST['submitTraitement'])) {
     $mpdf->WriteHTML($htmlCondolences . $htmlDevis);
 
     // Affichez le PDF dans le navigateur avec la possibilité de télécharger
-    $mpdf->Output('devis-obsèques.pdf', \Mpdf\Output\Destination::INLINE);
-
+    $mpdf->Output('devis-marbrerie.pdf', \Mpdf\Output\Destination::INLINE);
+}
+if (isset($_POST['submitUpdate'])) {
+    // Requête SQL pour mettre à jour le devis
+    $sqlEstimate = $dtLb->prepare("UPDATE devis_mar SET traite = 1 WHERE id_estimate = :id_estimate");
+    $sqlEstimate->execute([
+        'id_estimate' => $idEstimate
+    ]);
+    
+    // Vérifier si la suppression a réussi
+    if ($sqlEstimate->rowCount() > 0) {
+        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis classé avec succès'];
+    } else {
+        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Erreur lors du traitement du devis'];
+    }
+    header('Location: /LeBaron/back-office/list-devis-mar.php');
+    exit;
 }
 ?>
-
+<?php
+?>
+origine; _treatment-estimate-mar.php

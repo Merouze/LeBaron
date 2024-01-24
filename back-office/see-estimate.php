@@ -47,25 +47,34 @@ if ($idEstimate && count($resultats) > 0) {
             <?= '<li><span class="bold">Type de demande :</span> ' . $resultat['type_demande'] . '</li>'; ?>
             <?= '<li><span class="bold">Type de contrat :</span> ' . $resultat['type_contrat'] . '</li>'; ?>
             <?= '<li><span class="bold">Accepte les conditions :</span> ' . $resultat['accept_conditions'] . '</li>'; ?>
-
-
         </ul>
     </div>
+    <div>
+        <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-prev.php">
+            <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+            <div>
+                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+                <label class="bold" for="commentaire">Commentaire :</label>
+                <textarea rows="6" id="commentaire" name="commentaire"></textarea>
+            </div>
+            <button type="submit" formtarget="_blank" name="submitPDF">Voir la version PDF</button>
+            <!-- <br>
+        <button type="submit" name="submitUpdate">Noter le devis comme " traité ".</button> -->
+        </form>
+        <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
+            <div>
+                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
 
-    <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-prev.php">
-        <div>
-            <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-            <input type="text" id="prix" name="prix" required>
-            <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-            <label for="commentaire">Commentaire :</label>
-            <textarea id="commentaire" name="commentaire"></textarea>
-        </div>
-
-
-
-
-        <button type="submit" name="submitTraitement">Valider le traitement</button>
-    </form>
+                <label class="form-check-label"><span class="bold">
+                        Demande traité :</span>
+                    <input type="checkbox" class="check-input" name="traited" value="1" <?= $resultat['traite'] == 1 ? 'checked' : ''; ?>>
+                </label>
+            </div>
+            <button type="submit" name="submitUpdatePrev">Valider</button>
+        </form>
+    </div>
 </section>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>

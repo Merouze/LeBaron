@@ -104,3 +104,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['token']) && isset($_P
     header('Location: /LeBaron/index.php');
     exit();
 }
+?>

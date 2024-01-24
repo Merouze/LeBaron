@@ -12,4 +12,9 @@
 }
 .form-estimate {
     margin: 0;
+    width: 50vw;
+    max-width: 100 vw;
+}
+.check-input {
+    width: 25px;
 }

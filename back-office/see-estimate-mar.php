@@ -21,9 +21,9 @@ if ($idEstimate && count($resultats) > 0) {
     $dateFormatee = $dateDemande->format('d/m/Y');
 }
 ?>
-    <!-- // ----- # NAV # ----- // -->
-    <?php include './_includes/_nav-admin.php' ?>
-    <!-- section header title -->
+<!-- // ----- # NAV # ----- // -->
+<?php include './_includes/_nav-admin.php' ?>
+<!-- section header title -->
 <section class="infos-estimate">
     <div class="infos">
         <div class="border-check">
@@ -42,7 +42,6 @@ if ($idEstimate && count($resultats) > 0) {
         <div class="border-check">
             <h2>Infos Client</h2>
             <ul>
-
                 <?= '<li><span class="bold grey">Prénom :</span> ' . $resultat['firstname'] . '</li>'; ?>
                 <?= '<li><span class="bold grey">Nom :</span> ' . $resultat['lastname'] . '</li>'; ?>
                 <?= '<li><span class="bold grey">Ville :</span> ' . $resultat['city'] . '</li>'; ?>
@@ -54,20 +53,32 @@ if ($idEstimate && count($resultats) > 0) {
             </ul>
         </div>
     </div>
-    <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-mar.php">
-        <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
-        <div>
-            <input type="text" id="prix" name="prix" required>
-            <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-            <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-            <label for="commentaire">Commentaire :</label>
-            <textarea id="commentaire" name="commentaire"></textarea>
-        </div>
+    <div>
+        <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-mar.php">
+            <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+            <div>
+                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+                <input type="hidden" name="mail" value="<?= $resultat['mail']; ?>" required>
+                <label class="bold" for="commentaire">Commentaire :</label>
+                <textarea rows="6" id="commentaire" name="commentaire"></textarea>
+            </div>
+            <button type="submit" formtarget="_blank" name="submitTraitement">Voir la version PDF</button>
+            <br>
+        </form>
+        <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
+            <div>
+                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
 
-
-
-        <button type="submit" name="submitTraitement">Valider le traitement</button>
-    </form>
+                <label class="form-check-label"><span class="bold">
+                        Demande traité :</span>
+                    <input type="checkbox" class="check-input" name="traited" value="1" <?= $resultat['traite'] == 1 ? 'checked' : ''; ?>>
+                </label>
+            </div>
+            <button type="submit" name="submitUpdateMar">Valider</button>
+        </form>
+    </div>
 </section>
 
 <!-- // ----- # FOOTER # ----- // -->

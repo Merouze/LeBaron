@@ -79,10 +79,33 @@ if ($idEstimate && count($resultats) > 0) {
             </ul>
         </div>
     </div>
+    <div>
+        <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-obs.php">
+            <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+            <div>
+                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+                <label class="bold" for="commentaire">Commentaire :</label>
+                <textarea rows="6" id="commentaire" name="commentaire"></textarea>
+            </div>
+            <button type="submit" formtarget="_blank" name="submitTraitement">Voir la version PDF</button>
+        </form>
+        <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
+            <div>
+                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
 
-    <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-obs.php">
-        <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
-        <div>
+                <label class="form-check-label"><span class="bold">
+                    Demande traité :</span>
+                    <input type="checkbox" class="check-input" name="traited" value="1" <?= $resultat['traite'] == 1 ? 'checked' : ''; ?>>
+                </label>
+            </div>
+            <button type="submit" name="submitUpdateObs">Valider</button>
+        </form>
+    </div>
+    <!-- <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-obs.php"> -->
+    <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+    <!-- <div>
             <label for="presentation"><span class="bold grey">Présentation du corps : <?= $resultat['presentation_corps']; ?>
             </label>
             <input type="text" id="presentation" name="presentation" required>
@@ -123,8 +146,8 @@ if ($idEstimate && count($resultats) > 0) {
         <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
 
 
-        <button type="submit" name="submitTraitement">Valider le traitement</button>
-    </form>
+        <button formtarget="_blank" type="submit" name="submitTraitement">Valider le traitement</button>
+    </form> -->
 </section>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>
