@@ -8,20 +8,20 @@ session_start();
 if (isset($_POST['firstname']) && isset($_POST['mail'])) {
     $mj = new \Mailjet\Client($_ENV['MJ_APIKEY_PUBLIC'], $_ENV['MJ_APIKEY_PRIVATE'], true, ['version' => 'v3.1']);
     
-    $firstname = "Prénom : " . $_POST['firstname'];
-    $lastname = "Nom : " . $_POST['lastname'];
-    $email = $_POST['mail'];
-    $message = "Message : " . $_POST['message'];
+    $firstname = "Prénom : " . strip_tags($_POST['firstname']);
+    $lastname = "Nom : " . strip_tags($_POST['lastname']);
+    $email = strip_tags($_POST['mail']);
+    $message = "Message : " . strip_tags($_POST['message']);
 
     $body = [
         'Messages' => [
             [
                 'From' => [
-                    'Email' => "p.lim61@hotmail.fr",
+                    'Email' => "aurelienmerouze@gmail.com",
                 ],
                 'To' => [
                     [
-                        'Email' => "p.lim61@hotmail.fr",
+                        'Email' => "aurelienmerouze@gmail.com",
                         'Name' => "Aurélien"
                     ]
                 ],

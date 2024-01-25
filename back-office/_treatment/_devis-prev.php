@@ -4,24 +4,26 @@ $dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 use \Mailjet\Resources;
 
 session_start();
+// var_dump($_POST);
+// exit;
 
 if (isset($_POST['firstname']) && isset($_POST['mail'])) {
     $mj = new \Mailjet\Client($_ENV['MJ_APIKEY_PUBLIC'], $_ENV['MJ_APIKEY_PRIVATE'], true, ['version' => 'v3.1']);
     
-    $firstname = "Prénom : " . $_POST['firstname'];
-    $lastname = "Nom : " . $_POST['lastname'];
-    $email = $_POST['mail'];
-    $message = "Message : " . $_POST['message'];
+    $firstname = "Prénom : " . strip_tags($_POST['firstname']);
+    $lastname = "Nom : " . strip_tags($_POST['lastname']);
+    $email = strip_tags($_POST['mail']);
+    $message = "Message : " . strip_tags($_POST['message-pre']);
 
     $body = [
         'Messages' => [
             [
                 'From' => [
-                    'Email' => "p.lim61@hotmail.fr",
+                    'Email' => "aurelienmerouze@gmail.com",
                 ],
                 'To' => [
                     [
-                        'Email' => "p.lim61@hotmail.fr",
+                        'Email' => "aurelienmerouze@gmail.com",
                         'Name' => "Aurélien"
                     ]
                 ],

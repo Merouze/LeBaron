@@ -4,6 +4,5 @@
         "google/cloud-storage": "^1.27",
         "mpdf/mpdf": "^8.2",
         "mailjet/mailjet-apiv3-php": "^1.6"
-
     }
 }

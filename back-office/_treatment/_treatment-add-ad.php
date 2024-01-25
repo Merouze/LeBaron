@@ -10,14 +10,14 @@ if (isset($_POST['send'])) {
         // Récupérer les données du formulaire
         $name = strip_tags($_POST['name']);
         $mainName = strip_tags($_POST['main-name']);
-        $mainLink = $_POST['main-link'];
+        $mainLink = strip_tags($_POST['main-link']);
         $familyNames = $_POST['family-name'];
-        $familyLinks = $_POST['family-link'];
-        $deathDate = $_POST['death-date'];
+        $familyLinks = strip_tags($_POST['family-link']);
+        $deathDate = strip_tags($_POST['death-date']);
         $ageDeath = strip_tags($_POST['age-death']);
-        $ceremonyDate = $_POST['ceremony-date'];
+        $ceremonyDate = strip_tags($_POST['ceremony-date']);
         $locationCeremony = strip_tags($_POST['location_ceremony']);
-        $hourCeremony = $_POST['hour_ceremony'];
+        $hourCeremony = strip_tags($_POST['hour_ceremony']);
         $details = strip_tags($_POST['details']);
 
         // Requête SQL pour insérer le défunt

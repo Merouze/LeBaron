@@ -10,6 +10,8 @@ try {
     echo "Erreur lors du chargement du fichier .env : " . $e->getMessage();
     exit;
 }
+// var_dump($_POST);
+// exit;
 
 if (isset($_POST['firstname']) && isset($_POST['email'])) {
     $mj = new \Mailjet\Client($_ENV['MJ_APIKEY_PUBLIC'], $_ENV['MJ_APIKEY_PRIVATE'], true, ['version' => 'v3.1']);
@@ -23,11 +25,14 @@ if (isset($_POST['firstname']) && isset($_POST['email'])) {
         'Messages' => [
             [
                 'From' => [
-                    'Email' => "p.lim61@hotmail.fr",
+                    // 'Email' => "p.lim61@hotmail.fr",
+                    'Email' => "aurelienmerouze@gmail.com"
+
                 ],
                 'To' => [
                     [
-                        'Email' => "p.lim61@hotmail.fr",
+                        // 'Email' => "p.lim61@hotmail.fr",
+                        'Email' => "aurelienmerouze@gmail.com",
                         'Name' => "Aurélien"
                     ]
                 ],

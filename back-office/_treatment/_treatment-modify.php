@@ -26,16 +26,16 @@ try {
     $idDefunt = $_POST['idDefunt'];
     $newName = strip_tags($_POST['new-name']);
     $newMainName = strip_tags($_POST['new-main-name']);
-    $newMainLink = $_POST['new-main-link'];
+    $newMainLink = strip_tags($_POST['new-main-link']);
     $newFamilyNames = $_POST['new-family-name'];
-    $newFamilyLinks = $_POST['new-family-link'];
-    // $FamilyNames = $_POST['family-name[]'];
-    // $FamilyLinks = $_POST['family-link[]'];
-    $newDeathDate = $_POST['new-death-date'];
+    $newFamilyLinks = strip_tags($_POST['new-family-link']);
+    // $FamilyNames = strip_tags($_POST['family-name[]']);
+    // $FamilyLinks = strip_tags($_POST['family-link[]']);
+    $newDeathDate = strip_tags($_POST['new-death-date']);
     $newAgeDeath = strip_tags($_POST['new-age-death']);
-    $newCeremonyDate = $_POST['new-ceremony-date'];
+    $newCeremonyDate = strip_tags($_POST['new-ceremony-date']);
     $newLocationCeremony = strip_tags($_POST['new-location_ceremony']);
-    $newHourCeremony = $_POST['new-hour_ceremony'];
+    $newHourCeremony = strip_tags($_POST['new-hour_ceremony']);
     $newDetails = strip_tags($_POST['new-details']);
     
    

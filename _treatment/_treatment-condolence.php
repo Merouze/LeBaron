@@ -31,12 +31,13 @@ WHERE id_defunt = :id_defunt");
         'Messages' => [
             [
                 'From' => [
-                    'Email' => "p.lim61@hotmail.fr",
+                    'Email' => "aurelienmerouze@gmail.com",
+                    'Name' => "Aurélien"
+
                 ],
                 'To' => [
                     [
-                        'Email' => "p.lim61@hotmail.fr",
-                        'Name' => "Aurélien"
+                        'Email' => "aurelienmerouze@gmail.com"
                     ]
                 ],
                 'Subject' => "Nouveau Message de condoléances.",

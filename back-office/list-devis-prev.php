@@ -23,17 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
 ?>
 <?php
 
-// Requête pour compter le nombre total de devis avec traite = 0
+// Request count estimate with traite = 0
 $sqlCount = $dtLb->prepare("SELECT COUNT(*) AS totalDevis
     FROM devis_prevoyance
     WHERE traite = 0");
-
-// Exécutez la requête de comptage
 $sqlCount->execute();
-
-// Récupérez le résultat du comptage
 $totalDevis = $sqlCount->fetch(PDO::FETCH_ASSOC)['totalDevis'];
-
 ?>
 
 
@@ -134,11 +129,12 @@ if (isset($_SESSION["notif"])) {
 </section>
 
 <!-- <?php var_dump($_SESSION); ?> -->
+
 <!-- section obituary -->
 <section class="obituary mt50 mt100">
     <div class="obituary-text ad">
         <form class="recherche-ad" action="">
-            <h3 class="text-align white">Recherche de devis par Nom ou Prénom</h3>
+            <h3 class="text-align white">Rechercher les devis traité par Nom ou Prénom</h3>
             <label for="recherche"></label>
             <input name="recherche" class="input-ad" type="text">
             <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">

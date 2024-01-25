@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sqlUpdate = $dtLb->prepare("UPDATE condolences SET is_published = :is_published WHERE id_condolence = :condolence_id");
             $sqlUpdate->execute(['is_published' => $publish, 'condolence_id' => $condolenceId]);
         }
-        $_SESSION['notif'] = array('type' => 'success', 'message' => 'Les données ont été mises à jour avec succès.');
+        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Les données ont été mises à jour avec succès.'];
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
     }

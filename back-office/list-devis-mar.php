@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     // Exécuter la requête de recherche dans la base de données
     $sqlSearch = $dtLb->prepare("SELECT id_estimate, firstname, lastname, date_demande
     FROM devis_mar
-    WHERE firstname OR lastname LIKE :recherche");
+    WHERE firstname OR lastname LIKE :recherche
+    AND traite = 1");
     $sqlSearch->execute(['recherche' => "%$recherche%"]);
     $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
     // Vérifier s'il y a des résultats
@@ -30,6 +31,7 @@ $sqlCount->execute();
 $totalDevis = $sqlCount->fetch(PDO::FETCH_ASSOC)['totalDevis'];
 ?>
 <?php
+// var_dump($_SESSION);
 // Display notifs
 if (isset($_SESSION["notif"])) {
     $notifType = $_SESSION["notif"]["type"];
@@ -126,7 +128,7 @@ if (isset($_SESSION["notif"])) {
 <section class="obituary mt50 mt100">
     <div class="obituary-text ad">
         <form class="recherche-ad" action="">
-            <h3 class="text-align white">Recherche de devis par Nom ou Prénom</h3>
+            <h3 class="text-align white">Rechercher les devis traité par Nom ou Prénom</h3>
             <label for="recherche"></label>
             <input name="recherche" class="input-ad" type="text">
             <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">

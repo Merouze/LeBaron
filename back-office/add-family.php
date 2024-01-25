@@ -7,9 +7,9 @@ include './_includes/_check-login.php';
 // Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données du formulaire
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirm-password'];
+    $email = strip_tags($_POST['email']);
+    $password = strip_tags($_POST['password']);
+    $confirmPassword = strip_tags($_POST['confirm-password']);
 
     // Vérifier si les mots de passe correspondent
     if ($password !== $confirmPassword) {

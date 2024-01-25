@@ -52,7 +52,7 @@ $htmlCondolences .= '<div class="text-align">
 
 if (isset($_POST['submitTraitement'])) {
     // Récupérez les données du formulaire
-    $commentaire = $_POST["commentaire"];
+    $commentaire = strip_tags($_POST["commentaire"]);
 
     // Créez le HTML à convertir en PDF
     $htmlDevis = "<p><span class='bold'>Proposition : </span>$commentaire</p>";

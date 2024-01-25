@@ -66,6 +66,8 @@ if ($idEstimate && count($resultats) > 0) {
             <div>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                 <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+                <input type="hidden" name="email" value="<?= $resultat['email']; ?>" required>
+                <input type="hidden" name="name" value="<?= $resultat['nom']; ?>" required>
 
                 <label class="form-check-label"><span class="bold">
                         Demande traité :</span>

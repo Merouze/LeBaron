@@ -1,3 +1,26 @@
+<?php
+//************************************** */ Request for count devis prev with traite = 0
+$sqlCountPrev = $dtLb->prepare("SELECT COUNT(*) AS totalDevisPrev
+    FROM devis_prevoyance
+    WHERE traite = 0");
+$sqlCountPrev->execute();
+$totalDevisPrev = $sqlCountPrev->fetch(PDO::FETCH_ASSOC)['totalDevisPrev'];
+// var_dump($totalDevis);
+
+//************************************** Request for count devis obs with traite = 0
+$sqlCountObs = $dtLb->prepare("SELECT COUNT(*) AS totalDevisObs
+    FROM devis_obs
+    WHERE traite = 0");
+$sqlCountObs->execute();
+$totalDevisObs = $sqlCountObs->fetch(PDO::FETCH_ASSOC)['totalDevisObs'];
+
+//************************************** Request for count devis mar with traite = 0
+$sqlCountMar = $dtLb->prepare("SELECT COUNT(*) AS totalDevisMar
+    FROM devis_mar
+    WHERE traite = 0");
+$sqlCountMar->execute();
+$totalDevisMar = $sqlCountMar->fetch(PDO::FETCH_ASSOC)['totalDevisMar'];
+?>
 <div class="navbar">
     <div class="contact-info">
         <div class="d-logo">
@@ -25,9 +48,9 @@
             <ul class="dropdown">
                 <li><a href="#">Devis Reçu(s) ▼</a></li>
                 <div class="dropdown-content">
-                    <li><a href="list-devis-obs.php">Devis Obsèques</a></li>
-                    <li><a href="list-devis-mar.php">Devis Marbrerie</a></li>
-                    <li><a href="list-devis-prev.php">Devis Prévoyance</a></li>
+                    <li><a href="list-devis-obs.php">Devis Obsèques (<?=$totalDevisObs;?>)</a></li>
+                    <li><a href="list-devis-mar.php">Devis Marbrerie (<?=$totalDevisMar;?>)</a></li>
+                    <li><a href="list-devis-prev.php">Devis Prévoyance (<?=$totalDevisPrev;?>)</a></li>
                 </div>
             </ul>
             <li><a href=".././back-office/_treatment/_logout.php">Se Déconnecter</a></li>
