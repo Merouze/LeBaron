@@ -16,7 +16,6 @@
         <h2 class="defunt-name white"><?= $defunt['nom_prenom_defunt'] ?></h2>
     </div>
     <div class="list-family">
-
         <?php if ($defunt !== false) : ?>
             <!--                 
             <?php var_dump($proches); ?>
