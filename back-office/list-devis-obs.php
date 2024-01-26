@@ -89,6 +89,8 @@ if (isset($_SESSION["notif"])) {
     <?php
     if (isset($resultats) && !empty($resultats)) : ?>
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
+        <h3><span class="blue">Devis</span> " traité ".</h3>
+
         <ul>
             <?php foreach ($resultats as $resultat) :
                 // Créer un objet DateTime pour la date de la cérémonie

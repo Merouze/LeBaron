@@ -28,7 +28,7 @@ try {
     $newMainName = strip_tags($_POST['new-main-name']);
     $newMainLink = strip_tags($_POST['new-main-link']);
     $newFamilyNames = $_POST['new-family-name'];
-    $newFamilyLinks = strip_tags($_POST['new-family-link']);
+    $newFamilyLinks = $_POST['new-family-link'];
     // $FamilyNames = strip_tags($_POST['family-name[]']);
     // $FamilyLinks = strip_tags($_POST['family-link[]']);
     $newDeathDate = strip_tags($_POST['new-death-date']);

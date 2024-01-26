@@ -12,7 +12,7 @@ if (isset($_POST['send'])) {
         $mainName = strip_tags($_POST['main-name']);
         $mainLink = strip_tags($_POST['main-link']);
         $familyNames = $_POST['family-name'];
-        $familyLinks = strip_tags($_POST['family-link']);
+        $familyLinks = $_POST['family-link'];
         $deathDate = strip_tags($_POST['death-date']);
         $ageDeath = strip_tags($_POST['age-death']);
         $ceremonyDate = strip_tags($_POST['ceremony-date']);

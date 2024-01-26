@@ -1,15 +1,13 @@
-
 <?php
 require "../../back-office/_includes/_dbCo.php";
-
+session_start();
 $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
 
 // Exécuter la requête de recherche dans la base de données
 $sqlDisplay = $dtLb->prepare("SELECT * FROM devis_mar WHERE id_estimate = :id_estimate");
 $sqlDisplay->execute(['id_estimate' => $idEstimate]);
-
-// Récupérer les résultats après l'exécution de la requête
 $resultat = $sqlDisplay->fetch(PDO::FETCH_ASSOC);
+
 $dateDemande = new DateTime($resultat['date_demande']);
 $dateFormatee = $dateDemande->format('d/m/Y');
 
@@ -65,13 +63,19 @@ if (isset($_POST['submitTraitement'])) {
 </div>';
 
     // Instanciez mPDF
-    $mpdf = new \Mpdf\Mpdf();
-
-    // Ajoutez le HTML au document
-    $mpdf->WriteHTML($htmlCondolences . $htmlDevis);
-
-    // Affichez le PDF dans le navigateur avec la possibilité de télécharger
-    $mpdf->Output('devis-marbrerie.pdf', \Mpdf\Output\Destination::INLINE);
+$mpdf = new \Mpdf\Mpdf();
+$mpdf->WriteHTML($htmlCondolences . $htmlDevis);
+$pdfPath = './devis-marbrerie-' . $idEstimate . '.pdf';
+// En-têtes pour indiquer que le contenu est un fichier PDF
+header('Content-Type: application/pdf');
+// Affichez le PDF dans le navigateur avec la possibilité de télécharger
+$mpdf->Output($pdfPath, \Mpdf\Output\Destination::INLINE);
+// Enregistrez le PDF sur le serveur
+// $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
+// Obtenez le contenu du PDF directement dans une variable
+$pdfContent = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+// Stockez le contenu dans une variable de session
+$_SESSION['pdf_content_' . $idEstimate] = $pdfContent;
 
 }
 ?>

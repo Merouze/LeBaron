@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
     // Exécuter la requête de recherche dans la base de données
     $sqlSearch = $dtLb->prepare("SELECT id_estimate, prenom, nom, date_demande
     FROM devis_prevoyance
-    WHERE prenom LIKE :recherche");
+    WHERE prenom LIKE :recherche
+    AND traite = 1");
     $sqlSearch->execute(['recherche' => "%$recherche%"]);
     $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
     // Vérifier s'il y a des résultats
@@ -22,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
 }
 ?>
 <?php
-
 // Request count estimate with traite = 0
 $sqlCount = $dtLb->prepare("SELECT COUNT(*) AS totalDevis
     FROM devis_prevoyance
@@ -30,7 +30,6 @@ $sqlCount = $dtLb->prepare("SELECT COUNT(*) AS totalDevis
 $sqlCount->execute();
 $totalDevis = $sqlCount->fetch(PDO::FETCH_ASSOC)['totalDevis'];
 ?>
-
 
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
@@ -51,8 +50,6 @@ if (isset($_SESSION["notif"])) {
 
 <!-- display estimate no checking -->
 <section class="resultats-recherche">
-    <h3 class="mb50 text-align grey">Devis à <span class="blue">traiter</span></h3>
-
     <?php
     $sqlDisplay = $dtLb->prepare("SELECT id_estimate, prenom, nom, date_demande
     FROM devis_prevoyance
@@ -97,6 +94,7 @@ if (isset($_SESSION["notif"])) {
     <?php
     if (isset($resultats) && !empty($resultats)) : ?>
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
+        <h3><span class="blue">Devis</span> " traité ".</h3>
         <ul>
             <?php foreach ($resultats as $resultat) :
                 // Créer un objet DateTime pour la date de la cérémonie
@@ -105,9 +103,6 @@ if (isset($_SESSION["notif"])) {
                 // Formater la date en jours/mois/année
                 $dateFormatee = $dateDemande->format('d/m/Y');
             ?>
-
-
-
                 <li>
                     <ul>
                         <div class="display-mtb20 display_list-ad display-search-admin ">

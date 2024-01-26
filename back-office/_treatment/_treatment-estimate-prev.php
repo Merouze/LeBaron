@@ -1,29 +1,17 @@
 <?php
 require "../../back-office/_includes/_dbCo.php";
-
+session_start();
 $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
-
-// Vérifiez si l'ID du devis est présent
-if (!$idEstimate) {
-    // Gérer l'erreur ou rediriger l'utilisateur
-    // Vous pouvez rediriger l'utilisateur vers une page d'erreur, par exemple
-    header("Location: erreur.php");
-    exit();
-}
+// var_dump($_POST);
+// exit;
 
 // Exécutez la requête de recherche dans la base de données
 $sqlDisplay = $dtLb->prepare("SELECT * FROM devis_prevoyance WHERE id_estimate = :id_estimate");
 $sqlDisplay->execute(['id_estimate' => $idEstimate]);
-
-// Récupérez les résultats après l'exécution de la requête
 $resultat = $sqlDisplay->fetch(PDO::FETCH_ASSOC);
 
-// Vérifiez si des résultats ont été trouvés
-if (!$resultat) {
-    // Gérer l'erreur ou rediriger l'utilisateur
-    header("Location: erreur.php");
-    exit();
-}
+$dateDemande = new DateTime($resultat['date_demande']);
+$dateFormatee = $dateDemande->format('d/m/Y');
 
 // Génération du contenu stylisé du PDF pour les condoléances
 $htmlCondolences = '
@@ -58,7 +46,7 @@ $htmlCondolences = '
 <h1>Demande <span class="blue">devis :</span></h1>
 <div class="text-align">
     <p><span class="bold">' . $resultat['prenom'] . '</span> <span class="bold blue">' . $resultat['nom'] . '</span> ;</p>
-    <p>Voici notre proposition suite à votre demande en date du <span class="bold blue">' . $resultat['date_demande'] . '.</span></p>
+    <p>Voici notre proposition suite à votre demande en date du <span class="bold blue">' . $dateFormatee . '.</span></p>
     <p>N\'hésitez pas à revenir vers nous pour plus d\'information.</p>
 </div>
 ';
@@ -79,32 +67,21 @@ if (isset($_POST['submitPDF'])) {
         </div>
     </div>
     ';
-
-    // Instanciez mPDF
-    $mpdf = new \Mpdf\Mpdf();
-
-    // Ajoutez le HTML au document
-    $mpdf->WriteHTML($htmlCondolences . $htmlDevis);
-    
-// Définissez le chemin où vous souhaitez enregistrer le PDF
-// $pdfPath = './devis-prevoyance.pdf';
+}
+// Instanciez mPDF
+$mpdf = new \Mpdf\Mpdf();
+$mpdf->WriteHTML($htmlCondolences . $htmlDevis);
 $pdfPath = './devis-prevoyance-' . $idEstimate . '.pdf';
-
-// var_dump($pdfPath);
-// exit;
+// En-têtes pour indiquer que le contenu est un fichier PDF
+header('Content-Type: application/pdf');
+// header('Content-Disposition: inline; filename="devis-prevoyance-' . $idEstimate . '.pdf"');
 // Affichez le PDF dans le navigateur avec la possibilité de télécharger
 $mpdf->Output($pdfPath, \Mpdf\Output\Destination::INLINE);
-
 // Enregistrez le PDF sur le serveur
-$mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
-
-}
-
-// // Définissez le chemin où vous souhaitez enregistrer le PDF
-// $pdfPath = 'devis-prevoyance.pdf';
-
-// // Affichez le PDF dans le navigateur avec la possibilité de télécharger
-// $mpdf->Output('devis-prevoyance.pdf', \Mpdf\Output\Destination::INLINE);
-
-// // Enregistrez le PDF sur le serveur
 // $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
+// Obtenez le contenu du PDF directement dans une variable
+$pdfContentPrev = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+// Stockez le contenu dans une variable de session
+$_SESSION['pdf_content_' . $idEstimate] = $pdfContentPrev;
+?>
+
