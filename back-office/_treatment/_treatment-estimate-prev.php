@@ -2,8 +2,8 @@
 require "../../back-office/_includes/_dbCo.php";
 session_start();
 $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
-// var_dump($_POST);
-// exit;
+var_dump($_POST);
+exit;
 
 // Exécutez la requête de recherche dans la base de données
 $sqlDisplay = $dtLb->prepare("SELECT * FROM devis_prevoyance WHERE id_estimate = :id_estimate");
@@ -13,34 +13,45 @@ $resultat = $sqlDisplay->fetch(PDO::FETCH_ASSOC);
 $dateDemande = new DateTime($resultat['date_demande']);
 $dateFormatee = $dateDemande->format('d/m/Y');
 
+$dateDay = date('Y-m-d');
+$dateDemande = new DateTime($dateDay);
+$dateDayFormatee = $dateDemande->format('d/m/Y');
+
+// var_dump($resultat);
+// exit;
 // Génération du contenu stylisé du PDF pour les condoléances
 $htmlCondolences = '
 <style>
-    .blue {
-        color: #039DB5;
-    }
-    .grey {
-        color: #353031;
-    }
-    .bold {
-        font-weight: bold;
-    }
-    .align-right {
-        text-align: right;
-    }
-    .align-center {
-        text-align: center;
-    }
-    .mt-50 {
-        margin-top: 150px;
-    }
+.blue {
+    color: #039DB5;
+}
+.grey {
+    color: #353031;
+}
+.bold {
+    font-weight: bold;
+}
+.align-right {
+    text-align: right;
+}
+.align-center {
+    text-align: center;
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
 </style>
 <div>
     <img src="../../asset/img/logo-LB.png" alt="logo">
     <div class="align-right">
         <h2>Pompes Funèbres <span class="blue">Le Baron</span></h2>
-        <p>02.31.26.91.75 7j/7 et 24h/24</p>
+        <p>02.31.26.91.75 7j/7 et 24h/24.</p>
         <p>2 Rte de Maltot 14930 Vieux.</p>
+        <p>Le <span class="blue bold">' . $dateDayFormatee . ',</span></p>
+        <p>Id. devis : <span class="blue bold">' . $idEstimate . '.</span></p>
     </div>
 </div>
 <h1>Demande <span class="blue">devis :</span></h1>
@@ -58,19 +69,19 @@ if (isset($_POST['submitPDF'])) {
 
     // Créez le HTML à convertir en PDF
     $htmlDevis = "<p><span class='bold'>Proposition : </span>$commentaire</p>";
-    $htmlDevis .= '
-    <div class="mt-50 text-align">
-        <div class="align-center">
-            <img src="../../asset/img/logo-LB-footer.png" alt="logo">
-            <h3>Pompes Funèbres <span class="blue">Le Baron.</span></h3>
-            2 Rte de Maltot 14930 Vieux, 02.31.26.91.75 7j/7 et 24h/24.
-        </div>
-    </div>
-    ';
+    
+    $htmlFooter = '<div class="footer">
+    <img src="../../asset/img/logo-LB-footer.png" alt="logo">
+        <h3>Pompes Funèbres <span class="blue">Le Baron.</span></h3>
+           2 Rte de Maltot 14930 Vieux, 02.31.26.91.75 7j/7 et 24h/24.
+           </div>';
 }
 // Instanciez mPDF
-$mpdf = new \Mpdf\Mpdf();
-$mpdf->WriteHTML($htmlCondolences . $htmlDevis);
+$mpdf = new \Mpdf\Mpdf([
+    'margin_top' => 10,
+    'margin_bottom' => 10,
+]);
+$mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
 $pdfPath = './devis-prevoyance-' . $idEstimate . '.pdf';
 // En-têtes pour indiquer que le contenu est un fichier PDF
 header('Content-Type: application/pdf');
@@ -83,5 +94,3 @@ $mpdf->Output($pdfPath, \Mpdf\Output\Destination::INLINE);
 $pdfContentPrev = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
 // Stockez le contenu dans une variable de session
 $_SESSION['pdf_content_' . $idEstimate] = $pdfContentPrev;
-?>
-

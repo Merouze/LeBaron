@@ -46,14 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-// ***************************************** */ print ************************************ 
-
-// document.addEventListener('DOMContentLoaded', function() {
-//   document.getElementById('printButton').addEventListener('click', function() {
-//       console.log('Bouton cliqué !');
-//       printCondolences();
-//   });
-// });
+// ***************************************** */ addRow For estimate ************************************ 
 
 
 

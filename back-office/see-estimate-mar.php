@@ -3,18 +3,19 @@
 <!-- // ----- # check-login # ----- // -->
 <?php include './_includes/_check-login.php' ?>
 <?php
+
 $idEstimate = isset($_GET['idEstimate']) ? $_GET['idEstimate'] : null;
 // var_dump($idEstimate);
+
 // Exécuter la requête de recherche dans la base de données
 $sqlDisplay = $dtLb->prepare("SELECT * FROM devis_mar WHERE id_estimate = :id_estimate");
-
-$sqlDisplay->execute(['id_estimate' => $idEstimate]); // Utilisez un tableau associatif pour lier les paramètres
-
-// Récupérer les résultats après l'exécution de la requête
+$sqlDisplay->execute(['id_estimate' => $idEstimate]);
 $resultats = $sqlDisplay->fetchAll(PDO::FETCH_ASSOC);
 // Afficher les résultats uniquement si l'ID est spécifié et si des résultats sont trouvés
 if ($idEstimate && count($resultats) > 0) {
     $resultat = $resultats[0]; // Prenez le premier résultat, car il devrait y en avoir un seul avec l'ID unique
+    $estimateTraite = ($resultat['traite'] == 1) ? 'Oui' : 'Non';
+    $conditionsAccept = ($resultat['accept_conditions'] == 1) ? 'Oui' : 'Non';
     // Créer un objet DateTime pour la date de la demande
     $dateDemande = new DateTime($resultat['date_demande']);
     // Formater la date en jours/mois/année
@@ -48,8 +49,8 @@ if ($idEstimate && count($resultats) > 0) {
                 <?= '<li><span class="bold grey">Mail :</span> ' . $resultat['mail'] . '</li>'; ?>
                 <?= '<li><span class="bold grey">Message :</span> ' . $resultat['message_marble'] . '</li>'; ?>
                 <?= '<li><span class="bold grey">Horaire de contact :</span> ' . $resultat['hour_contact'] . '</li>'; ?>
-                <?= '<li><span class="bold grey">Conditions acceptés:</span> ' . $resultat['accept_conditions'] . '</li>'; ?>
-                <?= '<li><span class="bold grey">Devis traité:</span> ' . $resultat['traite'] . '</li>'; ?>
+                <?= '<li><span class="bold grey">Conditions acceptés:</span> ' . $conditionsAccept . '</li>'; ?>
+                <?= '<li><span class="bold grey">Devis traité:</span> ' . $estimateTraite . '</li>'; ?>
             </ul>
         </div>
     </div>
@@ -59,18 +60,19 @@ if ($idEstimate && count($resultats) > 0) {
             <div>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                 <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-                <input type="hidden" name="mail" value="<?= $resultat['mail']; ?>" required>
-                <label class="bold" for="commentaire">Commentaire :</label>
+                <label class="bold" for="commentaire">Réponse :</label>
                 <textarea rows="6" id="commentaire" name="commentaire"></textarea>
             </div>
-            <button type="submit" formtarget="_blank" name="submitTraitement">Voir la version PDF</button>
+            <button type="submit" formtarget="_blank" name="submitTraitement">Générer le PDF</button>
             <br>
         </form>
         <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
             <div>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                 <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-
+                <input type="hidden" name="estimateTraite" value="<?= $resultat['traite']; ?>" required>
+                <input type="hidden" name="email" value="<?= $resultat['mail']; ?>" required>
+                <input type="hidden" name="name" value="<?= $resultat['lastname']; ?>" required>
                 <label class="form-check-label"><span class="bold">
                         Demande traité :</span>
                     <input type="checkbox" class="check-input" name="traited" value="1" <?= $resultat['traite'] == 1 ? 'checked' : ''; ?>>

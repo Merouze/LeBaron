@@ -3,6 +3,10 @@
 <!-- // ----- # check-login # ----- // -->
 <?php include './_includes/_check-login.php' ?>
 <?php
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 $idEstimate = isset($_GET['idEstimate']) ? $_GET['idEstimate'] : null;
 // var_dump($idEstimate);
 // Exécuter la requête de recherche dans la base de données
@@ -12,9 +16,12 @@ $sqlDisplay->execute(['id_estimate' => $idEstimate]); // Utilisez un tableau ass
 
 // Récupérer les résultats après l'exécution de la requête
 $resultats = $sqlDisplay->fetchAll(PDO::FETCH_ASSOC);
+
 // Afficher les résultats uniquement si l'ID est spécifié et si des résultats sont trouvés
 if ($idEstimate && count($resultats) > 0) {
     $resultat = $resultats[0]; // Prenez le premier résultat, car il devrait y en avoir un seul avec l'ID unique
+    $estimateTraite = ($resultat['traite'] == 1) ? 'Oui' : 'Non';
+    $conditionsAccept = ($resultat['accept_conditions'] == 1) ? 'Oui' : 'Non';
     // Créer un objet DateTime pour la date de la demande
     $dateDemande = new DateTime($resultat['date_demande']);
     $dateBorn = new DateTime($resultat['date_naissance']);
@@ -41,17 +48,79 @@ if ($idEstimate && count($resultats) > 0) {
             <?= '<li><span class="bold">Horaire de contact :</span> ' . $resultat['horaire_contact'] . '</li>'; ?>
             <?= '<li><span class="bold">Message :</span> ' . $resultat['message'] . '</li>'; ?>
         </ul>
-
         <ul class="border-check">
             <h3>Infos demande</h3>
             <?= '<li><span class="bold">Type de demande :</span> ' . $resultat['type_demande'] . '</li>'; ?>
             <?= '<li><span class="bold">Type de contrat :</span> ' . $resultat['type_contrat'] . '</li>'; ?>
-            <?= '<li><span class="bold">Accepte les conditions :</span> ' . $resultat['accept_conditions'] . '</li>'; ?>
+            <?= '<li><span class="bold">Accepte les conditions :</span> ' . $conditionsAccept . '</li>'; ?>
+            <?= '<li><span class="bold">Devis traité :</span> ' . $estimateTraite . '</li>'; ?>
+            <?= '<li><span class="bold">iD devis :</span> ' . $idEstimate . '</li>'; ?>
         </ul>
     </div>
     <div>
         <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-prev.php">
-            <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+            <div>
+                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+                <div>
+                    <table id="devisTable">
+                        <thead>
+                            <tr>
+                                <th>Désignation</th>
+                                <th>Frais avancés</th>
+                                <th>Prix H.T.</th>
+                                <th>Ajouter une ligne</th>
+                            </tr>
+                        </thead>
+                        <tbody id="devisBody">
+                            <tr id="row1">
+                                <td><input type="text" name="designation"></td>
+                                <td><input type="text" name="frais_avances"></td>
+                                <td><input type="text" name="prix_ht"></td>
+                                <td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>
+                            </tr>
+                        </tbody>
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>Total HT</td>
+                            <td><input type="text" name="total_ht"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>TVA à 10%</td>
+                            <td><input type="text" name="tva_10"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>TVA à 20%</td>
+                            <td><input type="text" name="tva_20"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>Frais avancés</td>
+                            <td><input type="text" name="frais_avances"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>TTC</td>
+                            <td><input type="text" name="ttc"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <br>
+                <label class="bold" for="commentaire">Commentaire :</label>
+                <textarea rows="6" id="commentaire" name="commentaire"></textarea>
+            </div>
+            <button type="submit" formtarget="_blank" name="submitPDF">Voir la version PDF</button>
+        </form>
+
+        <!-- <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-prev.php">
             <div>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                 <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
@@ -59,16 +128,14 @@ if ($idEstimate && count($resultats) > 0) {
                 <textarea rows="6" id="commentaire" name="commentaire"></textarea>
             </div>
             <button type="submit" formtarget="_blank" name="submitPDF">Voir la version PDF</button>
-            <!-- <br>
-        <button type="submit" name="submitUpdate">Noter le devis comme " traité ".</button> -->
-        </form>
+        </form> -->
         <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
             <div>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                 <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+                <input type="hidden" name="estimateTraite" value="<?= $estimateTraite; ?>" required>
                 <input type="hidden" name="email" value="<?= $resultat['email']; ?>" required>
                 <input type="hidden" name="name" value="<?= $resultat['nom']; ?>" required>
-
                 <label class="form-check-label"><span class="bold">
                         Demande traité :</span>
                     <input type="checkbox" class="check-input" name="traited" value="1" <?= $resultat['traite'] == 1 ? 'checked' : ''; ?>>
@@ -78,5 +145,78 @@ if ($idEstimate && count($resultats) > 0) {
         </form>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.addRow').addEventListener('click', function() {
+            addRow();
+        });
+
+        function addRow() {
+            // Obtenez le nombre actuel de lignes
+            let rowCount = document.getElementById('devisBody').rows.length;
+
+            // Créez un nouvel élément de ligne
+            let newRow = document.createElement('tr');
+
+            // Ajoutez des cellules avec des champs d'entrée uniques
+            newRow.innerHTML = '<td><input type="text" name="designation' + rowCount + '"></td>' +
+                '<td><input type="text" name="frais_avances' + rowCount + '"></td>' +
+                '<td><input type="text" name="prix_ht' + rowCount + '"></td>' +
+                '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
+
+            // Ajoutez la nouvelle ligne à la fin du corps du tableau
+            document.getElementById('devisBody').appendChild(newRow);
+
+            // Ajoutez un écouteur d'événement au nouveau bouton
+            newRow.querySelector('.addRow').addEventListener('click', function() {
+                addRow();
+            });
+        }
+    });
+
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     document.querySelector('.addRow').addEventListener('click', function() {
+    //         addRow();
+    //     });
+
+    //     function addRow() {
+    //         let tbody = document.getElementById('devisBody');
+    //         let newRow = tbody.insertRow();
+
+    //         // Colonnes de la nouvelle ligne
+    //         let cell1 = newRow.insertCell(0);
+    //         let cell2 = newRow.insertCell(1);
+    //         let cell3 = newRow.insertCell(2);
+    //         let cell4 = newRow.insertCell(3);
+
+    //         // Contenu des cellules
+    //         cell1.innerHTML = '<input type="text" name="designation">';
+    //         cell2.innerHTML = '<input type="text" name="frais_avances">';
+    //         cell3.innerHTML = '<input type="text" name="prix_ht">';
+    //         // cell4.innerHTML = '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
+
+    //         // Ajouter un écouteur d'événement au nouveau bouton
+    //         cell4.querySelector('.addRow').addEventListener('click', function() {
+    //             addRow();
+
+    //             // Obtenez le nombre actuel de lignes
+    //             let rowCount = document.getElementById('devisBody').rows.length;
+
+    //             // Créez un nouvel élément de ligne
+    //             let newRow = document.createElement('tr');
+
+    //             // Ajoutez des cellules avec des champs d'entrée uniques
+    //             newRow.innerHTML = '<td><input type="text" name="designation' + rowCount + '"></td>' +
+    //                 '<td><input type="text" name="frais_avances' + rowCount + '"></td>' +
+    //                 '<td><input type="text" name="prix_ht' + rowCount + '"></td>' +
+    //                 '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
+
+    //             // Ajoutez la nouvelle ligne à la fin du corps du tableau
+    //             document.getElementById('devisBody').appendChild(newRow);
+    //         });
+    //     }
+    // });
+</script>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>
