@@ -48,12 +48,7 @@ $htmlCondolences = '
     width: 100%;
     text-align: center;
 }
-.p-t-50 {
-    padding-top: 50mm;
-}
-.p-b-50 {
-    padding-bottom: 50mm;
-}
+
 .width {
     width: 100%;
 }
@@ -63,11 +58,14 @@ $htmlCondolences = '
 .border {
     border: 2px solid #039DB5;
 }
+.border-in {
+    border: 1px solid #333;
+}
 </style>
 
 <div>
-    <img src="../../asset/img/logo-LB.png" alt="logo">
-    <div class="align-right">
+<img src="../../asset/img/logo-LB.png" alt="logo">
+<div class="align-right">
         <h2>Pompes Funèbres <span class="blue">Le Baron</span></h2>
         <p>02.31.26.91.75 7j/7 et 24h/24.</p>
         <p>2 Rte de Maltot 14930 Vieux.</p>
@@ -76,11 +74,9 @@ $htmlCondolences = '
     </div>
 </div>
 
-<h1>Demande <span class="blue">devis :</span></h1>
 <div class="text-align">
     <p><span class="bold">' . $resultat['prenom'] . '</span> <span class="bold blue">' . $resultat['nom'] . '</span> ;</p>
     <p>Voici notre proposition suite à votre demande en date du <span class="bold blue">' . $dateFormatee . '.</span></p>
-    <p>Le devis est valable 1 mois.</p>
 </div>
 ';
 
@@ -89,17 +85,19 @@ if (isset($_POST['submitPDF'])) {
     // Récupérez les données des champs statiques
     $designation = isset($_POST["designation"]) ? $_POST["designation"] : array();
     $advance = isset($_POST["frais_avances"]) ? $_POST["frais_avances"] : array();
-    $htPrice = isset($_POST["prix_ht"]) ? $_POST["prix_ht"] : array();
+    $htPrice10 = isset($_POST["prix_ht_10"]) ? $_POST["prix_ht_10"] : array();
+    $htPrice20 = isset($_POST["prix_ht_20"]) ? $_POST["prix_ht_20"] : array();
     $totalHt = strip_tags($_POST["total_ht"]);
     $tva10 = strip_tags($_POST["tva_10"]);
     $tva20 = strip_tags($_POST["tva_20"]);
     $totalAdvance = strip_tags($_POST["total_frais_avances"]);
     $ttc = strip_tags($_POST["ttc"]);
-    $commentaire = strip_tags($_POST["commentaire"]);
+    $commentaire = 'Détails : ' . strip_tags($_POST["commentaire"]);
     $staticFields = [
         'designation' => strip_tags($_POST['designation']),
         'frais_avances' => strip_tags($_POST['frais_avances']),
-        'prix_ht' => strip_tags($_POST['prix_ht']),
+        'prix_ht_10' => strip_tags($_POST['prix_ht_10']),
+        'prix_ht_20' => strip_tags($_POST['prix_ht_20']),
     ];
 
     // Récupérez les données des champs dynamiques
@@ -113,18 +111,14 @@ if (isset($_POST['submitPDF'])) {
         $dynamicFields[$key] = [
             'designation' => strip_tags($field['designation']),
             'frais_avances' => strip_tags($field['frais_avances']),
-            'prix_ht' => strip_tags($field['prix_ht']),
+            'prix_ht_10' => strip_tags($field['prix_ht_10']),
+            'prix_ht_20' => strip_tags($field['prix_ht_20']),
         ];
     }
 
     // var_dump($_POST);
     // exit;
-    // Vérifiez le contenu final de $dynamicFields
-    // var_dump($dynamicFields);
 
-
-    // var_dump($_POST);
-    // exit;
     // var_dump($dynamicFields);
     // exit;
 
@@ -133,85 +127,75 @@ if (isset($_POST['submitPDF'])) {
     <table class='border width'>
         <thead>
             <tr>
-                <th class='align-left'>Désignation</th>
-                <th class='align-left'>Frais avancés</th>
-                <th class='align-left'>Prix H.T.</th>
+                <th class=' align-left'>Désignation</th>
+                <th class=' align-right'>Frais avancés</th>
+                <th class=' align-right'>Prix H.T. à 10%</th>
+                <th class=' align-lerightft'>Prix H.T. à 20%</th>
             </tr>
             <tr>
-               <td colspan='3'><hr></td>
+                <td colspan='4'><hr></td>
+            </tr>
+            <tr>
+               <td colspan='4'></td>
             </tr>
         </thead>
         <tbody>";
 
-foreach ($dynamicFields as $field) {
-    $htmlDevis .= "
+    foreach ($dynamicFields as $field) {
+        $htmlDevis .= "
         <tr>
             <td>{$field['designation']}</td>
-            <td>{$field['frais_avances']}</td>
-            <td>{$field['prix_ht']}</td>
-        </tr>
-        <tr>
-            <td colspan='3'><hr></td>
+            <td class='align-right'>{$field['frais_avances']}</td>
+            <td class='align-right'>{$field['prix_ht_10']}</td>
+            <td class='align-right'>{$field['prix_ht_20']}</td>
         </tr>";
-}
+    }
 
-$htmlDevis .= "
+    $htmlDevis .= "
         </tbody>
         <tfoot>
+        <tr>
+            <td colspan='4'><hr></td>
+        </tr>
             <tr class='border'>
-                <td class='align-left'></td>
+                <td colspan='2'></td>
                 <td class='align-left'>Total HT :</td>
-                <td class='align-left'>$totalHt</td>
+                <td class='align-right'>$totalHt</td>
             </tr>
             <tr>
-                <td colspan='1'></td>
-                <td colspan='2'><hr></td>
-            </tr>
-            <tr>
-                <td class='align-left'></td>
+                <td colspan='2'></td>
                 <td class='align-left'>TVA à 10% :</td>
-                <td class='align-left'>$tva10</td>
+                <td class='align-right'>$tva10</td>
             </tr>
             <tr>
-                <td colspan='1'></td>
-                <td colspan='2'><hr></td>
-            </tr>
-            <tr class='border-cell'>
-                <td class='align-left'></td>
+                <td colspan='2'></td>
                 <td class='align-left'>TVA à 20% :</td>
-                <td class='align-left'>$tva20</td>
+                <td class='align-right'>$tva20</td>
             </tr>
             <tr>
-                <td colspan='1'></td>
-                <td colspan='2'><hr></td>
-            </tr>
-            <tr>
-                <td class='align-left'></td>
+                <td colspan='2'></td>
                 <td class='align-left'>Frais avancés global :</td>
-                <td class='align-left'>$totalAdvance</td>
+                <td class='align-right'>$totalAdvance</td>
             </tr>
+        
             <tr>
-                <td colspan='1'></td>
-                <td colspan='2'><hr></td>
-            </tr>
-            <tr>
-                <td class='align-left'></td>
+                <td colspan='2'></td>
                 <td class='align-left'>Prix TTC :</td>
-                <td class='align-left'>$ttc</td>
+                <td class='align-right'>$ttc</td>
             </tr>
             <tr>
-                <td colspan='1'></td>
-                <td colspan='2'><hr></td>
+                <td colspan='4'><hr></td>
             </tr>
             <tr>
-                <td>Commentaires : $commentaire</td>
+                <td>$commentaire</td>
             </tr>
         </tfoot>
-    </table>";
+    </table>
+    <p>Le devis est valable 1 mois.</p>
+    <p>Bon pour accord :</p>";
 
 
     $htmlFooter = '<div class="footer">
-            <img src="../../asset/img/logo-LB-footer.png" alt="logo">
             <h3>Pompes Funèbres <span class="blue">Le Baron.</span></h3>
             <p>2 Rte de Maltot 14930 Vieux, 02.31.26.91.75 7j/7 et 24h/24.</p>
             <p class="siret grey">N° Habilitation : 22 14 0043. Siret : 380 431 601 00018 - APE 9603Z.</p>
@@ -219,8 +203,10 @@ $htmlDevis .= "
 }
 // Instanciez mPDF
 $mpdf = new \Mpdf\Mpdf([
-    'margin_top' => 10,
-    'margin_bottom' => 10,
+    'margin_top' => 0,
+    'margin_bottom' => 0,
+    'default_font_size' => 10,
+
 ]);
 $mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
 $pdfPath = './devis-prevoyance-' . $idEstimate . '.pdf';

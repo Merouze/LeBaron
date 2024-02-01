@@ -65,26 +65,31 @@ if ($idEstimate && count($resultats) > 0) {
                             <tr>
                                 <th>Désignation</th>
                                 <th>Frais avancés</th>
-                                <th>Prix H.T.</th>
+                                <th>Prix H.T. à 10%</th>
+                                <th>Prix H.T. à 20%</th>
                                 <th>Ajouter une ligne</th>
                             </tr>
                         </thead>
                         <tbody id="devisBody">
-                        <tr id="row1">
-    <td><input type="text" name="designation"></td>
-    <td><input type="text" name="frais_avances"></td>
-    <td><input type="text" name="prix_ht"></td>
-    <td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>
-</tr>
+                            <tr id="row1">
+                                <td><input type="text" name="designation"></td>
+                                <td><input type="text" name="frais_avances"></td>
+                                <td><input type="text" name="prix_ht_10"></td>
+                                <td><input type="text" name="prix_ht_20"></td>
+                                <td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>
+                            </tr>
 
                         </tbody>
                         <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
                             <td style="visibility: hidden;">&nbsp;</td>
                             <td>Total HT</td>
                             <td><input type="text" name="total_ht"></td>
                             <td style="visibility: hidden;">&nbsp;</td>
                         </tr>
+                        
                         <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
                             <td style="visibility: hidden;">&nbsp;</td>
                             <td>TVA à 10%</td>
                             <td><input type="text" name="tva_10"></td>
@@ -92,17 +97,20 @@ if ($idEstimate && count($resultats) > 0) {
                         </tr>
                         <tr>
                             <td style="visibility: hidden;">&nbsp;</td>
+                            <td style="visibility: hidden;">&nbsp;</td>
                             <td>TVA à 20%</td>
                             <td><input type="text" name="tva_20"></td>
                             <td style="visibility: hidden;">&nbsp;</td>
                         </tr>
                         <tr>
                             <td style="visibility: hidden;">&nbsp;</td>
+                            <td style="visibility: hidden;">&nbsp;</td>
                             <td>Frais avancés</td>
                             <td><input type="text" name="total_frais_avances"></td>
                             <td style="visibility: hidden;">&nbsp;</td>
                         </tr>
                         <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
                             <td style="visibility: hidden;">&nbsp;</td>
                             <td>TTC</td>
                             <td><input type="text" name="ttc"></td>
@@ -151,7 +159,8 @@ if ($idEstimate && count($resultats) > 0) {
             // Ajoutez des cellules avec des champs d'entrée uniques
             newRow.innerHTML = '<td><input type="text" name="dynamicFields[' + rowCount + '][designation]"></td>' +
                 '<td><input type="text" name="dynamicFields[' + rowCount + '][frais_avances]"></td>' +
-                '<td><input type="text" name="dynamicFields[' + rowCount + '][prix_ht]"></td>' +
+                '<td><input type="text" name="dynamicFields[' + rowCount + '][prix_ht_10]"></td>' +
+                '<td><input type="text" name="dynamicFields[' + rowCount + '][prix_ht_20]"></td>' +
                 '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
 
             // Ajoutez la nouvelle ligne à la fin du corps du tableau
