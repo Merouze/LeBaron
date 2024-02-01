@@ -2,11 +2,8 @@
 <?php include './_includes/_head.php' ?>
 <!-- // ----- # check-login # ----- // -->
 <?php include './_includes/_check-login.php' ?>
+
 <?php
-
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
 $idEstimate = isset($_GET['idEstimate']) ? $_GET['idEstimate'] : null;
 // var_dump($idEstimate);
 // Exécuter la requête de recherche dans la base de données
@@ -73,12 +70,13 @@ if ($idEstimate && count($resultats) > 0) {
                             </tr>
                         </thead>
                         <tbody id="devisBody">
-                            <tr id="row1">
-                                <td><input type="text" name="designation"></td>
-                                <td><input type="text" name="frais_avances"></td>
-                                <td><input type="text" name="prix_ht"></td>
-                                <td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>
-                            </tr>
+                        <tr id="row1">
+    <td><input type="text" name="designation"></td>
+    <td><input type="text" name="frais_avances"></td>
+    <td><input type="text" name="prix_ht"></td>
+    <td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>
+</tr>
+
                         </tbody>
                         <tr>
                             <td style="visibility: hidden;">&nbsp;</td>
@@ -101,7 +99,7 @@ if ($idEstimate && count($resultats) > 0) {
                         <tr>
                             <td style="visibility: hidden;">&nbsp;</td>
                             <td>Frais avancés</td>
-                            <td><input type="text" name="frais_avances"></td>
+                            <td><input type="text" name="total_frais_avances"></td>
                             <td style="visibility: hidden;">&nbsp;</td>
                         </tr>
                         <tr>
@@ -119,16 +117,6 @@ if ($idEstimate && count($resultats) > 0) {
             </div>
             <button type="submit" formtarget="_blank" name="submitPDF">Voir la version PDF</button>
         </form>
-
-        <!-- <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-prev.php">
-            <div>
-                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-                <label class="bold" for="commentaire">Commentaire :</label>
-                <textarea rows="6" id="commentaire" name="commentaire"></textarea>
-            </div>
-            <button type="submit" formtarget="_blank" name="submitPDF">Voir la version PDF</button>
-        </form> -->
         <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
             <div>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
@@ -147,22 +135,23 @@ if ($idEstimate && count($resultats) > 0) {
 </section>
 
 <script>
+    // *************************************
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.addRow').addEventListener('click', function() {
             addRow();
         });
 
         function addRow() {
-            // Obtenez le nombre actuel de lignes
-            let rowCount = document.getElementById('devisBody').rows.length;
-
             // Créez un nouvel élément de ligne
             let newRow = document.createElement('tr');
 
+            // Obtenez le nombre actuel de lignes
+            let rowCount = document.querySelectorAll('#devisBody tr').length;
+
             // Ajoutez des cellules avec des champs d'entrée uniques
-            newRow.innerHTML = '<td><input type="text" name="designation' + rowCount + '"></td>' +
-                '<td><input type="text" name="frais_avances' + rowCount + '"></td>' +
-                '<td><input type="text" name="prix_ht' + rowCount + '"></td>' +
+            newRow.innerHTML = '<td><input type="text" name="dynamicFields[' + rowCount + '][designation]"></td>' +
+                '<td><input type="text" name="dynamicFields[' + rowCount + '][frais_avances]"></td>' +
+                '<td><input type="text" name="dynamicFields[' + rowCount + '][prix_ht]"></td>' +
                 '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
 
             // Ajoutez la nouvelle ligne à la fin du corps du tableau
@@ -175,45 +164,31 @@ if ($idEstimate && count($resultats) > 0) {
         }
     });
 
+
     // document.addEventListener('DOMContentLoaded', function() {
     //     document.querySelector('.addRow').addEventListener('click', function() {
     //         addRow();
     //     });
 
     //     function addRow() {
-    //         let tbody = document.getElementById('devisBody');
-    //         let newRow = tbody.insertRow();
+    //         // Obtenez le nombre actuel de lignes
+    //         let rowCount = document.getElementById('devisBody').rows.length;
 
-    //         // Colonnes de la nouvelle ligne
-    //         let cell1 = newRow.insertCell(0);
-    //         let cell2 = newRow.insertCell(1);
-    //         let cell3 = newRow.insertCell(2);
-    //         let cell4 = newRow.insertCell(3);
+    //         // Créez un nouvel élément de ligne
+    //         let newRow = document.createElement('tr');
 
-    //         // Contenu des cellules
-    //         cell1.innerHTML = '<input type="text" name="designation">';
-    //         cell2.innerHTML = '<input type="text" name="frais_avances">';
-    //         cell3.innerHTML = '<input type="text" name="prix_ht">';
-    //         // cell4.innerHTML = '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
+    //         // Ajoutez des cellules avec des champs d'entrée uniques
+    //         newRow.innerHTML = '<td><input type="text" name="designation' + rowCount + '"></td>' +
+    //             '<td><input type="text" name="frais_avances' + rowCount + '"></td>' +
+    //             '<td><input type="text" name="prix_ht' + rowCount + '"></td>' +
+    //             '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
 
-    //         // Ajouter un écouteur d'événement au nouveau bouton
-    //         cell4.querySelector('.addRow').addEventListener('click', function() {
+    //         // Ajoutez la nouvelle ligne à la fin du corps du tableau
+    //         document.getElementById('devisBody').appendChild(newRow);
+
+    //         // Ajoutez un écouteur d'événement au nouveau bouton
+    //         newRow.querySelector('.addRow').addEventListener('click', function() {
     //             addRow();
-
-    //             // Obtenez le nombre actuel de lignes
-    //             let rowCount = document.getElementById('devisBody').rows.length;
-
-    //             // Créez un nouvel élément de ligne
-    //             let newRow = document.createElement('tr');
-
-    //             // Ajoutez des cellules avec des champs d'entrée uniques
-    //             newRow.innerHTML = '<td><input type="text" name="designation' + rowCount + '"></td>' +
-    //                 '<td><input type="text" name="frais_avances' + rowCount + '"></td>' +
-    //                 '<td><input type="text" name="prix_ht' + rowCount + '"></td>' +
-    //                 '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
-
-    //             // Ajoutez la nouvelle ligne à la fin du corps du tableau
-    //             document.getElementById('devisBody').appendChild(newRow);
     //         });
     //     }
     // });
