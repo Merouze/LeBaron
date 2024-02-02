@@ -10,70 +10,203 @@ $resultat = $sqlDisplay->fetch(PDO::FETCH_ASSOC);
 
 $dateDemande = new DateTime($resultat['date_demande']);
 $dateFormatee = $dateDemande->format('d/m/Y');
+
+$dateDay = date('Y-m-d');
+$dateDemande = new DateTime($dateDay);
+$dateDayFormatee = $dateDemande->format('d/m/Y');
+
 // var_dump($_POST);
-// exit
+// exit;
 // Génération du contenu stylisé du PDF pour les condoléances
-$htmlCondolences = '<style>
-    
-    .blue {
-        color: #039DB5;
-    }
-    .grey {
-        color: #353031;
-    }
-    .bold {
-        font-weight: bold;
-    }
-    .align-right {
-        text-align: right;
-    }
-    .align-center {
-        text-align: center;
-    }
-    .footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-    }
-</style>';
-$htmlCondolences .= '<div>
-                        <img src="../../asset/img/logo-LB.png" alt="logo">
-                            <div class="align-right">
-                                <h2>Pompes Funèbres <span class="blue">Le Baron</span></h2>
-                                    <p>02.31.26.91.75 7j/7 et 24h/24</p>
-                                    <p>2 Rte de Maltot 14930 Vieux.</p>
-                            </div>
-                    </div>';
-$htmlCondolences .= '<h1>Demande <span class="blue">devis :</span></h1>';
-$htmlCondolences .= '<div class="text-align">
+$htmlCondolences = '
+<style>
+.blue {
+    color: #039DB5;
+}
+.grey {
+    color: #353031;
+}
+.bold {
+    font-weight: bold;
+}
+.align-right {
+    text-align: right;
+}
+.align-left {
+    text-align: left;
+}
+.align-center {
+    text-align: center;
+}
+.siret {
+    font-size: 10px;
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.width {
+    width: 100%;
+}
+.hidden {
+    display: none;
+}
+.border {
+    border: 2px solid #039DB5;
+}
+.border-in {
+    border: 1px solid #333;
+}
+</style>
+
+<div>
+<img src="../../asset/img/logo-LB.png" alt="logo">
+<div class="align-right">
+        <h2>Pompes Funèbres <span class="blue">Le Baron</span></h2>
+        <p>02.31.26.91.75 7j/7 et 24h/24.</p>
+        <p>2 Rte de Maltot 14930 Vieux.</p>
+        <p>Le <span class="blue bold">' . $dateDayFormatee . ',</span></p>
+        <p>Id. devis : <span class="blue bold">' . $idEstimate . '.</span></p>
+    </div>
+</div>
+
+<div class="text-align">
     <p><span class="bold">' . $resultat['firstname'] . '</span> <span class="bold blue">' . $resultat['lastname'] . '</span> ;</p>
     <p>Voici notre proposition suite à votre demande en date du <span class="bold blue">' . $dateFormatee . '.</span></p>
-    <p>N\'hésitez pas à revenir vers nous pour plus d\'information.</p>
-</div>';
+</div>
+';
 
+// Vérifiez si le formulaire a été soumis
+if (isset($_POST['submitPDF'])) {
+    // Récupérez les données des champs statiques
+    $designation = isset($_POST["designation"]) ? $_POST["designation"] : array();
+    $advance = isset($_POST["frais_avances"]) ? $_POST["frais_avances"] : array();
+    $htPrice10 = isset($_POST["prix_ht_10"]) ? $_POST["prix_ht_10"] : array();
+    $htPrice20 = isset($_POST["prix_ht_20"]) ? $_POST["prix_ht_20"] : array();
+    $totalHt = strip_tags($_POST["total_ht"]);
+    $tva10 = strip_tags($_POST["tva_10"]);
+    $tva20 = strip_tags($_POST["tva_20"]);
+    $totalAdvance = strip_tags($_POST["total_frais_avances"]);
+    $ttc = strip_tags($_POST["ttc"]);
+    $commentaire = 'Détails : ' . strip_tags($_POST["commentaire"]);
+    $staticFields = [
+        'designation' => strip_tags($_POST['designation']),
+        'frais_avances' => strip_tags($_POST['frais_avances']),
+        'prix_ht_10' => strip_tags($_POST['prix_ht_10']),
+        'prix_ht_20' => strip_tags($_POST['prix_ht_20']),
+    ];
 
-if (isset($_POST['submitTraitement'])) {
-    // Récupérez les données du formulaire
-    $commentaire = strip_tags($_POST["commentaire"]);
+    // Récupérez les données des champs dynamiques
+    $dynamicFields = isset($_POST["dynamicFields"]) ? $_POST["dynamicFields"] : array();
+
+    // Ajoutez les champs statiques au tableau des champs dynamiques
+    $dynamicFields[] = $staticFields;
+
+    // Traitez maintenant $dynamicFields comme avant
+    foreach ($dynamicFields as $key => $field) {
+        $dynamicFields[$key] = [
+            'designation' => strip_tags($field['designation']),
+            'frais_avances' => strip_tags($field['frais_avances']),
+            'prix_ht_10' => strip_tags($field['prix_ht_10']),
+            'prix_ht_20' => strip_tags($field['prix_ht_20']),
+        ];
+    }
+
+    // var_dump($_POST);
+    // exit;
+
+    // var_dump($dynamicFields);
+    // exit;
 
     // Créez le HTML à convertir en PDF
-    $htmlDevis = "<p><span class='bold'>Proposition : </span>$commentaire</p>";
-    // Ajoutez un style pour ajuster la marge inférieure du contenu du devis
+    $htmlDevis = "
+    <table class='border width'>
+        <thead>
+            <tr>
+                <th class=' align-left'>Désignation</th>
+                <th class=' align-right'>Frais avancés</th>
+                <th class=' align-right'>Prix H.T. à 10%</th>
+                <th class=' align-lerightft'>Prix H.T. à 20%</th>
+            </tr>
+            <tr>
+                <td colspan='4'><hr></td>
+            </tr>
+            <tr>
+               <td colspan='4'></td>
+            </tr>
+        </thead>
+        <tbody>";
+
+    foreach ($dynamicFields as $field) {
+        $htmlDevis .= "
+        <tr>
+            <td>{$field['designation']}</td>
+            <td class='align-right'>{$field['frais_avances']}</td>
+            <td class='align-right'>{$field['prix_ht_10']}</td>
+            <td class='align-right'>{$field['prix_ht_20']}</td>
+        </tr>";
+    }
+
+    $htmlDevis .= "
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan='4'><hr></td>
+        </tr>
+            <tr class='border'>
+                <td colspan='2'></td>
+                <td class='align-left'>Total HT :</td>
+                <td class='align-right'>$totalHt</td>
+            </tr>
+            <tr>
+                <td colspan='2'></td>
+                <td class='align-left'>TVA à 10% :</td>
+                <td class='align-right'>$tva10</td>
+            </tr>
+            <tr>
+                <td colspan='2'></td>
+                <td class='align-left'>TVA à 20% :</td>
+                <td class='align-right'>$tva20</td>
+            </tr>
+            <tr>
+                <td colspan='2'></td>
+                <td class='align-left'>Frais avancés global :</td>
+                <td class='align-right'>$totalAdvance</td>
+            </tr>
+        
+            <tr>
+                <td colspan='2'></td>
+                <td class='align-left'>Prix TTC :</td>
+                <td class='align-right'>$ttc</td>
+            </tr>
+            <tr>
+                <td colspan='4'><hr></td>
+            </tr>
+            <tr>
+                <td>$commentaire</td>
+            </tr>
+        </tfoot>
+    </table>
+    <p>Le devis est valable 1 mois.</p>
+    <p>Bon pour accord :</p>";
+
 
     $htmlFooter = '<div class="footer">
-    <img src="../../asset/img/logo-LB-footer.png" alt="logo">
-        <h3>Pompes Funèbres <span class="blue">Le Baron.</span></h3>
-           2 Rte de Maltot 14930 Vieux, 02.31.26.91.75 7j/7 et 24h/24.
-           </div>';
- 
+            <h3>Pompes Funèbres <span class="blue">Le Baron.</span></h3>
+            <p>2 Rte de Maltot 14930 Vieux, 02.31.26.91.75 7j/7 et 24h/24.</p>
+            <p class="siret grey">N° Habilitation : 22 14 0043. Siret : 380 431 601 00018 - APE 9603Z.</p>
+            </div>';
+}
+// Instanciez mPDF
+$mpdf = new \Mpdf\Mpdf([
+    'margin_top' => 0,
+    'margin_bottom' => 0,
+    'default_font_size' => 10,
 
-    // Instanciez mPDF
-    // $mpdf = new \Mpdf\Mpdf();
-    $mpdf = new \Mpdf\Mpdf([
-        'margin_top' => 10,
-        'margin_bottom' => 10,
-    ]);
+]);
     $mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
     $pdfPath = './devis-marbrerie-' . $idEstimate . '.pdf';
     // En-têtes pour indiquer que le contenu est un fichier PDF
@@ -86,4 +219,4 @@ if (isset($_POST['submitTraitement'])) {
     $pdfContent = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
     // Stockez le contenu dans une variable de session
     $_SESSION['pdf_content_' . $idEstimate] = $pdfContent;
-}
+

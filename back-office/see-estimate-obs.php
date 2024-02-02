@@ -83,7 +83,7 @@ if ($idEstimate && count($resultats) > 0) {
     </div>
     <div>
     <div>
-        <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-prev.php">
+        <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-obs.php">
             <div>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                 <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
