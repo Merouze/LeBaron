@@ -29,7 +29,7 @@ if ($idEstimate && count($resultats) > 0) {
 ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
-<!-- section header title -->
+<h1 class="tittle grey text-align">Devis au nom de <span class="bold blue"><?= $resultat['nom'] . ' ' . $resultat['prenom']?>.</span></h1>
 
 <section class="infos-estimate">
     <div class="border-check">
@@ -142,65 +142,5 @@ if ($idEstimate && count($resultats) > 0) {
     </div>
 </section>
 
-<script>
-    // *************************************
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelector('.addRow').addEventListener('click', function() {
-            addRow();
-        });
-
-        function addRow() {
-            // Créez un nouvel élément de ligne
-            let newRow = document.createElement('tr');
-
-            // Obtenez le nombre actuel de lignes
-            let rowCount = document.querySelectorAll('#devisBody tr').length;
-
-            // Ajoutez des cellules avec des champs d'entrée uniques
-            newRow.innerHTML = '<td><input type="text" name="dynamicFields[' + rowCount + '][designation]"></td>' +
-                '<td><input type="text" name="dynamicFields[' + rowCount + '][frais_avances]"></td>' +
-                '<td><input type="text" name="dynamicFields[' + rowCount + '][prix_ht_10]"></td>' +
-                '<td><input type="text" name="dynamicFields[' + rowCount + '][prix_ht_20]"></td>' +
-                '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
-
-            // Ajoutez la nouvelle ligne à la fin du corps du tableau
-            document.getElementById('devisBody').appendChild(newRow);
-
-            // Ajoutez un écouteur d'événement au nouveau bouton
-            newRow.querySelector('.addRow').addEventListener('click', function() {
-                addRow();
-            });
-        }
-    });
-
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     document.querySelector('.addRow').addEventListener('click', function() {
-    //         addRow();
-    //     });
-
-    //     function addRow() {
-    //         // Obtenez le nombre actuel de lignes
-    //         let rowCount = document.getElementById('devisBody').rows.length;
-
-    //         // Créez un nouvel élément de ligne
-    //         let newRow = document.createElement('tr');
-
-    //         // Ajoutez des cellules avec des champs d'entrée uniques
-    //         newRow.innerHTML = '<td><input type="text" name="designation' + rowCount + '"></td>' +
-    //             '<td><input type="text" name="frais_avances' + rowCount + '"></td>' +
-    //             '<td><input type="text" name="prix_ht' + rowCount + '"></td>' +
-    //             '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>';
-
-    //         // Ajoutez la nouvelle ligne à la fin du corps du tableau
-    //         document.getElementById('devisBody').appendChild(newRow);
-
-    //         // Ajoutez un écouteur d'événement au nouveau bouton
-    //         newRow.querySelector('.addRow').addEventListener('click', function() {
-    //             addRow();
-    //         });
-    //     }
-    // });
-</script>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>

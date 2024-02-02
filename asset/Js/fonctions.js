@@ -87,5 +87,50 @@ function confirmDelete(idDefunt) {
     }
 }
 
-// *****************************************  ************************************ 
+// *****************************************edd row************************************ 
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.addRow').addEventListener('click', function() {
+        addRow();
+    });
+
+    function addRow() {
+        // Créez un nouvel élément de ligne
+        let newRow = document.createElement('tr');
+
+        // Obtenez le nombre actuel de lignes
+        let rowCount = document.querySelectorAll('#devisBody tr').length;
+
+        // Ajoutez des cellules avec des champs d'entrée uniques
+        newRow.innerHTML = '<td><input type="text" name="dynamicFields[' + rowCount + '][designation]"></td>' +
+            '<td><input type="text" name="dynamicFields[' + rowCount + '][frais_avances]"></td>' +
+            '<td><input type="text" name="dynamicFields[' + rowCount + '][prix_ht_10]"></td>' +
+            '<td><input type="text" name="dynamicFields[' + rowCount + '][prix_ht_20]"></td>' +
+            '<td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>' +
+            '<td class="removeRow"><img src="../asset/img/icons8-delete-30.png" alt="logo-delete"></td>';
+
+        // Ajoutez la nouvelle ligne à la fin du corps du tableau
+        document.getElementById('devisBody').appendChild(newRow);
+
+        // Ajoutez un écouteur d'événement au nouveau bouton d'ajout
+        newRow.querySelector('.addRow').addEventListener('click', function() {
+            addRow();
+        });
+
+        // Ajoutez un écouteur d'événement au nouveau bouton de suppression
+        newRow.querySelector('.removeRow').addEventListener('click', function() {
+            removeRow(newRow);
+        });
+    }
+
+    function removeRow(row) {
+        // Vérifiez s'il y a plus d'une ligne avant de supprimer
+        if (document.querySelectorAll('#devisBody tr').length > 1) {
+            // Supprimez la ligne spécifiée
+            document.getElementById('devisBody').removeChild(row);
+        } else {
+            alert("Vous ne pouvez pas supprimer la dernière ligne.");
+        }
+    }
+});
 

@@ -24,7 +24,7 @@ if ($idEstimate && count($resultats) > 0) {
 ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
-<!-- section header title -->
+<h1 class="tittle grey text-align">Devis au nom de <span class="bold blue"><?= $resultat['lastname'] . ' ' . $resultat['firstname']?>.</span></h1>
 <section class="infos-estimate">
     <div class="infos">
         <div class="border-check">
@@ -55,9 +55,80 @@ if ($idEstimate && count($resultats) > 0) {
         </div>
     </div>
     <div>
-        <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-mar.php">
-            <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+    <div>
+        <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-prev.php">
             <div>
+                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+                <div>
+                    <table id="devisTable">
+                        <thead>
+                            <tr>
+                                <th>Désignation</th>
+                                <th>Frais avancés</th>
+                                <th>Prix H.T. à 10%</th>
+                                <th>Prix H.T. à 20%</th>
+                                <th>Ajouter une ligne</th>
+                            </tr>
+                        </thead>
+                        <tbody id="devisBody">
+                            <tr id="row1">
+                                <td><input type="text" name="designation"></td>
+                                <td><input type="text" name="frais_avances"></td>
+                                <td><input type="text" name="prix_ht_10"></td>
+                                <td><input type="text" name="prix_ht_20"></td>
+                                <td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>
+                            </tr>
+
+                        </tbody>
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>Total HT</td>
+                            <td><input type="text" name="total_ht"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>TVA à 10%</td>
+                            <td><input type="text" name="tva_10"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>TVA à 20%</td>
+                            <td><input type="text" name="tva_20"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>Frais avancés</td>
+                            <td><input type="text" name="total_frais_avances"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                            <td>TTC</td>
+                            <td><input type="text" name="ttc"></td>
+                            <td style="visibility: hidden;">&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <br>
+                <label class="bold" for="commentaire">Commentaire :</label>
+                <textarea rows="6" id="commentaire" name="commentaire"></textarea>
+            </div>
+            <button type="submit" formtarget="_blank" name="submitPDF">Voir la version PDF</button>
+        </form>
+        <!-- <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-mar.php"> -->
+            <!-- Ajoutez les champs nécessaires pour le traitement du devis -->
+            <!-- <div>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                 <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
                 <label class="bold" for="commentaire">Réponse :</label>
@@ -65,7 +136,7 @@ if ($idEstimate && count($resultats) > 0) {
             </div>
             <button type="submit" formtarget="_blank" name="submitTraitement">Générer le PDF</button>
             <br>
-        </form>
+        </form> -->
         <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
             <div>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
