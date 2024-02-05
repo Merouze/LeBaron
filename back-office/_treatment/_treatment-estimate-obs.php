@@ -90,20 +90,20 @@ if (isset($_POST['submitPDF'])) {
     $tva20 = strip_tags($_POST["tva_20"]);
     $totalAdvance = strip_tags($_POST["total_frais_avances"]);
     $ttc = strip_tags($_POST["ttc"]);
-    $commentaire = 'Détails : ' . strip_tags($_POST["commentaire"]);
-    $staticFields = [
-        'designation' => strip_tags($_POST['designation']),
-        'frais_avances' => strip_tags($_POST['frais_avances']),
-        'prix_ht_10' => strip_tags($_POST['prix_ht_10']),
-        'prix_ht_20' => strip_tags($_POST['prix_ht_20']),
-    ];
-
+    $commentaire = strip_tags($_POST["commentaire"]);
     // Récupérez les données des champs dynamiques
-    $dynamicFields = isset($_POST["dynamicFields"]) ? $_POST["dynamicFields"] : array();
-
-    // Ajoutez les champs statiques au tableau des champs dynamiques
-    $dynamicFields[] = $staticFields;
-
+    $dynamicFields = [];
+    // Obtenez le nombre total de champs (peu importe le type)
+    $numFields = count($_POST['designation']);
+    // Itérez sur chaque champ en utilisant son indice
+    for ($i = 0; $i < $numFields; $i++) {
+        $dynamicFields[] = [
+            'designation' => isset($_POST["designation"][$i]) ? strip_tags($_POST["designation"][$i]) : '',
+            'frais_avances' => isset($_POST["frais_avances"][$i]) ? strip_tags($_POST["frais_avances"][$i]) : '',
+            'prix_ht_10' => isset($_POST["prix_ht_10"][$i]) ? strip_tags($_POST["prix_ht_10"][$i]) : '',
+            'prix_ht_20' => isset($_POST["prix_ht_20"][$i]) ? strip_tags($_POST["prix_ht_20"][$i]) : '',
+        ];
+    }
     // Traitez maintenant $dynamicFields comme avant
     foreach ($dynamicFields as $key => $field) {
         $dynamicFields[$key] = [
@@ -113,13 +113,10 @@ if (isset($_POST['submitPDF'])) {
             'prix_ht_20' => strip_tags($field['prix_ht_20']),
         ];
     }
-
     // var_dump($_POST);
     // exit;
-
     // var_dump($dynamicFields);
     // exit;
-
     // Créez le HTML à convertir en PDF
     $htmlDevis = "
     <table class='border width'>
@@ -139,15 +136,15 @@ if (isset($_POST['submitPDF'])) {
         </thead>
         <tbody>";
 
-    foreach ($dynamicFields as $field) {
-        $htmlDevis .= "
-        <tr>
-            <td>{$field['designation']}</td>
-            <td class='align-right'>{$field['frais_avances']}</td>
-            <td class='align-right'>{$field['prix_ht_10']}</td>
-            <td class='align-right'>{$field['prix_ht_20']}</td>
-        </tr>";
-    }
+        foreach ($dynamicFields as $field) {
+            $htmlDevis .= "
+            <tr>
+                <td>{$field['designation']}</td>
+                <td class='align-right'>{$field['frais_avances']}</td>
+                <td class='align-right'>{$field['prix_ht_10']}</td>
+                <td class='align-right'>{$field['prix_ht_20']}</td>
+            </tr>";
+        }
 
     $htmlDevis .= "
         </tbody>
@@ -206,16 +203,16 @@ $mpdf = new \Mpdf\Mpdf([
     'default_font_size' => 10,
 
 ]);
-    $mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
-    $pdfPath = './devis-obsèques-' . $idEstimate . '.pdf';
-    // En-têtes pour indiquer que le contenu est un fichier PDF
-    header('Content-Type: application/pdf');
-    // Affichez le PDF dans le navigateur avec la possibilité de télécharger
-    $mpdf->Output($pdfPath, \Mpdf\Output\Destination::INLINE);
-    // Enregistrez le PDF sur le serveur
-    // $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
-    // Obtenez le contenu du PDF directement dans une variable
-    $pdfContent = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
-    // Stockez le contenu dans une variable de session
-    $_SESSION['pdf_content_' . $idEstimate] = $pdfContent;
-
+$mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
+$pdfPath = './devis-obsèques-' . $idEstimate . '.pdf';
+// En-têtes pour indiquer que le contenu est un fichier PDF
+header('Content-Type: application/pdf');
+// Affichez le PDF dans le navigateur avec la possibilité de télécharger
+$mpdf->Output($pdfPath, \Mpdf\Output\Destination::INLINE);
+// Enregistrez le PDF sur le serveur
+// $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
+// Obtenez le contenu du PDF directement dans une variable
+$pdfContent = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+// Stockez le contenu dans une variable de session
+$_SESSION['pdf_content_' . $idEstimate] = $pdfContent;
+?>

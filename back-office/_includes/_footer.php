@@ -17,8 +17,3 @@
     </footer>
     <button onclick="topFunction()" class="myBtn-top" id="myBtn" title="Go to top"><img src=".././asset/img/en-haut.png" alt="icon-back-top"></button>
 
-    <script src=".././asset/Js/script.js"></script>
-    <script src=".././asset/Js/fonctions.js"></script>
-
-    </html>
-    </body>

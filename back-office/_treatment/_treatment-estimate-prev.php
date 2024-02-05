@@ -3,8 +3,7 @@ require "../../back-office/_includes/_dbCo.php";
 session_start();
 $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
 
-// Exécutez la requête de recherche dans la base de données
-
+// Exécuter la requête de recherche dans la base de données
 $sqlDisplay = $dtLb->prepare("SELECT * FROM devis_prevoyance WHERE id_estimate = :id_estimate");
 $sqlDisplay->execute(['id_estimate' => $idEstimate]);
 $resultat = $sqlDisplay->fetch(PDO::FETCH_ASSOC);
@@ -15,8 +14,7 @@ $dateFormatee = $dateDemande->format('d/m/Y');
 $dateDay = date('Y-m-d');
 $dateDemande = new DateTime($dateDay);
 $dateDayFormatee = $dateDemande->format('d/m/Y');
-
-// var_dump($resultat);
+// var_dump($_POST);
 // exit;
 // Génération du contenu stylisé du PDF pour les condoléances
 $htmlCondolences = '
@@ -92,30 +90,34 @@ if (isset($_POST['submitPDF'])) {
     $tva20 = strip_tags($_POST["tva_20"]);
     $totalAdvance = strip_tags($_POST["total_frais_avances"]);
     $ttc = strip_tags($_POST["ttc"]);
-    $commentaire = 'Détails : ' . strip_tags($_POST["commentaire"]);
-    $staticFields = [
-        'designation' => strip_tags($_POST['designation']),
-        'frais_avances' => strip_tags($_POST['frais_avances']),
-        'prix_ht_10' => strip_tags($_POST['prix_ht_10']),
-        'prix_ht_20' => strip_tags($_POST['prix_ht_20']),
+    $commentaire = strip_tags($_POST["commentaire"]);
+ 
+ // Récupérez les données des champs dynamiques
+$dynamicFields = [];
+
+// Obtenez le nombre total de champs (peu importe le type)
+$numFields = count($_POST['designation']);
+
+// Itérez sur chaque champ en utilisant son indice
+for ($i = 0; $i < $numFields; $i++) {
+    $dynamicFields[] = [
+        'designation' => isset($_POST["designation"][$i]) ? strip_tags($_POST["designation"][$i]) : '',
+        'frais_avances' => isset($_POST["frais_avances"][$i]) ? strip_tags($_POST["frais_avances"][$i]) : '',
+        'prix_ht_10' => isset($_POST["prix_ht_10"][$i]) ? strip_tags($_POST["prix_ht_10"][$i]) : '',
+        'prix_ht_20' => isset($_POST["prix_ht_20"][$i]) ? strip_tags($_POST["prix_ht_20"][$i]) : '',
     ];
+}
 
-    // Récupérez les données des champs dynamiques
-    $dynamicFields = isset($_POST["dynamicFields"]) ? $_POST["dynamicFields"] : array();
-
-    // Ajoutez les champs statiques au tableau des champs dynamiques
-    $dynamicFields[] = $staticFields;
-
-    // Traitez maintenant $dynamicFields comme avant
-    foreach ($dynamicFields as $key => $field) {
-        $dynamicFields[$key] = [
-            'designation' => strip_tags($field['designation']),
-            'frais_avances' => strip_tags($field['frais_avances']),
-            'prix_ht_10' => strip_tags($field['prix_ht_10']),
-            'prix_ht_20' => strip_tags($field['prix_ht_20']),
-        ];
-    }
-
+// Traitez maintenant $dynamicFields comme avant
+foreach ($dynamicFields as $key => $field) {
+    $dynamicFields[$key] = [
+        'designation' => strip_tags($field['designation']),
+        'frais_avances' => strip_tags($field['frais_avances']),
+        'prix_ht_10' => strip_tags($field['prix_ht_10']),
+        'prix_ht_20' => strip_tags($field['prix_ht_20']),
+    ];
+}
+ 
     // var_dump($_POST);
     // exit;
 
@@ -208,14 +210,17 @@ $mpdf = new \Mpdf\Mpdf([
     'default_font_size' => 10,
 
 ]);
-$mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
-$pdfPath = './devis-prevoyance-' . $idEstimate . '.pdf';
-// En-têtes pour indiquer que le contenu est un fichier PDF
-header('Content-Type: application/pdf');
-// header('Content-Disposition: inline; filename="devis-prevoyance-' . $idEstimate . '.pdf"');
-// Affichez le PDF dans le navigateur avec la possibilité de télécharger
-$mpdf->Output($pdfPath, \Mpdf\Output\Destination::INLINE);
-// Obtenez le contenu du PDF directement dans une variable
-$pdfContentPrev = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
-// Stockez le contenu dans une variable de session
-$_SESSION['pdf_content_' . $idEstimate] = $pdfContentPrev;
+    $mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
+    $pdfPath = './devis-prévoyance-' . $idEstimate . '.pdf';
+    // En-têtes pour indiquer que le contenu est un fichier PDF
+    header('Content-Type: application/pdf');
+    // Affichez le PDF dans le navigateur avec la possibilité de télécharger
+    $mpdf->Output($pdfPath, \Mpdf\Output\Destination::INLINE);
+    // Enregistrez le PDF sur le serveur
+    // $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
+    // Obtenez le contenu du PDF directement dans une variable
+    $pdfContent = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    // Stockez le contenu dans une variable de session
+    $_SESSION['pdf_content_' . $idEstimate] = $pdfContent;
+
+?>
