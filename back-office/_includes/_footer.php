@@ -6,9 +6,9 @@
                 <li>|</li>
                 <li><a href="#">Données personnelles</a></li>
                 <li>|</li>
-                <li><a href="#">Cookies</a></li>
-                <li>|</li>
                 <li><a href="#">Mention légales</a></li>
+                <li>|</li>
+                <li><a target="_blank" href=".././index.php">Vers le site</a></li>
             </ul>
         </div>
         <div class="footer-copyright">

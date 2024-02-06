@@ -55,6 +55,13 @@ ul {
     align-items: center;
     max-height: 118px;
 }
+.btn-response {
+    background: #039DB5;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+
+}
 
 @media screen and (max-width: 980px) {
     ul {

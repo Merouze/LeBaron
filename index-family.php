@@ -8,6 +8,7 @@
 // Récupérer l'id_defunt de la session
 $idDefunt = isset($_SESSION['id_defunt']) ? $_SESSION['id_defunt'] : null;
 // Requête pour récupérer les messages de condoléances
+// var_dump($idDefunt);
 $sqlSelectCondolences = $dtLb->prepare("SELECT id_defunt, id_condolence, nom_expditeur, email_expditeur, message, date_envoi, is_published FROM condolences WHERE id_defunt = :id_defunt ORDER BY date_envoi DESC");
 $sqlSelectCondolences->execute(['id_defunt' => $idDefunt]);
 $condolences = $sqlSelectCondolences->fetchAll(PDO::FETCH_ASSOC);

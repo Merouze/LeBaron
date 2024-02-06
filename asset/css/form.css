@@ -22,6 +22,8 @@ h2 {
 label {
     display: block;
     margin-bottom: 5px;
+    color: white;
+    text-shadow: -5px 0px 17px #000000;
 }
 .input-width {
     width: 80%;
@@ -35,9 +37,8 @@ textarea {
     margin-bottom: 10px;
     box-sizing: border-box;
 }
-label {
-    color: white;
-    text-shadow: -5px 0px 17px #000000;
+.label-condolence {
+    color: #353031;
 }
 div {
     margin-bottom: 0px;
@@ -51,7 +52,6 @@ button {
 }
 button:hover {
     background-color: #037b8d;
-    border: 1px solid #353031;
 }
 .main-link{
     margin-bottom: 10px;

@@ -6,12 +6,12 @@
 }
 
 /* Styles spécifiques à l'impression */
-@media print {
+/* @media print {
     .no-print {
         display: none;
     }
 
-}
+} */
 
 .figure {
     color: #039DB5;
@@ -60,6 +60,10 @@ body a {
     list-style-type: none;
     text-decoration: none;
     color: white;
+}
+body p {
+    line-height: 24px;
+
 }
 
 /* text */

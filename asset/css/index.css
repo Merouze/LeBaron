@@ -15,6 +15,11 @@ h1 {
 .subtile {
     padding: 0px 0px 50px 50px;
     font-size: 2.8rem;
+    line-height: 62px;
+
+}
+.line {
+line-height: 14px;
 }
 
 .cta-header-padding {

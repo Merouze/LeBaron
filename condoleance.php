@@ -20,13 +20,13 @@
             <form action="_treatment/_treatment-condolence.php" method="post" id="condoleance-form">
                 <h2>Laissez votre message</h2>
 
-                <label for="name">Nom et Prénom:</label>
+                <label class="label-condolence" for="name">Nom et Prénom:</label>
                 <input class="input-width" type="text" id="name" name="name" placeholder="Votre Nom" required>
 
-                <label for="email">E-mail :</label>
+                <label class="label-condolence" for="email">E-mail :</label>
                 <input class="input-width" type="email" id="email" name="email" placeholder="Votre email" required>
 
-                <label for="message">Message :</label>
+                <label class="label-condolence" for="message">Message :</label>
                 <textarea id="message" name="message" rows="6" placeholder="Votre message" required></textarea>
 
                 <!-- <label for="captcha">Captcha :</label> -->

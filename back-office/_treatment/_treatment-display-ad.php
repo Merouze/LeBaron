@@ -12,10 +12,11 @@ $formatter = new IntlDateFormatter($locale, IntlDateFormatter::FULL, IntlDateFor
 $sqlSelectDefunt = $dtLb->prepare("SELECT * FROM defunt WHERE id_defunt = :idDefunt");
 $sqlSelectDefunt->execute(['idDefunt' => $idDefunt]);
 
+// var_dump($_GET);
+// exit;
 $defunt = $sqlSelectDefunt->fetch(PDO::FETCH_ASSOC);
 // Créer un objet DateTime pour la date de décès
 $deathDate = new DateTime($defunt['date_deces']);
-
 // Formater la date en français
 $dateDeDecesFormattee = $formatter->format($deathDate);
 // Requête SQL pour récupérer les informations du proche principale

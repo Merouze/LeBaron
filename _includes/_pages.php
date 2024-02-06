@@ -131,6 +131,16 @@ $pages = [
 
     ],
     [
+        'name' => 'resp-condolences.php',
+        'file' => 'resp-condolences.php',
+        'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
+        'linkCss' => ['./asset/css/style.css', './asset/css/index.css', './asset/css/nav.css', './asset/css/footer.css', './asset/css/form.css', './asset/css/condoleance.css'],
+        'linkScript' => ['./asset/js/fonctions.js', './asset/js/script.js'],
+        'language' => 'fr',
+        'onNav' => true
+
+    ],
+    [
         'name' => 'condoleance',
         'file' => 'condoleance.php',
         'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',

@@ -8,7 +8,6 @@
 <!-- section header title -->
 <section class="header-pages">
 </section>
-
 <h1 class="display grey text-align padding-title">Avis de <span class="blue">décès</span></h1>
 <!-- section obituary -->
 <section class="avis-deces">

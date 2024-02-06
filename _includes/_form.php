@@ -22,7 +22,7 @@
     </div>
 
     <button type="submit">Envoyer</button>
-    <p>Vos données personnelles font l'objet d'un traitement informatique pour répondre à vos demandes d'informations et/ou de devis. Pour en savoir plus et pour exercer vos droits, consultez notre politique de données personnelles.</p>
+    <p class="line">Vos données personnelles font l'objet d'un traitement informatique pour répondre à vos demandes d'informations et/ou de devis. Pour en savoir plus et pour exercer vos droits, consultez notre politique de données personnelles.</p>
 </form>
 
 </section>

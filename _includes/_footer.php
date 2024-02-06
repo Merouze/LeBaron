@@ -6,9 +6,9 @@
                 <li>|</li>
                 <li><a href="#">Données personnelles</a></li>
                 <li>|</li>
-                <li><a href="#">Cookies</a></li>
-                <li>|</li>
                 <li><a href="#">Mention légales</a></li>
+                <li>|</li>
+                <li><a target="_blank" href="./back-office/admin.php">Admin</a></li>
             </ul>
         </div>
         <div class="footer-copyright">
