@@ -51,3 +51,8 @@ var_dump($condolences);
 </div>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes./_footer.php' ?>
+
+<script src="asset/Js/script.js"></script>
+<script src="asset/Js/fonctions.js"></script>
+</body>
+</html>

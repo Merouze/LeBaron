@@ -1,64 +1,47 @@
 <!-- // ----- # HEAD # ----- // -->
-<?php include './_includes/_head.php' ?>
-<!-- // ----- # check-login # ----- // -->
-<?php include './_includes/_check-login.php' ?>
-
-<?php
-$idEstimate = isset($_GET['idEstimate']) ? $_GET['idEstimate'] : null;
-// var_dump($idEstimate);
-// Exécuter la requête de recherche dans la base de données
-$sqlDisplay = $dtLb->prepare("SELECT * FROM devis_prevoyance WHERE id_estimate = :id_estimate");
-
-$sqlDisplay->execute(['id_estimate' => $idEstimate]); // Utilisez un tableau associatif pour lier les paramètres
-
-// Récupérer les résultats après l'exécution de la requête
-$resultats = $sqlDisplay->fetchAll(PDO::FETCH_ASSOC);
-
-// Afficher les résultats uniquement si l'ID est spécifié et si des résultats sont trouvés
-if ($idEstimate && count($resultats) > 0) {
-    $resultat = $resultats[0]; // Prenez le premier résultat, car il devrait y en avoir un seul avec l'ID unique
-    $estimateTraite = ($resultat['traite'] == 1) ? 'Oui' : 'Non';
-    $conditionsAccept = ($resultat['accept_conditions'] == 1) ? 'Oui' : 'Non';
-    // Créer un objet DateTime pour la date de la demande
-    $dateDemande = new DateTime($resultat['date_demande']);
-    $dateBorn = new DateTime($resultat['date_naissance']);
-    // Formater la date en jours/mois/année
-    $dateFormatee = $dateDemande->format('d/m/Y');
-    $dateBornFormatee = $dateBorn->format('d/m/Y');
-}
-?>
+<?php include '../back-office/_includes/_head.php' ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>
-<h1 class="tittle grey text-align">Devis au nom de <span class="bold blue"><?= $resultat['nom'] . ' ' . $resultat['prenom'] ?>.</span></h1>
+<!-- // ----- # check-login # ----- // -->
+<?php include './_includes/_check-login.php' ?>
+<!-- section header title -->
+<section class="header-pages">
+</section>
+<div class="display-flex">
+
+    <h1 class="mb50 display grey text-align padding-title">Espace&nbsp;<span class="blue">facturation</span></h1>
+    <?php
+    // Affichage des notifications ou erreurs
+    if (isset($_SESSION['notif']) && is_array($_SESSION['notif'])) {
+        echo '<span class="mb50 display-flex-center ' . $_SESSION['notif']['type'] . '">' . $_SESSION['notif']['message'] . '</span>';
+        unset($_SESSION['notif']);
+    } elseif (isset($_SESSION['error'])) {
+        echo '<span class="mb50 display-flex-center error">' . $_SESSION['error'] . '</span>';
+        unset($_SESSION['error']);
+    }
+    ?>
+</div>
 
 <section class="infos-estimate">
-    <div class="border-check">
-        <ul class="border-check">
-            <h3>Infos client</h3>
-            <?= '<li><span class="bold">Nom :</span> ' . $resultat['prenom'] . ' ' . $resultat['nom'] . '</li>'; ?>
-            <?= '<li><span class="bold">Situation familiale :</span> ' . $resultat['situation_familiale'] . '</li>'; ?>
-            <?= '<li><span class="bold">Date de naissance :</span> ' . $dateBornFormatee . '</li>'; ?>
-            <?= '<li><span class="bold">Profession :</span> ' . $resultat['profession'] . '</li>'; ?>
-            <?= '<li><span class="bold">Ville :</span> ' . $resultat['ville'] . '</li>'; ?>
-            <?= '<li><span class="bold">Téléphone :</span> ' . $resultat['tel'] . '</li>'; ?>
-            <?= '<li><span class="bold">Email :</span> ' . $resultat['email'] . '</li>'; ?>
-            <?= '<li><span class="bold">Horaire de contact :</span> ' . $resultat['horaire_contact'] . '</li>'; ?>
-            <?= '<li><span class="bold">Message :</span> ' . $resultat['message'] . '</li>'; ?>
-        </ul>
-        <ul class="border-check">
-            <h3>Infos demande</h3>
-            <?= '<li><span class="bold">Type de demande :</span> ' . $resultat['type_demande'] . '</li>'; ?>
-            <?= '<li><span class="bold">Type de contrat :</span> ' . $resultat['type_contrat'] . '</li>'; ?>
-            <?= '<li><span class="bold">Accepte les conditions :</span> ' . $conditionsAccept . '</li>'; ?>
-            <?= '<li><span class="bold">Devis traité :</span> ' . $estimateTraite . '</li>'; ?>
-            <?= '<li><span class="bold">iD devis :</span> ' . $idEstimate . '</li>'; ?>
-        </ul>
-    </div>
+
     <div>
-        <form class="form-estimate" method="post" action="_treatment/_treatment-estimate-prev.php">
+        <form class="form-estimate" method="post" action="_treatment/_treatment-check-bill.php">
             <div>
+                <label class="bold" for="Name">Nom et Prénom :</label>
+                <input type="text" id="name" name="name" required>
+
+                <label class="bold" for="adress">Adresse :</label>
+                <input type="text" id="adress" name="adress" required>
+
+                <label class="bold" for="cP">Code Postal :</label>
+                <input type="text" id="cP" name="cP" required>
+
+                <label class="bold" for="city">Ville :</label>
+                <input type="text" id="city" name="city" required>
+
+                <label class="bold" for="email">E-mail :</label>
+                <input type="email" id="email" name="email" required>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
                 <div>
                     <table id="devisTable">
                         <thead>
@@ -93,8 +76,6 @@ if ($idEstimate && count($resultats) > 0) {
                                 </td>
                             </tr>
                         </tbody>
-
-
                         <tr>
                             <td style="visibility: hidden;">&nbsp;</td>
                             <td style="visibility: hidden;">&nbsp;</td>
@@ -102,7 +83,6 @@ if ($idEstimate && count($resultats) > 0) {
                             <td><input type="text" id="total_ht" name="total_ht"></td>
                             <td style="visibility: hidden;">&nbsp;</td>
                         </tr>
-
                         <tr>
                             <td style="visibility: hidden;">&nbsp;</td>
                             <td style="visibility: hidden;">&nbsp;</td>
@@ -138,25 +118,25 @@ if ($idEstimate && count($resultats) > 0) {
                 <label class="bold" for="commentaire">Commentaire :</label>
                 <textarea rows="6" id="commentaire" name="commentaire"></textarea>
             </div>
-            <button type="submit" formtarget="_blank" name="submitPDF">Générer PDF</button>
+            <!-- <button type="submit" formtarget="_blank" name="submitPDF">Générer PDF</button> -->
+            <br>
+            <button type="submit" name="submitAddBill">Enregistrer</button>
+            <br>
+            <!-- <button type="submit" name="submitSendBill">Enregistrer et envoyer par mail</button> -->
+
         </form>
-        <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
+        <form class="form-estimate" method="post" action="_treatment/_treatment-billing.php">
             <div>
+                <button type="submit" formtarget="_blank" name="submitPDF">Générer PDF</button>
+
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-                <input type="hidden" name="estimateTraite" value="<?= $estimateTraite; ?>" required>
-                <input type="hidden" name="email" value="<?= $resultat['email']; ?>" required>
-                <input type="hidden" name="name" value="<?= $resultat['nom']; ?>" required>
             </div>
-            <button type="submit" name="submitUpdatePrev">Valider et envoyer par mail</button>
         </form>
-        <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
+        <form class="form-estimate" method="post" action="_treatment/_treatment-billing.php">
             <div>
+                <button type="submit" formaction="" name="_treatment/_treatment_add_bill.php">Enregistrer sans envoyer par mail</button>
                 <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-                <input type="hidden" name="estimateTraite" value="<?= $estimateTraite; ?>" required>
             </div>
-            <button type="submit" name="submitTraitePrev">Valider sans envoyer par mail</button>
         </form>
     </div>
 </section>

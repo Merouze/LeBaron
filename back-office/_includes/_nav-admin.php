@@ -38,6 +38,14 @@ $totalDevisMar = $sqlCountMar->fetch(PDO::FETCH_ASSOC)['totalDevisMar'];
     <div class="nav-links">
         <ul>
             <li><a href="./admin.php">Admin</a></li>
+            <li><a href="./see-accounts.php">Comptes familles</a></li>
+            <ul class="dropdown">
+                <li><a href="#">Facturation ▼</a></li>
+                <div class="dropdown-content">
+                    <li><a href="./billing.php">Créer une Facture</a></li>
+                    <li><a href="./see-bills.php">Afficher les Factures</a></li>
+                </div>
+            </ul>
             <ul class="dropdown">
                 <li><a href="#">Avis de décès ▼</a></li>
                 <div class="dropdown-content">

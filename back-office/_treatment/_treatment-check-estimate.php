@@ -4,19 +4,81 @@ session_start();
 
 use \Mailjet\Resources;
 
+// var_dump($_POST);
+// exit;
+
+//****************************** Treatment udpdate
+
+if (isset($_POST['submitTraitePrev'])) {
+    $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
+
+    //   Requête SQL pour mettre à jour le devis
+    $sqlEstimate = $dtLb->prepare("UPDATE devis_prevoyance SET traite = 1 WHERE id_estimate = :id_estimate");
+    $sqlEstimate->execute(['id_estimate' => $idEstimate]);
+    
+    if ($sqlEstimate->rowCount() > 0) {
+        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis classé avec succès'];
+    } else {
+        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Erreur lors du traitement du devis'];
+    }
+
+
+    //   Redirection avec un code de statut approprié
+    header('Location: /LeBaron/back-office/list-devis-prev.php');
+    exit;
+
+}
+
+if (isset($_POST['submitTraiteObs'])) {
+    $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
+
+    //   Requête SQL pour mettre à jour le devis
+    $sqlEstimate = $dtLb->prepare("UPDATE devis_obs SET traite = 1 WHERE id_estimate = :id_estimate");
+    $sqlEstimate->execute(['id_estimate' => $idEstimate]);
+    
+    if ($sqlEstimate->rowCount() > 0) {
+        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis classé avec succès'];
+    } else {
+        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Erreur lors du traitement du devis'];
+    }
+
+
+    //   Redirection avec un code de statut approprié
+    header('Location: /LeBaron/back-office/list-devis-obs.php');
+    exit;
+
+}
+
+if (isset($_POST['submitTraiteMar'])) {
+    $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
+
+    //   Requête SQL pour mettre à jour le devis
+    $sqlEstimate = $dtLb->prepare("UPDATE devis_mar SET traite = 1 WHERE id_estimate = :id_estimate");
+    $sqlEstimate->execute(['id_estimate' => $idEstimate]);
+    
+    if ($sqlEstimate->rowCount() > 0) {
+        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis classé avec succès'];
+    } else {
+        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Erreur lors du traitement du devis'];
+    }
+
+
+    //   Redirection avec un code de statut approprié
+    header('Location: /LeBaron/back-office/list-devis-mar.php');
+    exit;
+
+}
 
 //****************************** Treatment udpdate and send pdf for estimate prev
 
 // Vérifiez si le formulaire a été soumis
 if (isset($_POST['submitUpdatePrev'])) {
     $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
-    // var_dump($_POST);
-    // exit;
     if (($_POST['traited']) == 1) {
         $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis déja envoyé ultérieurement.'];
-    header('Location: /LeBaron/back-office/list-devis-prev.php');
-    exit;
-}
+        header('Location: /LeBaron/back-office/list-devis-prev.php');
+        exit;
+    }
 
 
     $emailDestinataire = strip_tags($_POST["email"]);
@@ -83,12 +145,12 @@ if (isset($_POST['submitUpdatePrev'])) {
 if (isset($_POST['submitUpdateMar'])) {
     // var_dump($_POST);
     // exit;
-    $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;    
+    $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
     if (($_POST['traite']) == 1) {
         $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis déja envoyé ultérieurement.'];
-    header('Location: /LeBaron/back-office/list-devis-mar.php');
-    exit;
-}
+        header('Location: /LeBaron/back-office/list-devis-mar.php');
+        exit;
+    }
 
 
     $emailDestinataire = strip_tags($_POST["email"]);
@@ -154,7 +216,7 @@ if (isset($_POST['submitUpdateMar'])) {
 if (isset($_POST['submitUpdateObs'])) {
     $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
     if (($_POST['traited']) == 1) {
-            $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis déja envoyé ultérieurement.'];
+        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis déja envoyé ultérieurement.'];
         header('Location: /LeBaron/back-office/list-devis-obs.php');
         exit;
     }
@@ -216,7 +278,7 @@ if (isset($_POST['submitUpdateObs'])) {
     } else {
         $_SESSION['notif'] = ['type' => 'error', 'message' => 'Erreur lors du traitement du devis'];
     }
-    
+
 
     //   Redirection avec un code de statut approprié
     header('Location: /LeBaron/back-office/list-devis-obs.php', true, 303);

@@ -22,3 +22,11 @@
 .check-input {
     width: 25px;
 }
+.icon-estimate {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.moveUp, .moveDown {
+    cursor: pointer;
+}

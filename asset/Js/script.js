@@ -25,66 +25,105 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-// *****************************************add row************************************ 
+// *****************************************add row************************************
+function updateTotals() {
+  // Logique de calcul des totaux (à partir du code initial)
+  // ...
+}
 
- document.addEventListener('DOMContentLoaded', function () {
-        // Ajouter un écouteur d'événement au bouton d'ajout initial
-        document.querySelector('.addRow').addEventListener('click', function () {
-            addRow();
-        });
+document.addEventListener('DOMContentLoaded', function () {
+  // Ajouter un écouteur d'événement au bouton d'ajout initial
+  document.querySelector('.addRow').addEventListener('click', function () {
+    addRow();
+  });
 
-        function addRow() {
-            // Créez un nouvel élément de ligne
-            let newRow = document.createElement('tr');
+  function addRow() {
+    // Créez un nouvel élément de ligne
+    let newRow = document.createElement('tr');
 
-            // Ajoutez des cellules avec des champs d'entrée uniques
-            newRow.innerHTML = `
-                <td><input type="text" name="designation[]"></td>
-                <td><input type="text" name="frais_avances[]"></td>
-                <td><input type="text" name="prix_ht_10[]"></td>
-                <td><input type="text" name="prix_ht_20[]"></td>
-                <td class="addRow"><img src="../asset/img/icons8-add-30.png" alt="logo-add"></td>
-                <td class="removeRow"><img src="../asset/img/icons8-delete-30.png" alt="logo-delete"></td>
-            `;
+    // Ajoutez des cellules avec des champs d'entrée uniques
+    newRow.innerHTML = `
+        <td><input type="text" name="designation[]"></td>
+        <td><input type="text" name="frais_avances[]"></td>
+        <td><input type="text" name="prix_ht_10[]"></td>
+        <td><input type="text" name="prix_ht_20[]"></td>
+        <td>
+            <ul class="icon-estimate">
+                <li><img class="addRow" src="../asset/img/icons8-add-30.png" alt="logo-add"></li>
+                <li><img class="moveUp" src="../asset/img/icons8-up-30.png" alt="icons-up"></li>
+                <li><img class="moveDown" src="../asset/img/icons8-down-30.png" alt="icons-down"></li>
+                <li><img class="removeRow" src="../asset/img/icons8-delete-30.png" alt="logo-delete"></li>
+            </ul>
+        </td>
+    `;
 
-            // Ajoutez la nouvelle ligne à la fin du corps du tableau
-            document.getElementById('devisBody').appendChild(newRow);
+    // Ajoutez la nouvelle ligne à la fin du corps du tableau
+    document.getElementById('devisBody').appendChild(newRow);
 
-            // Ajoutez un écouteur d'événement au nouveau bouton d'ajout de la ligne actuelle
-            newRow.querySelector('.addRow').addEventListener('click', function () {
-                addRow();
-            });
+    // Ajoutez un écouteur d'événement au nouveau bouton d'ajout de la ligne actuelle
+    newRow.querySelector('.addRow').addEventListener('click', function () {
+      addRow();
+    });
 
-            // Ajoutez un écouteur d'événement au nouveau bouton de suppression de la ligne actuelle
-            newRow.querySelector('.removeRow').addEventListener('click', function () {
-                removeRow(newRow);
-            });
+    // Ajoutez un écouteur d'événement au nouveau bouton de suppression de la ligne actuelle
+    newRow.querySelector('.removeRow').addEventListener('click', function () {
+      removeRow(newRow);
+    });
 
-            // Ajoutez des écouteurs d'événements aux champs d'entrée de la nouvelle ligne
-            addEventListenersToDynamicFields();
-        }
+    // Ajoutez des écouteurs d'événements aux boutons de déplacement
+    newRow.querySelector('.moveUp').addEventListener('click', function () {
+      moveRowUp(newRow);
+    });
 
-        function removeRow(row) {
-            // Vérifiez s'il y a plus d'une ligne avant de supprimer
-            if (document.querySelectorAll('#devisBody tr').length > 1) {
-                // Supprimez la ligne spécifiée
-                document.getElementById('devisBody').removeChild(row);
-            } else {
-                alert("Vous ne pouvez pas supprimer la dernière ligne.");
-            }
-        }
+    newRow.querySelector('.moveDown').addEventListener('click', function () {
+      moveRowDown(newRow);
+    });
 
-        // Ajoutez des écouteurs d'événements aux champs d'entrée existants
-        addEventListenersToDynamicFields();
+    // Ajoutez des écouteurs d'événements aux champs d'entrée de la nouvelle ligne
+    addEventListenersToDynamicFields();
+  }
 
-        function addEventListenersToDynamicFields() {
-            const dynamicFields = document.querySelectorAll('[name^="designation["], [name^="frais_avances["], [name^="prix_ht_10["], [name^="prix_ht_20["]');
+  function removeRow(row) {
+    // Vérifiez s'il y a plus d'une ligne avant de supprimer
+    if (document.querySelectorAll('#devisBody tr').length > 1) {
+      // Supprimez la ligne spécifiée
+      document.getElementById('devisBody').removeChild(row);
+    } else {
+      alert("Vous ne pouvez pas supprimer la dernière ligne.");
+    }
+  }
 
-            dynamicFields.forEach(function (field) {
-                field.addEventListener('input', updateTotals);
-            });
-        }
-// ***************************************** */ calc For estimate ************************************ 
+  // Fonction pour déplacer une ligne vers le haut
+  function moveRowUp(row) {
+    const previousRow = row.previousElementSibling;
+    if (previousRow) {
+      document.getElementById('devisBody').insertBefore(row, previousRow);
+      updateTotals(); // Mise à jour des totaux après le déplacement
+    }
+  }
+
+  // Fonction pour déplacer une ligne vers le bas
+  function moveRowDown(row) {
+    const nextRow = row.nextElementSibling;
+    if (nextRow) {
+      document.getElementById('devisBody').insertBefore(nextRow, row);
+      updateTotals(); // Mise à jour des totaux après le déplacement
+    }
+  }
+
+  // Ajoutez des écouteurs d'événements aux champs d'entrée existants
+  addEventListenersToDynamicFields();
+
+  function addEventListenersToDynamicFields() {
+    const dynamicFields = document.querySelectorAll('[name^="designation["], [name^="frais_avances["], [name^="prix_ht_10["], [name^="prix_ht_20["]');
+
+    dynamicFields.forEach(function (field) {
+      field.addEventListener('input', updateTotals);
+    });
+  }
+});
+
+// // // ***************************************** */ calc For estimate ************************************ 
 
     function updateTotals() {
         // Récupérer tous les champs dynamiques à nouveau après modification
@@ -135,10 +174,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('total_frais_avances').value = totalAdvance.toFixed(2);
         document.getElementById('ttc').value = ttc.toFixed(2);
     }
-});
-
-
-
 
 
 

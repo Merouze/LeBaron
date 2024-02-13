@@ -3,22 +3,22 @@
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes./_nav.php' ?>
 <section class="header">
-    <h1>POMPES FUNÈBRES <span class="blue">LE BARON</span></h1>
-    <p class="subtile">« Artisan-Marbrier<br>depuis 1966. »</p>
+    <h1><span class="blue">POMPES FUNÈBRES</span> LE BARON</h1>
+    <p class="subtile">« Artisan-Marbrier<br>depuis <span class="blue">1966</span>. »</p>
     <p class="cta-header-padding"><a class="cta-header" href="#section-services">NOS SERVICES ►</a></p>
 </section>
-    <?php
-    // Affichage des notifications ou erreurs
-    if (isset($_SESSION['notif'])) {
-        echo '<span class="mb50 display-flex-center success">' . $_SESSION['notif'] . '</span>';
-        unset($_SESSION['notif']);
-    }
-    if (isset($_SESSION['error'])) {
-        echo '<p class="mb50 display-flex-center error">' . $_SESSION['error'] . '</p>';
-        unset($_SESSION['error']);
-    }
-    // var_dump($_SESSION);
-    ?>
+<?php
+// Affichage des notifications ou erreurs
+if (isset($_SESSION['notif'])) {
+    echo '<span class="mb50 display-flex-center success">' . $_SESSION['notif'] . '</span>';
+    unset($_SESSION['notif']);
+}
+if (isset($_SESSION['error'])) {
+    echo '<p class="mb50 display-flex-center error">' . $_SESSION['error'] . '</p>';
+    unset($_SESSION['error']);
+}
+// var_dump($_SESSION);
+?>
 
 <!-- section presentation -->
 <section class="content">
@@ -88,17 +88,22 @@
 <?php
 // var_dump($_SESSION);
 //         exit;
-        ?>
+?>
 <!-- section obituary -->
 <h2 class="title-obituary">Avis de décès et&nbsp;<span class="blue bold">condoléances</span></h2>
 <section class="obituary">
     <div class="obituary-text">
-    <h2>Avis de décès et <span class="blue bold">condoléances</span></h2>
-    <p class="obituary-p">Consultez les avis de décès émis par les Pompes Funèbres Le Baron sur la région de Caen et communes alentours.
-        Vous pouvez également déposer des condoléances pour témoigner.
-    </p>
-    <p class="obituary-cta"><a class="cta-obituary" href="recherche-avis.php">Consulter</a></p>
-</div>
+        <h2>Avis de décès et <span class="blue bold">condoléances</span></h2>
+        <p class="obituary-p">Consultez les avis de décès émis par les Pompes Funèbres Le Baron sur la région de Caen et communes alentours.
+            Vous pouvez également déposer des condoléances pour témoigner.
+        </p>
+        <p class="obituary-cta"><a class="cta-obituary" href="recherche-avis.php">Consulter</a></p>
+    </div>
 </section>
 
 <?php include './_includes./_footer.php' ?>
+
+<script src="asset/Js/script.js"></script>
+<script src="asset/Js/fonctions.js"></script>
+</body>
+</html>

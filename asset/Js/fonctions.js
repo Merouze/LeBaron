@@ -86,6 +86,15 @@ function confirmDelete(idDefunt) {
         window.location.href = `./_treatment/_delete.php?idDefunt=${idDefunt}`;
     }
 }
+// delete all account users
+function confirmDeleteAll(idDefunt) {
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer les données familiales ?");
+    if (confirmation) {
+        // Si l'utilisateur clique sur OK dans la boîte de dialogue, redirigez vers la page de suppression
+        window.location.href = "_treatment/_delete_family_data.php?idDefunt=" + idDefunt;
+    }
+    // Si l'utilisateur clique sur Annuler, ne faites rien
+}
 // scroll btn 
 function scrollFunction() {
     // Si le défilement est supérieur à 20 pixels, affichez le bouton

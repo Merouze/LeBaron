@@ -60,8 +60,9 @@ if (isset($_POST['message']) && isset($_POST['email'])) {
         // Gestion des erreurs
         $_SESSION['error'] = "Erreur lors de l'envoi de l'e-mail : " . $response->getReasonPhrase();
     }
-    // var_dump($idDefunt, $idCondolences);
-    // exit;
+    
+    header('Location: /LeBaron/condolences-family.php?idDefunt=' . $idDefunt);
+    exit;
 }
 
 ?>
