@@ -29,6 +29,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['idDefunt'])) {
                 .align-center {
                     text-align: center;
                 }
+                .siret {
+                    font-size: 10px;
+                    }
+                    .footer {
+                    position: fixed;
+                    bottom: 0;
+                    width: 100%;
+                    text-align: center;
+                    }
             </style>';
 
 
@@ -53,15 +62,23 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['idDefunt'])) {
             $html .= '</div>';
         }
     }
-    $html .= '<div class="align-center">
-    <img src="../../asset/img/logo-LB-footer.png" alt="logo">
-        <h3>Pompes Funèbres <span class="blue">Le Baron.</span></h3>
-           2 Rte de Maltot 14930 Vieux, 02.31.26.91.75 7j/7 et 24h/24.
-</div>';
+    $html .= '<div class="footer">
+
+    <h2>Pompes Funèbres <span class="blue">Le Baron.</span></h2>
+    <p>TOUS TRAVAUX FUNERAIRES - CAVEAUX - MONUMENTS</p>
+    <p>GRAVURE - ENTRETIEN DES SEPULTURES - ARTICLES FUNERAIRES</p>
+    <p>2 Rte de Maltot 14930 Vieux, 02.31.26.91.75 7j/7 et 24h/24.</p>
+    <p class="siret grey">N° Habilitation : 22 14 0043. Siret : 380 431 601 00018 - APE 9603Z.</p>
+    </div>';
 
     // Instanciez mPDF
-    $mpdf = new \Mpdf\Mpdf();
+    // Instanciez mPDF
+    $mpdf = new \Mpdf\Mpdf([
+        'margin_top' => 0,
+        'margin_bottom' => 0,
+        'default_font_size' => 10,
 
+    ]);
     // Ajoutez le HTML au document
     $mpdf->WriteHTML($html);
 

@@ -52,8 +52,6 @@ if (isset($_SESSION['search_results'])) {
 }
 ?>
 <section>
-
-
     <form method="post" action="_treatment/_search_accounts.php">
         <h3>Rechercher par le Nom/Prénom du défunt, <p>ou l'adresse mail famille :</p>
         </h3>

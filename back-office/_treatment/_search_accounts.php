@@ -7,10 +7,6 @@ session_start();
 if (isset($_GET['idDefunt'])) {
     $idDefunt = $_GET['idDefunt'];
 
-   // _treatment/_delete_family_data.php
-
-require "../../back-office/_includes/_dbCo.php";
-
 if (isset($_GET['idDefunt'])) {
     $idDefunt = $_GET['idDefunt'];
     // var_dump($idDefunt);

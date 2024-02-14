@@ -139,18 +139,6 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
     echo '</ul>';
     ?>
 </section>
-
-<script>
-    function confirmDelete(idDefunt) {
-        // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
-        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet avis de décès ?");
-
-        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id du défunt
-        if (confirmation) {
-            window.location.href = `./_treatment/_delete.php?idDefunt=${idDefunt}`;
-        }
-    }
-</script>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>
 

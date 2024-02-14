@@ -93,6 +93,14 @@ function confirmDeleteAll(idDefunt) {
         // Si l'utilisateur clique sur OK dans la boîte de dialogue, redirigez vers la page de suppression
         window.location.href = "_treatment/_delete_family_data.php?idDefunt=" + idDefunt;
     }
+}
+// delete bill
+function confirmDeleteBill(idBill) {
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer les données de cette factures ?");
+    if (confirmation) {
+        // Si l'utilisateur clique sur OK dans la boîte de dialogue, redirigez vers la page de suppression
+        window.location.href = "_treatment/_delete_bill.php?idBill=" + idBill;
+    }
     // Si l'utilisateur clique sur Annuler, ne faites rien
 }
 // scroll btn 

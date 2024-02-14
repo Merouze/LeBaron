@@ -118,25 +118,9 @@
                 <label class="bold" for="commentaire">Commentaire :</label>
                 <textarea rows="6" id="commentaire" name="commentaire"></textarea>
             </div>
-            <!-- <button type="submit" formtarget="_blank" name="submitPDF">Générer PDF</button> -->
+            <button type="submit" formtarget="_blank" name="submitPDF">Visualiser PDF</button>
             <br>
             <button type="submit" name="submitAddBill">Enregistrer</button>
-            <br>
-            <!-- <button type="submit" name="submitSendBill">Enregistrer et envoyer par mail</button> -->
-
-        </form>
-        <form class="form-estimate" method="post" action="_treatment/_treatment-billing.php">
-            <div>
-                <button type="submit" formtarget="_blank" name="submitPDF">Générer PDF</button>
-
-                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-            </div>
-        </form>
-        <form class="form-estimate" method="post" action="_treatment/_treatment-billing.php">
-            <div>
-                <button type="submit" formaction="" name="_treatment/_treatment_add_bill.php">Enregistrer sans envoyer par mail</button>
-                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-            </div>
         </form>
     </div>
 </section>

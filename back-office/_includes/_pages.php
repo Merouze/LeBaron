@@ -204,8 +204,18 @@ $pages = [
     
         ],
         [
-            'name' => 'see-bills.php',
-            'file' => 'see-bills.php',
+            'name' => 'see-bill.php',
+            'file' => 'see-bill.php',
+            'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
+            'linkCss' => ['.././asset/css/style.css', '.././asset/css/index.css', '.././asset/css/nav.css', '.././asset/css/footer.css', '.././asset/css/form.css','.././asset/css/condoleance.css', '.././asset/css/devis.css', '.././asset/css/admin.css'],
+            'linkScript' => ['.././asset/js/fonctions.js', '.././asset/js/script.js'],
+            'language' => 'fr',
+            'onNav' => true
+    
+        ],
+        [
+            'name' => 'see-list-bills.php',
+            'file' => 'see-list-bills.php',
             'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
             'linkCss' => ['.././asset/css/style.css', '.././asset/css/index.css', '.././asset/css/nav.css', '.././asset/css/footer.css', '.././asset/css/form.css','.././asset/css/condoleance.css', '.././asset/css/devis.css', '.././asset/css/admin.css'],
             'linkScript' => ['.././asset/js/fonctions.js', '.././asset/js/script.js'],
