@@ -5,7 +5,7 @@ require "../../back-office/_includes/_dbCo.php";
 $dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 session_start();
-$_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+// $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 
 try {
     // var_dump($_POST);

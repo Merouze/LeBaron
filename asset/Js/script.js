@@ -25,11 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-// *****************************************add row************************************
-function updateTotals() {
-  // Logique de calcul des totaux (à partir du code initial)
-  // ...
-}
+// *****************************************add row estimate and billing************************************
 
 document.addEventListener('DOMContentLoaded', function () {
   // Ajouter un écouteur d'événement au bouton d'ajout initial
@@ -93,21 +89,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Fonction pour déplacer une ligne vers le haut
   function moveRowUp(row) {
     const previousRow = row.previousElementSibling;
     if (previousRow) {
       document.getElementById('devisBody').insertBefore(row, previousRow);
       updateTotals(); // Mise à jour des totaux après le déplacement
+    } else {
+      console.log('Avertissement : Impossible de déplacer vers le haut');
     }
   }
-
-  // Fonction pour déplacer une ligne vers le bas
+  
   function moveRowDown(row) {
     const nextRow = row.nextElementSibling;
     if (nextRow) {
       document.getElementById('devisBody').insertBefore(nextRow, row);
       updateTotals(); // Mise à jour des totaux après le déplacement
+    } else {
+      console.log('Avertissement : Impossible de déplacer vers le bas');
     }
   }
 

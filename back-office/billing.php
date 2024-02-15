@@ -64,14 +64,14 @@
                                         <li>
                                             <img class="addRow" src="../asset/img/icons8-add-30.png" alt="logo-add">
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <img class="moveUp" src="../asset/img/icons8-up-30.png" alt="icons-up">
 
                                         </li>
                                         <li>
                                             <img class="moveDown" src="../asset/img/icons8-down-30.png" alt="icons-down">
 
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </td>
                             </tr>
@@ -113,7 +113,6 @@
                         </tr>
                     </table>
                 </div>
-                <br>
                 <br>
                 <label class="bold" for="commentaire">Commentaire :</label>
                 <textarea rows="6" id="commentaire" name="commentaire"></textarea>

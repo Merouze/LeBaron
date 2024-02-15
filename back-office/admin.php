@@ -4,6 +4,8 @@
 <?php include './_includes/_nav-admin.php' ?>
 <!-- // ----- # check-login # ----- // -->
 <?php include './_includes/_check-login.php' ?>
+<!-- // ----- # check-login # ----- // -->
+<?php include './_includes/_see-count-estimate-condolence.php' ?>
 <!-- section header title -->
 <section class="header-pages">
 </section>
@@ -26,6 +28,9 @@
     unset($_SESSION['error']);
 }
     ?>
+       <div class="text-align">
+        <h2>Vous avez <span class="blue"><?= $totalDevisPrev + $totalDevisObs + $totalDevisMar; ?> </span>devis à traiter, et <span class="blue"><?= $totalCondolences ?></span> condoléance(s) à vérifié.</h2>
+    </div>
 </div>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>
