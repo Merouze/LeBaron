@@ -65,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" id="password" name="password" required>
         <button type="submit">Se connecter</button>
     </form>
+    <p class="text-align"><a class="grey" href="forget-password.php">Mot de passe oublié</a></p>
 </section>
 
 <!-- // ----- # FOOTER # ----- // -->

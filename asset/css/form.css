@@ -62,6 +62,19 @@ button:hover {
     width: 50%;
 
 }
+/* display Icon for see password */
+label input:focus {
+    border-color: #ff4754;
+  }
+
+  label .password-icon:hover {
+    cursor: pointer;
+    color: #ff4754;
+  }
+  
+  label .password-icon .feather-eye-off {
+    display: none;
+  }
 /* Responsive styles for mobile */
 @media screen and (max-width: 600px) {
     /* .form{
