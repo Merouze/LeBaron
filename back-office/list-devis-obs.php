@@ -37,12 +37,13 @@ $totalDevis = $sqlCount->fetch(PDO::FETCH_ASSOC)['totalDevis'];
 <!-- section header title -->
 <?php
 // Display notifs
-if (isset($_SESSION["notif"])) {
+if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
     $notifType = $_SESSION["notif"]["type"];
     $notifMessage = $_SESSION["notif"]["message"];
     echo '<div class="notification ' . $notifType . '">' . $notifMessage . '</div>';
     unset($_SESSION['notif']);
 }
+
 ?>
 <section class="header-pages">
 </section>

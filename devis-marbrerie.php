@@ -44,7 +44,7 @@
             </label>
             <!-- type monument -->
             <label for="type-monument">
-                <h4>Type de monument <span class="red">*</span></h4>
+                <h4>Type de travaux <span class="red">*</span></h4>
             </label>
             <label>
                 <input class="input-radio" type="radio" name="type-monument" value="caveau" required>

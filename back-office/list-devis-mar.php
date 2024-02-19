@@ -32,13 +32,13 @@ $totalDevis = $sqlCount->fetch(PDO::FETCH_ASSOC)['totalDevis'];
 ?>
 <?php
 // var_dump($_SESSION);
-// Display notifs
-if (isset($_SESSION["notif"])) {
+if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
     $notifType = $_SESSION["notif"]["type"];
     $notifMessage = $_SESSION["notif"]["message"];
     echo '<div class="notification ' . $notifType . '">' . $notifMessage . '</div>';
     unset($_SESSION['notif']);
 }
+
 ?>
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes/_nav-admin.php' ?>

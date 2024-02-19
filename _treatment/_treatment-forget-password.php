@@ -1,16 +1,15 @@
 <?php
 require ".././back-office/_includes/_dbCo.php";
-
 session_start();
 // var_dump($_POST);
 // exit;
 ?>
-
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['email'])) {
         $email = strip_tags($_POST['email']);
         $password = strip_tags($_POST['new-password']);
+        
         $confirmPassword = strip_tags($_POST['confirm-new-password']);
 
         // Rechercher l'utilisateur dans la base de données
@@ -25,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $queryUpdate = $dtLb->prepare("UPDATE user_famille SET mot_de_passe = :password WHERE email = :email");
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $queryUpdate->execute([
+                
                 'password' => $hashedPassword,
                 'email' => $email
             ]);
