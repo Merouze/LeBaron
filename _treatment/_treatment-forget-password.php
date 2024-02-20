@@ -5,8 +5,10 @@ session_start();
 // exit;
 ?>
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['email'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST'  && isset($_POST['token'])) {
+    $token = strip_tags($_POST['token']);
+
+    if (isset($_POST['email']) && $token === $_SESSION['myToken']) {
         $email = strip_tags($_POST['email']);
         $password = strip_tags($_POST['new-password']);
         

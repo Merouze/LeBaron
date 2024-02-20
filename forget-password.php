@@ -7,7 +7,6 @@
 </section>
 <h1 class="display grey text-align padding-title">Récupération de l'espace&nbsp;<span class="blue">Famille</span></h1>
 <section class="form-co">
-    <form class="connexion" action="_treatment/_treatment-forget-password.php" method="post">
         <?php
 
         // Affichage des notifications ou erreurs
@@ -20,6 +19,7 @@
             unset($_SESSION['error']);
         }
         ?>
+    <form class="connexion" action="_treatment/_treatment-forget-password.php" method="post">
         <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
         <label class="label" for="email">Adresse e-mail:</label>
         <input type="email" id="email" name="email" required>
@@ -52,13 +52,13 @@ const eyeoff = document.querySelector(".feather-eye-off");
 const passwordField = document.querySelector("input[type=password]");
 eye.addEventListener("click", () => {
   eye.style.display = "none";
-  eyeoff.style.display = "block";
+  eyeoff.style.display = "flex";
   passwordField.type = "text";
 });
 
 eyeoff.addEventListener("click", () => {
   eyeoff.style.display = "none";
-  eye.style.display = "block";
+  eye.style.display = "flex";
   passwordField.type = "password";
 });
 </script>

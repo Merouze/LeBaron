@@ -2,34 +2,48 @@
 <?php include './_includes/_head.php' ?>
 <?php
 // Vérifier si le formulaire de recherche a été soumis
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche']) && isset($_GET['token'])) {
     // Nettoyer et récupérer la valeur du champ de recherche
     $recherche = strip_tags($_GET['recherche']);
-    // Exécuter la requête de recherche dans la base de données
-    $sqlSearch = $dtLb->prepare("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
-    FROM ceremonie c
-    JOIN defunt d ON c.id_defunt = d.id_defunt WHERE nom_prenom_defunt LIKE :recherche");
-    $sqlSearch->execute(['recherche' => "%$recherche%"]);
-    $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
-    // Vérifier s'il y a des résultats
-    if ($sqlSearch->rowCount() > 0) {
-        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Résultat trouvé.'];
+    $token = strip_tags($_GET['token']);
+
+    // Vérifier si le token correspond à celui stocké dans la session
+    if ($token === $_SESSION['myToken']) {
+        // Exécuter la requête de recherche dans la base de données
+        $sqlSearch = $dtLb->prepare("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
+        FROM ceremonie c
+        JOIN defunt d ON c.id_defunt = d.id_defunt WHERE nom_prenom_defunt LIKE :recherche");
+        $sqlSearch->execute(['recherche' => "%$recherche%"]);
+        $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
+
+        // Vérifier s'il y a des résultats
+        if ($sqlSearch->rowCount() > 0) {
+            $_SESSION['notif'] = ['type' => 'success', 'message' => 'Résultat trouvé.'];
+        } else {
+            $_SESSION['notif'] = ['type' => 'error', 'message' => 'Aucun résultat trouvé pour la recherche.'];
+        }
     } else {
-        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Aucun résultat trouvé pour la recherche.'];
+        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Erreur de vérification du token.'];
     }
 }
+
+// var_dump($_SESSION['myToken']);
+// var_dump($_GET);
+// var_dump($token);
+// exit;
 ?>
+
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes./_nav.php' ?>
 <!-- Afficher les résultats de la recherche -->
 <?php
 // Affichage des notifications
-if (isset($_SESSION['notif'])) {
-    $notifType = $_SESSION['notif']['type'];
-    $notifMessage = $_SESSION['notif']['message'];
-    echo "<div class='notification $notifType'>$notifMessage</div>";
-    // Nettoyer la notification après l'affichage
+if (isset($_SESSION['notif']) && is_array($_SESSION['notif'])) {
+    echo '<span class="mb50 display-flex-center ' . $_SESSION['notif']['type'] . '">' . $_SESSION['notif']['message'] . '</span>';
     unset($_SESSION['notif']);
+} elseif (isset($_SESSION['error'])) {
+    echo '<span class="mb50 display-flex-center error">' . $_SESSION['error'] . '</span>';
+    unset($_SESSION['error']);
 }
 ?>
 <h1 class="display grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>

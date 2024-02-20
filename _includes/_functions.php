@@ -23,26 +23,26 @@ function generateToken ():void {
  * @param string $url The page to redirect
  * @return void
  */
-function checkCSRF($data): void
-{
-    if (!isset($_SERVER['HTTP_REFERER']) || !str_contains($_SERVER['HTTP_REFERER'], 'http://localhost/mediafork')) {
-        echo json_encode([
-          'result' => false,
-          'error' => 'ERROR REFFERER'. $_SERVER['HTTP_REFERER']
-        ]);
-        exit;
-    } else if (
-        !isset($_SESSION['token']) || !isset($data['token'])
-        || $data['token'] !== $_SESSION['token']
-        || $_SESSION['tokenExpire'] < time()
-    ) {
+// function checkCSRF($data): void
+// {
+//     if (!isset($_SERVER['HTTP_REFERER']) || !str_contains($_SERVER['HTTP_REFERER'], 'http://localhost/mediafork')) {
+//         echo json_encode([
+//           'result' => false,
+//           'error' => 'ERROR REFFERER'. $_SERVER['HTTP_REFERER']
+//         ]);
+//         exit;
+//     } else if (
+//         !isset($_SESSION['token']) || !isset($data['token'])
+//         || $data['token'] !== $_SESSION['token']
+//         || $_SESSION['tokenExpire'] < time()
+//     ) {
 
-      echo json_encode([
-        'result' => false,
-        'error' => 'ERROR TOKEN'
-      ]);
-}
-}
+//       echo json_encode([
+//         'result' => false,
+//         'error' => 'ERROR TOKEN'
+//       ]);
+// }
+// }
 
 /**
  * Function to check url and token on query syn
@@ -50,18 +50,18 @@ function checkCSRF($data): void
  * @param string $url
  * @return void
  */
-function checkCSRFSyn(): void
-{
-    if (!isset($_SERVER['HTTP_REFERER']) || !str_contains($_SERVER['HTTP_REFERER'], 'localhost/mediafork')) {
-        $_SESSION['error'] = 'error_referer';
-        header('Location: index.php');
-        exit;
-    } else if (!isset($_SESSION['token']) || !isset($_REQUEST['token']) || $_REQUEST['token'] !== $_SESSION['token'] || $_SESSION['tokenExpire'] < time()) {
-        $_SESSION['error'] = 'error_token';
-        header('Location: index.php');
-        exit;
-    }
-};
+// function checkCSRFSyn(): void
+// {
+//     if (!isset($_SERVER['HTTP_REFERER']) || !str_contains($_SERVER['HTTP_REFERER'], 'localhost/LeBaron')) {
+//         $_SESSION['error'] = 'error_referer';
+//         header('Location: index.php');
+//         exit;
+//     } else if (!isset($_SESSION['token']) || !isset($_REQUEST['token']) || $_REQUEST['token'] !== $_SESSION['token'] || $_SESSION['tokenExpire'] < time()) {
+//         $_SESSION['error'] = 'error_token';
+//         header('Location: index.php');
+//         exit;
+//     }
+// };
 
 
 

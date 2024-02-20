@@ -24,33 +24,46 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
 $stmt = null;
 $results = [];
 // Vérifiez si le formulaire de recherche a été soumis
-if (isset($_POST['search-bills'])) {
-    $search = isset($_POST['search']) ? strip_tags($_POST['search']) : '';
-    // Préparez la requête SQL
-    $sql = "SELECT id_bill, name, ttc, date
+if (isset($_POST['search-bills']) && isset($_POST['token'])) {
+    $token = strip_tags($_POST['token']);
+    if ($token === $_SESSION['myToken']) {
+
+        $search = isset($_POST['search']) ? strip_tags($_POST['search']) : '';
+        // Préparez la requête SQL
+        $sql = "SELECT id_bill, name, ttc, date
             FROM factures
             WHERE name LIKE :search
+            OR id_bill = :id_search
             ORDER BY date DESC";
-    $stmt = $dtLb->prepare($sql);
-    $stmt->execute(['search' => "%$search%"]);
-    // Vérifiez si la recherche à donné des résultats
-    if ($stmt->rowCount() > 0) {
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $_SESSION['notif'] = [
-            'type' => 'success',
-            'message' => 'Recherche effectuée avec succès.'
-        ];
-    } else {
-        // Aucun résultat trouvé, ajoutez une notification d'erreur
-        $_SESSION['notif'] = [
-            'type' => 'error',
-            'message' => 'Aucun résultat trouvé.'
-        ];
+
+        $stmt = $dtLb->prepare($sql);
+        $stmt->execute([
+            'search' => "%$search%",
+            'id_search' => (int)$search
+        ]);
+
+        // Vérifiez si la recherche à donné des résultats
+        if ($stmt->rowCount() > 0) {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $_SESSION['notif'] = [
+                'type' => 'success',
+                'message' => 'Recherche effectuée avec succès.'
+            ];
+        } else {
+            // Aucun résultat trouvé, ajoutez une notification d'erreur
+            $_SESSION['notif'] = [
+                'type' => 'error',
+                'message' => 'Aucun résultat trouvé.'
+            ];
+        }
     }
 }
 ?>
 <?php
-if (isset($results) && !empty($results)) : ?>
+if (isset($results) && !empty($results) && isset($_POST['token']) && $token === $_SESSION['myToken']) :
+    $token = strip_tags($_POST['token']);
+    
+?>
     <section>
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul class="resultats-recherche">
@@ -77,6 +90,7 @@ if (isset($results) && !empty($results)) : ?>
                             </div>
                             <!-- <?php var_dump($idBill); ?> -->
                         </div>
+
                     </ul>
                 </li>
             <?php endforeach; ?>

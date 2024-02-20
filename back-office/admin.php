@@ -18,6 +18,8 @@
     }
     ?>
     <h1 class="mb50 display grey text-align padding-title">Espace&nbsp;<span class="blue">admin</span></h1>
+    <?= var_dump($_SESSION['myToken']) ?>
+    
     <?php
   // Affichage des notifications ou erreurs
   if (isset($_SESSION['notif']) && is_array($_SESSION['notif'])) {

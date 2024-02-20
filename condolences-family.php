@@ -19,7 +19,29 @@ $condolences = $sqlSelectCondolences->fetchAll(PDO::FETCH_ASSOC);
 // var_dump($sentThanks);
 // var_dump($_SESSION["id_defunt"]);
 ?>
+<?php
+// var_dump($_SESSION);
+// // Affichage des notifications
+// if (isset($_SESSION['notif']) && is_array($_SESSION['notif'])) {
+//     echo '<span class="mb50 display-flex-center ' . $_SESSION['notif']['type'] . '">' . $_SESSION['notif']['message'] . '</span>';
+//     unset($_SESSION['notif']);
+// } elseif (isset($_SESSION['error'])) {
+//     echo '<span class="mb50 display-flex-center error">' . $_SESSION['error'] . '</span>';
+//     unset($_SESSION['error']);
+// }
+// ?>
 <h1 class="display grey text-align padding-title">Message(s) de&nbsp;<span class="blue">Condoléance(s)</span></h1>
+<?php
+// Affichage des notifications
+if (isset($_SESSION['notif'])) {
+    echo '<span class="mb50 display-flex-center success">' . $_SESSION['notif'] . '</span>';
+    unset($_SESSION['notif']);
+} elseif (isset($_SESSION['error'])) {
+    echo '<span class="mb50 display-flex-center error">' . $_SESSION['error'] . '</span>';
+    unset($_SESSION['error']);
+}
+?>
+
 <div id="condolencesList">
     <?php if (!empty($condolences)) : ?>
         <form class="form-check" action="" method="post">

@@ -81,14 +81,14 @@ if ($idEstimate && count($resultats) > 0) {
                                         <li>
                                             <img class="addRow" src="../asset/img/icons8-add-30.png" alt="logo-add">
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <img class="moveUp" src="../asset/img/icons8-up-30.png" alt="icons-up">
 
                                         </li>
                                         <li>
                                             <img class="moveDown" src="../asset/img/icons8-down-30.png" alt="icons-down">
 
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </td>
                             </tr>

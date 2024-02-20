@@ -5,7 +5,6 @@ $notification = '<p class="text-align success">Vous avez été déconnecté avec
 // Détruire toutes les variables de session
 session_destroy();
 
-
 // Rediriger vers la page de connexion
 header("location: .././login-family.php?notif=" . urlencode($notification));
 

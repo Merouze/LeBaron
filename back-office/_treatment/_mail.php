@@ -1,4 +1,7 @@
 <?php
+// var_dump($_POST);
+// exit;
+session_start();
 
 require "../../back-office/_includes/_dbCo.php";
 use \Mailjet\Resources;
@@ -10,10 +13,18 @@ try {
     echo "Erreur lors du chargement du fichier .env : " . $e->getMessage();
     exit;
 }
-// var_dump($_POST);
-// exit;
 
-if (isset($_POST['firstname']) && isset($_POST['email'])) {
+if (isset($_POST['firstname']) && isset($_POST['email']) && isset($_POST['token'])) {
+    $token = $_POST['token'];
+    // echo $_SESSION['myToken'];
+    // var_dump($_POST);
+    // var_dump($token);
+    // var_dump($_SESSION['myToken']);
+    // exit;
+    
+    if ($token === $_SESSION['myToken']) {
+        
+
     $mj = new \Mailjet\Client($_ENV['MJ_APIKEY_PUBLIC'], $_ENV['MJ_APIKEY_PRIVATE'], true, ['version' => 'v3.1']);
     
     $firstname = "Prénom : " . $_POST['firstname'];
@@ -56,6 +67,7 @@ if (isset($_POST['firstname']) && isset($_POST['email'])) {
     // Rediriger l'utilisateur
     header('Location: /LeBaron/index.php');
     exit;
+}
 }
 
 ?>

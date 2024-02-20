@@ -17,24 +17,31 @@ $condolences = $sqlSelectCondolences->fetchAll(PDO::FETCH_ASSOC);
 <!-- section header title -->
 <section class="header-pages">
 </section>
+
 <?php
 var_dump($condolences);
 ?>
 <h1 class="display grey text-align padding-title">Message(s) de&nbsp;<span class="blue">Condoléance(s)</span></h1>
 <div>
     <?php foreach ($condolences as $condolence) : ?>
-        <li class="border-check">
-            <strong>Nom :</strong> <?= $condolence['nom_expditeur'] ?><br>
-            <strong>Email :</strong> <?= $condolence['email_expditeur'] ?><br>
-            <strong>Message :</strong> <?= $condolence['message'] ?><br><br>
-            <!-- <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>"> -->
-            <!-- <input class="input-check" type="hidden" name="condolence_ids[]" value="<?= $condolence['id_condolence'] ?>"> -->
-        </li>
+        <ul class="resultats-recherche">
+            <li class="border-check">
+                <strong>Nom :</strong> <?= $condolence['nom_expditeur'] ?><br>
+                <strong>Email :</strong> <?= $condolence['email_expditeur'] ?><br>
+                <strong>Message :</strong> <?= $condolence['message'] ?><br><br>
+                <!-- <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>"> -->
+                <!-- <input class="input-check" type="hidden" name="condolence_ids[]" value="<?= $condolence['id_condolence'] ?>"> -->
+            </li>
+        </ul>
     <?php endforeach; ?>
     <form action="../LeBaron/back-office/_treatment/_treatment-sent-thanks.php" method="post">
-        <strong><p>Nom et Prénom :</p></strong>
+        <strong>
+            <p>Nom et Prénom :</p>
+        </strong>
         <input name="name" type="text">
-        <strong><p>Message :</p></strong>
+        <strong>
+            <p>Message :</p>
+        </strong>
         <textarea id="message" name="message" rows="6" placeholder="Votre message" required></textarea>
         <input type="hidden" id="email" name="email" value="<?= $condolence['email_expditeur'] ?>">
         <input type="hidden" id="idDefunt" name="idDefunt" value="<?= $idDefunt ?>">
@@ -55,4 +62,5 @@ var_dump($condolences);
 <script src="asset/Js/script.js"></script>
 <script src="asset/Js/fonctions.js"></script>
 </body>
+
 </html>

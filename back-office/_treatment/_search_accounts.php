@@ -4,10 +4,11 @@ $dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 session_start();
 
-if (isset($_GET['idDefunt'])) {
+if (isset($_GET['idDefunt']) && isset($_POST['token'])) {
     $idDefunt = $_GET['idDefunt'];
+    $token = strip_tags($_POST['token']);
 
-    if (isset($_GET['idDefunt'])) {
+    if (isset($_GET['idDefunt']) && isset($_SESSION['myToken']) && $token === $_SESSION['myToken']) {
         $idDefunt = $_GET['idDefunt'];
         // var_dump($idDefunt);
         // exit;
@@ -47,53 +48,56 @@ if (isset($_GET['idDefunt'])) {
 }
 
 // Vérifiez si le formulaire de recherche a été soumis
-if (isset($_POST['search-accounts'])) {
+if (isset($_POST['search-accounts']) && isset($_POST['token'])) {
     // Récupérez la valeur de recherche à partir du formulaire POST
     $search = isset($_POST['search']) ? strip_tags($_POST['search']) : '';
+    $token = strip_tags($_POST['token']);
 
-    // Préparez la requête SQL
-    $sql = "SELECT email, nom_prenom_defunt, id_defunt
+    if ($token === $_SESSION['myToken']) {
+        // Préparez la requête SQL
+        $sql = "SELECT email, nom_prenom_defunt, id_defunt
         FROM user_famille
         JOIN defunt USING (id_defunt)
         WHERE email LIKE :search
         OR nom_prenom_defunt LIKE :search
-        OR id_defunt = :id_search";  // Utilisez un nom distinct pour éviter toute confusion
+        OR id_defunt = :id_search";
 
-    // Préparez la requête avec PDO
-    $stmt = $dtLb->prepare($sql);
+        // Préparez la requête avec PDO
+        $stmt = $dtLb->prepare($sql);
 
-    // Exécutez la requête en incluant directement la valeur dans le tableau d'exécution
-    $stmt->execute([
-        'search' => "%$search%",
-        'id_search' => (int)$search  // Assurez-vous que $search est un entier
-    ]);
+        // Exécutez la requête en incluant directement la valeur dans le tableau d'exécution
+        $stmt->execute([
+            'search' => "%$search%",
+            'id_search' => (int)$search
+        ]);
 
 
-    // Vérifiez si la recherche a donné des résultats
-    if ($stmt->rowCount() > 0) {
-        // Récupérez les résultats
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Vérifiez si la recherche a donné des résultats
+        if ($stmt->rowCount() > 0) {
+            // Récupérez les résultats
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Ajoutez une notification de succès
-        $_SESSION['notif'] = [
-            'type' => 'success',
-            'message' => 'Recherche effectuée avec succès.'
-        ];
+            // Ajoutez une notification de succès
+            $_SESSION['notif'] = [
+                'type' => 'success',
+                'message' => 'Recherche effectuée avec succès.'
+            ];
 
-        // Redirigez vers la page appropriée avec les résultats de la recherche
-        $_SESSION['search_results'] = $results;
-        header('Location: /LeBaron/back-office/see-accounts.php');
-        exit;
-    } else {
-        // Aucun résultat trouvé, ajoutez une notification d'erreur
-        $_SESSION['notif'] = [
-            'type' => 'error',
-            'message' => 'Aucun résultat trouvé.'
+            // Redirigez vers la page appropriée avec les résultats de la recherche
+            $_SESSION['search_results'] = $results;
+            header('Location: /LeBaron/back-office/see-accounts.php');
+            exit;
+        } else {
+            // Aucun résultat trouvé, ajoutez une notification d'erreur
+            $_SESSION['notif'] = [
+                'type' => 'error',
+                'message' => 'Aucun résultat trouvé.'
 
-        ];
+            ];
 
-        // Redirigez vers la page appropriée
-        header('Location: /LeBaron/back-office/see-accounts.php');
-        exit;
+            // Redirigez vers la page appropriée
+            header('Location: /LeBaron/back-office/see-accounts.php');
+            exit;
+        }
     }
 }

@@ -5,64 +5,67 @@ session_start();
 //****************************** Treatment create pdf for billing
 
 // Vérifiez si le formulaire a été soumis
-if (isset($_POST['submitPDF'])) {
+if (isset($_POST['submitPDF']) && isset($_POST['token'])) {
+    $token = strip_tags($_POST['token']);
 
-    $designations = isset($_POST["designation"]) ? $_POST["designation"] : [];
-    $advances = isset($_POST["frais_avances"]) ? $_POST["frais_avances"] : [];
-    $htPrices10 = isset($_POST["prix_ht_10"]) ? $_POST["prix_ht_10"] : [];
-    $htPrices20 = isset($_POST["prix_ht_20"]) ? $_POST["prix_ht_20"] : [];
-    $name = strip_tags($_POST["name"]);
-    $adress = strip_tags($_POST["adress"]);
-    $cP = strip_tags($_POST["cP"]);
-    $city = strip_tags($_POST["city"]);
-    $email = strip_tags($_POST["email"]);
-    $totalHt = strip_tags($_POST["total_ht"]);
-    $tva10 = strip_tags($_POST["tva_10"]);
-    $tva20 = strip_tags($_POST["tva_20"]);
-    $totalAdvance = strip_tags($_POST["total_frais_avances"]);
-    $ttc = strip_tags($_POST["ttc"]);
-    $commentaire = strip_tags($_POST["commentaire"]); // Correction du nom de variable
+    if ($token === $_SESSION['myToken']) {
 
-    // Récupérez les données des champs dynamiques
-    $dynamicFields = [];
+        $designations = isset($_POST["designation"]) ? $_POST["designation"] : [];
+        $advances = isset($_POST["frais_avances"]) ? $_POST["frais_avances"] : [];
+        $htPrices10 = isset($_POST["prix_ht_10"]) ? $_POST["prix_ht_10"] : [];
+        $htPrices20 = isset($_POST["prix_ht_20"]) ? $_POST["prix_ht_20"] : [];
+        $name = strip_tags($_POST["name"]);
+        $adress = strip_tags($_POST["adress"]);
+        $cP = strip_tags($_POST["cP"]);
+        $city = strip_tags($_POST["city"]);
+        $email = strip_tags($_POST["email"]);
+        $totalHt = strip_tags($_POST["total_ht"]);
+        $tva10 = strip_tags($_POST["tva_10"]);
+        $tva20 = strip_tags($_POST["tva_20"]);
+        $totalAdvance = strip_tags($_POST["total_frais_avances"]);
+        $ttc = strip_tags($_POST["ttc"]);
+        $commentaire = strip_tags($_POST["commentaire"]); // Correction du nom de variable
 
-    // Obtenez le nombre total de champs (peu importe le type)
-    $numFields = count($_POST['designation']);
+        // Récupérez les données des champs dynamiques
+        $dynamicFields = [];
 
-    // Itérez sur chaque champ en utilisant son indice
-    for ($i = 0; $i < $numFields; $i++) {
-        $dynamicFields[] = [
-            'designation' => isset($_POST["designation"][$i]) ? strip_tags($_POST["designation"][$i]) : '',
-            'frais_avances' => isset($_POST["frais_avances"][$i]) ? strip_tags($_POST["frais_avances"][$i]) : '',
-            'prix_ht_10' => isset($_POST["prix_ht_10"][$i]) ? strip_tags($_POST["prix_ht_10"][$i]) : '',
-            'prix_ht_20' => isset($_POST["prix_ht_20"][$i]) ? strip_tags($_POST["prix_ht_20"][$i]) : '',
-        ];
-    }
+        // Obtenez le nombre total de champs (peu importe le type)
+        $numFields = count($_POST['designation']);
 
-    // Traitez maintenant $dynamicFields comme avant
-    foreach ($dynamicFields as $key => $field) {
-        $dynamicFields[$key] = [
-            'designation' => strip_tags($field['designation']),
-            'frais_avances' => strip_tags($field['frais_avances']),
-            'prix_ht_10' => strip_tags($field['prix_ht_10']),
-            'prix_ht_20' => strip_tags($field['prix_ht_20']),
-        ];
-    }
+        // Itérez sur chaque champ en utilisant son indice
+        for ($i = 0; $i < $numFields; $i++) {
+            $dynamicFields[] = [
+                'designation' => isset($_POST["designation"][$i]) ? strip_tags($_POST["designation"][$i]) : '',
+                'frais_avances' => isset($_POST["frais_avances"][$i]) ? strip_tags($_POST["frais_avances"][$i]) : '',
+                'prix_ht_10' => isset($_POST["prix_ht_10"][$i]) ? strip_tags($_POST["prix_ht_10"][$i]) : '',
+                'prix_ht_20' => isset($_POST["prix_ht_20"][$i]) ? strip_tags($_POST["prix_ht_20"][$i]) : '',
+            ];
+        }
 
-    setlocale(LC_TIME, 'fr_FR.utf8');
-    $currentDate = new DateTime();
-    $dateFormatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
-    $formattedDate = $dateFormatter->format($currentDate->getTimestamp());
+        // Traitez maintenant $dynamicFields comme avant
+        foreach ($dynamicFields as $key => $field) {
+            $dynamicFields[$key] = [
+                'designation' => strip_tags($field['designation']),
+                'frais_avances' => strip_tags($field['frais_avances']),
+                'prix_ht_10' => strip_tags($field['prix_ht_10']),
+                'prix_ht_20' => strip_tags($field['prix_ht_20']),
+            ];
+        }
 
-    // Instanciez mPDF
-    $mpdf = new \Mpdf\Mpdf([
-        'margin_top' => 0,
-        'margin_bottom' => 0,
-        'default_font_size' => 10,
-    ]);
+        setlocale(LC_TIME, 'fr_FR.utf8');
+        $currentDate = new DateTime();
+        $dateFormatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
+        $formattedDate = $dateFormatter->format($currentDate->getTimestamp());
 
-    // Génération du contenu stylisé du PDF pour les condoléances
-    $htmlCondolences = '
+        // Instanciez mPDF
+        $mpdf = new \Mpdf\Mpdf([
+            'margin_top' => 0,
+            'margin_bottom' => 0,
+            'default_font_size' => 10,
+        ]);
+
+        // Génération du contenu stylisé du PDF pour les condoléances
+        $htmlCondolences = '
 <style>
 .blue {
     color: #039DB5;
@@ -119,8 +122,8 @@ if (isset($_POST['submitPDF'])) {
 </div>
 ';
 
-    // Créez le HTML à convertir en PDF
-    $htmlDevis = "
+        // Créez le HTML à convertir en PDF
+        $htmlDevis = "
     <table class='border width'>
         <thead>
             <tr>
@@ -138,17 +141,17 @@ if (isset($_POST['submitPDF'])) {
         </thead>
         <tbody>";
 
-    foreach ($dynamicFields as $field) {
-        $htmlDevis .= "
+        foreach ($dynamicFields as $field) {
+            $htmlDevis .= "
                     <tr>
                         <td>{$field['designation']}</td>
                         <td class='align-right'>" . ($field['frais_avances'] != '' ? $field['frais_avances'] : 0) . "</td>
                         <td class='align-right'>" . ($field['prix_ht_10'] != '' ? $field['prix_ht_10'] : 0) . "</td>
                         <td class='align-right'>" . ($field['prix_ht_20'] != '' ? $field['prix_ht_20'] : 0) . "</td>
                     </tr>";
-    }
+        }
 
-    $htmlDevis .= "
+        $htmlDevis .= "
         </tbody>
         <tfoot>
         <tr>
@@ -191,7 +194,7 @@ if (isset($_POST['submitPDF'])) {
     vers nous.</p>
     </div>";
 
-    $htmlFooter = '<div class="footer">
+        $htmlFooter = '<div class="footer">
     
             <h2>Pompes Funèbres <span class="blue">Le Baron.</span></h2>
             <p>TOUS TRAVAUX FUNERAIRES - CAVEAUX - MONUMENTS</p>
@@ -200,83 +203,88 @@ if (isset($_POST['submitPDF'])) {
             <p class="siret grey">N° Habilitation : 22 14 0043. Siret : 380 431 601 00018 - APE 9603Z.</p>
             </div>';
 
-    // Ajoutez le contenu du PDF
-    $mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
+        // Ajoutez le contenu du PDF
+        $mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
 
-    // Nom du fichier PDF de sortie
-    $pdfPath = './facture.pdf';
+        // Nom du fichier PDF de sortie
+        $pdfPath = './facture.pdf';
 
-    // Affichez le PDF dans le navigateur avec la possibilité de télécharger
-    $mpdf->Output($pdfPath, \Mpdf\Output\Destination::INLINE);
+        // Affichez le PDF dans le navigateur avec la possibilité de télécharger
+        $mpdf->Output($pdfPath, \Mpdf\Output\Destination::INLINE);
 
-    // Fin du script pour éviter tout autre rendu indésirable
-    exit;
+        // Fin du script pour éviter tout autre rendu indésirable
+        exit;
+    }
 };
 
 //****************************** Treatment add billing
 
-if (isset($_POST['submitAddBill'])) {
+if (isset($_POST['submitAddBill']) && isset($_POST['token'])) {
+    $token = strip_tags($_POST['token']);
 
-    $designations = isset($_POST["designation"]) ? $_POST["designation"] : [];
-    $advances = isset($_POST["frais_avances"]) ? $_POST["frais_avances"] : [];
-    $htPrices10 = isset($_POST["prix_ht_10"]) ? $_POST["prix_ht_10"] : [];
-    $htPrices20 = isset($_POST["prix_ht_20"]) ? $_POST["prix_ht_20"] : [];
-    $name = strip_tags($_POST["name"]);
-    $adress = strip_tags($_POST["adress"]);
-    $cP = strip_tags($_POST["cP"]);
-    $city = strip_tags($_POST["city"]);
-    $email = strip_tags($_POST["email"]);
-    $totalHt = strip_tags($_POST["total_ht"]);
-    $tva10 = strip_tags($_POST["tva_10"]);
-    $tva20 = strip_tags($_POST["tva_20"]);
-    $totalAdvance = strip_tags($_POST["total_frais_avances"]);
-    $ttc = strip_tags($_POST["ttc"]);
-    $message = strip_tags($_POST["commentaire"]);
-    $isSave = 1;
+    if ($token === $_SESSION['myToken']) {
 
-    // Requête SQL pour les données générales
-    $sqlGeneral = $dtLb->prepare("INSERT INTO factures (name, adress, cP, city, email, total_ht, tva_10, tva_20, total_frais_avances, ttc, message, is_save) VALUES (:name, :adress, :cP, :city, :email, :total_ht, :tva_10, :tva_20, :total_frais_avances, :ttc, :message, :is_save)");
+        $designations = isset($_POST["designation"]) ? $_POST["designation"] : [];
+        $advances = isset($_POST["frais_avances"]) ? $_POST["frais_avances"] : [];
+        $htPrices10 = isset($_POST["prix_ht_10"]) ? $_POST["prix_ht_10"] : [];
+        $htPrices20 = isset($_POST["prix_ht_20"]) ? $_POST["prix_ht_20"] : [];
+        $name = strip_tags($_POST["name"]);
+        $adress = strip_tags($_POST["adress"]);
+        $cP = strip_tags($_POST["cP"]);
+        $city = strip_tags($_POST["city"]);
+        $email = strip_tags($_POST["email"]);
+        $totalHt = strip_tags($_POST["total_ht"]);
+        $tva10 = strip_tags($_POST["tva_10"]);
+        $tva20 = strip_tags($_POST["tva_20"]);
+        $totalAdvance = strip_tags($_POST["total_frais_avances"]);
+        $ttc = strip_tags($_POST["ttc"]);
+        $message = strip_tags($_POST["commentaire"]);
+        $isSave = 1;
 
-    // Exécution de la requête pour les données générales
-    $sqlGeneral->execute([
-        'name' => $name,
-        'adress' => $adress,
-        'cP' => $cP,
-        'city' => $city,
-        'email' => $email,
-        'total_ht' => $totalHt,
-        'tva_10' => $tva10,
-        'tva_20' => $tva20,
-        'total_frais_avances' => $totalAdvance,
-        'ttc' => $ttc,
-        'message' => $message,
-        'is_save' => $isSave,
-    ]);
+        // Requête SQL pour les données générales
+        $sqlGeneral = $dtLb->prepare("INSERT INTO factures (name, adress, cP, city, email, total_ht, tva_10, tva_20, total_frais_avances, ttc, message, is_save) VALUES (:name, :adress, :cP, :city, :email, :total_ht, :tva_10, :tva_20, :total_frais_avances, :ttc, :message, :is_save)");
 
-    // Récupération de l'id_bill généré
-    $id_bill = $dtLb->lastInsertId();
-
-    // Requête SQL pour les lignes spécifiques
-    $sqlSpecific = $dtLb->prepare("INSERT INTO raw_bill (id_bill, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_bill, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
-
-    // ...
-    // var_dump($id_bill);
-    // exit;
-
-    foreach ($designations as $key => $designation) {
-        // Exécution de la requête pour chaque ligne
-        $sqlSpecific->execute([
-            'id_bill' => $id_bill,
-            'designation' => $designation,
-            'frais_avances' => $advances[$key],
-            'prix_ht_10' => $htPrices10[$key],
-            'prix_ht_20' => $htPrices20[$key],
+        // Exécution de la requête pour les données générales
+        $sqlGeneral->execute([
+            'name' => $name,
+            'adress' => $adress,
+            'cP' => $cP,
+            'city' => $city,
+            'email' => $email,
+            'total_ht' => $totalHt,
+            'tva_10' => $tva10,
+            'tva_20' => $tva20,
+            'total_frais_avances' => $totalAdvance,
+            'ttc' => $ttc,
+            'message' => $message,
+            'is_save' => $isSave,
         ]);
-        // Ajouter une notification de succès
-        $_SESSION['notif'] = [
-            'type' => 'success', // ou tout autre style CSS que vous utilisez pour les notifications de succès
-            'message' => 'La facture a été créée avec succès!',
-        ];
+
+        // Récupération de l'id_bill généré
+        $id_bill = $dtLb->lastInsertId();
+
+        // Requête SQL pour les lignes spécifiques
+        $sqlSpecific = $dtLb->prepare("INSERT INTO raw_bill (id_bill, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_bill, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
+
+        // ...
+        // var_dump($id_bill);
+        // exit;
+
+        foreach ($designations as $key => $designation) {
+            // Exécution de la requête pour chaque ligne
+            $sqlSpecific->execute([
+                'id_bill' => $id_bill,
+                'designation' => $designation,
+                'frais_avances' => $advances[$key],
+                'prix_ht_10' => $htPrices10[$key],
+                'prix_ht_20' => $htPrices20[$key],
+            ]);
+            // Ajouter une notification de succès
+            $_SESSION['notif'] = [
+                'type' => 'success', // ou tout autre style CSS que vous utilisez pour les notifications de succès
+                'message' => 'La facture a été créée avec succès!',
+            ];
+        }
     }
 }
 //   Redirection avec un code de statut approprié

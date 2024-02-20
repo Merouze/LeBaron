@@ -4,22 +4,26 @@
 <?php include './_includes/_check-login.php' ?>
 <?php
 // Vérifier si le formulaire de recherche a été soumis
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche']) && isset($_GET['token'])) {
     // Nettoyer et récupérer la valeur du champ de recherche
+    $token = strip_tags($_GET['token']);
     $recherche = strip_tags($_GET['recherche']);
     $idCondolence = isset($_GET['idCondolence']) ? $_GET['idCondolence'] : null;
-    // Exécuter la requête de recherche dans la base de données
-    $sqlSearch = $dtLb->prepare("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
+    if ($token === $_SESSION['myToken']) {
+
+        // Exécuter la requête de recherche dans la base de données
+        $sqlSearch = $dtLb->prepare("SELECT d.id_defunt, d.nom_prenom_defunt, d.age, c.date_ceremonie
     FROM ceremonie c
     JOIN defunt d ON c.id_defunt = d.id_defunt WHERE nom_prenom_defunt LIKE :recherche");
-    $sqlSearch->execute(['recherche' => "%$recherche%"]);
-    $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
+        $sqlSearch->execute(['recherche' => "%$recherche%"]);
+        $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
 
-    // Vérifier s'il y a des résultats
-    if ($sqlSearch->rowCount() > 0) {
-        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Résultat trouvé.'];
-    } else {
-        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Aucun résultat trouvé pour la recherche.'];
+        // Vérifier s'il y a des résultats
+        if ($sqlSearch->rowCount() > 0) {
+            $_SESSION['notif'] = ['type' => 'success', 'message' => 'Résultat trouvé.'];
+        } else {
+            $_SESSION['notif'] = ['type' => 'error', 'message' => 'Aucun résultat trouvé pour la recherche.'];
+        }
     }
 }
 ?>
@@ -41,7 +45,8 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
 <!-- Afficher les résultats de la recherche -->
 <section class="resultats-recherche">
     <?php
-    if (isset($resultats) && !empty($resultats)) : ?>
+    if (isset($resultats) && !empty($resultats)) :
+    ?>
         <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
         <ul>
             <?php foreach ($resultats as $resultat) :
@@ -145,4 +150,5 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
 <script src=".././asset/Js/script.js"></script>
 <script src=".././asset/Js/fonctions.js"></script>
 </body>
+
 </html>

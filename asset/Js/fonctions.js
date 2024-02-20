@@ -1,6 +1,5 @@
 // FOR GET TOKEN
 function getToken() {
-    // return document.querySelector('[data-token]').value
     return document.querySelector('body').getAttribute('data-token')
 }
 // add and delete member family

@@ -15,8 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="asset\img\Logo-LB.png">
     <?=generateHtmlLinkCss($currentPage['linkCss'])?>
-    <head>
-</head>
     <title><?php $currentPage['title']?></title>
 </head>
 <body data-token="<?=$_SESSION['myToken']?>">
