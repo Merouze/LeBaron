@@ -1,3 +1,4 @@
+
 // Mobile menu 
 document.getElementById('burger-icon').addEventListener('click', function () {
   let navLinks = document.querySelector('.nav-links');
@@ -98,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('Avertissement : Impossible de déplacer vers le haut');
     }
   }
-  
+
   function moveRowDown(row) {
     const nextRow = row.nextElementSibling;
     if (nextRow) {
@@ -123,62 +124,73 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // // // ***************************************** */ calc For estimate ************************************ 
 
-    function updateTotals() {
-        // Récupérer tous les champs dynamiques à nouveau après modification
-        const dynamicFieldsUpdated = document.querySelectorAll('[name^="designation["]');
+function updateTotals() {
+  // Récupérer tous les champs dynamiques à nouveau après modification
+  const dynamicFieldsUpdated = document.querySelectorAll('[name^="designation["]');
 
-        // Initialiser les totaux
-        let totalHt = 0;
-        let tva10 = 0;
-        let tva20 = 0;
-        let totalAdvance = 0;
-        let ttc = 0;
+  // Initialiser les totaux
+  let totalHt = 0;
+  let tva10 = 0;
+  let tva20 = 0;
+  let totalAdvance = 0;
+  let ttc = 0;
 
-        // Calculer les totaux en parcourant tous les champs dynamiques
-        dynamicFieldsUpdated.forEach(function (field) {
-            const row = field.closest('tr');
-            const designation = row.querySelector('[name^="designation["]').value.trim();
-            const fraisAvances = parseFloat(row.querySelector('[name^="frais_avances["]').value) || 0;
-            const prixHT10 = parseFloat(row.querySelector('[name^="prix_ht_10["]').value) || 0;
-            const prixHT20 = parseFloat(row.querySelector('[name^="prix_ht_20["]').value) || 0;
+  // Calculer les totaux en parcourant tous les champs dynamiques
+  dynamicFieldsUpdated.forEach(function (field) {
+    const row = field.closest('tr');
+    const designation = row.querySelector('[name^="designation["]').value.trim();
+    const fraisAvances = parseFloat(row.querySelector('[name^="frais_avances["]').value) || 0;
+    const prixHT10 = parseFloat(row.querySelector('[name^="prix_ht_10["]').value) || 0;
+    const prixHT20 = parseFloat(row.querySelector('[name^="prix_ht_20["]').value) || 0;
 
-            console.log('Row:', row);
-            console.log('Designation:', designation);
-            console.log('Frais Avances:', fraisAvances);
-            console.log('Prix HT 10:', prixHT10);
-            console.log('Prix HT 20:', prixHT20);
+    console.log('Row:', row);
+    console.log('Designation:', designation);
+    console.log('Frais Avances:', fraisAvances);
+    console.log('Prix HT 10:', prixHT10);
+    console.log('Prix HT 20:', prixHT20);
 
-            totalHt += isNaN(prixHT10) ? 0 : prixHT10;
-            totalHt += isNaN(prixHT20) ? 0 : prixHT20;
-            tva10 += isNaN(prixHT10) ? 0 : (prixHT10 * 0.1);
-            tva20 += isNaN(prixHT20) ? 0 : (prixHT20 * 0.2);
-            totalAdvance += isNaN(fraisAvances) ? 0 : fraisAvances;
+    totalHt += isNaN(prixHT10) ? 0 : prixHT10;
+    totalHt += isNaN(prixHT20) ? 0 : prixHT20;
+    tva10 += isNaN(prixHT10) ? 0 : (prixHT10 * 0.1);
+    tva20 += isNaN(prixHT20) ? 0 : (prixHT20 * 0.2);
+    totalAdvance += isNaN(fraisAvances) ? 0 : fraisAvances;
 
-            console.log('Total HT:', totalHt);
-            console.log('TVA 10%:', tva10);
-            console.log('TVA 20%:', tva20);
-            console.log('Total Advance:', totalAdvance);
-        });
+    console.log('Total HT:', totalHt);
+    console.log('TVA 10%:', tva10);
+    console.log('TVA 20%:', tva20);
+    console.log('Total Advance:', totalAdvance);
+  });
 
-        // Calculer le TTC une fois tous les totaux mis à jour
-        ttc = totalHt + tva10 + tva20 + totalAdvance;
+  // Calculer le TTC une fois tous les totaux mis à jour
+  ttc = totalHt + tva10 + tva20 + totalAdvance;
 
-        console.log('TTC:', ttc);
+  console.log('TTC:', ttc);
 
-        // Mettre à jour les champs totaux dans le tableau
-        document.getElementById('total_ht').value = totalHt.toFixed(2);
-        document.getElementById('tva_10').value = tva10.toFixed(2);
-        document.getElementById('tva_20').value = tva20.toFixed(2);
-        document.getElementById('total_frais_avances').value = totalAdvance.toFixed(2);
-        document.getElementById('ttc').value = ttc.toFixed(2);
-    }
+  // Mettre à jour les champs totaux dans le tableau
+  document.getElementById('total_ht').value = totalHt.toFixed(2);
+  document.getElementById('tva_10').value = tva10.toFixed(2);
+  document.getElementById('tva_20').value = tva20.toFixed(2);
+  document.getElementById('total_frais_avances').value = totalAdvance.toFixed(2);
+  document.getElementById('ttc').value = ttc.toFixed(2);
+};
 
+// // // ***************************************** */ icon eye for see password ************************************ 
 
+const showIcon = document.querySelector("#showIcon");
+const hideIcon = document.querySelector("#hideIcon");
+const passwordField = document.querySelector("input[type=password]");
 
+showIcon.addEventListener("click", () => {
+  showIcon.style.display = "none";
+  hideIcon.style.display = "inline-block";
+  passwordField.type = "text";
+});
 
-
-
-
+hideIcon.addEventListener("click", () => {
+  hideIcon.style.display = "none";
+  showIcon.style.display = "inline-block";
+  passwordField.type = "password";
+});
 
 
 

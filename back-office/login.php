@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
 <section class="header-pages">
 </section>
 <h1 class="display grey text-align padding-title">Connexion&nbsp;<span class="blue">Admin</span></h1>
-<?= var_dump($_SESSION['myToken']) ?>
+<!-- <?= var_dump($_SESSION['myToken']) ?> -->
 
 <section class="form-co">
     <form class="connexion" action="" method="post">
@@ -74,13 +74,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
         <label class="label" for="admin">Nom:</label>
         <input type="text" id="admin" name="admin" required>
         <label class="label" for="password">Mot de passe:</label>
-        <input type="password" id="password" name="password" required>
+        <div>
+            <input type="password" id="password" name="password" required>
+            <i class="fas fa-eye" id="showIcon"></i>
+            <i class="fas fa-eye-slash" id="hideIcon" style="display:none;"></i>
+        </div>
         <button type="submit">Se connecter</button>
     </form>
 </section>
+
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>
 
+<script>
+    const showIcon = document.querySelector("#showIcon");
+    const hideIcon = document.querySelector("#hideIcon");
+    const passwordField = document.querySelector("input[type=password]");
+
+    showIcon.addEventListener("click", () => {
+        showIcon.style.display = "none";
+        hideIcon.style.display = "inline-block";
+        passwordField.type = "text";
+    });
+
+    hideIcon.addEventListener("click", () => {
+        hideIcon.style.display = "none";
+        showIcon.style.display = "inline-block";
+        passwordField.type = "password";
+    });
+</script>
 <script src=".././asset/Js/script.js"></script>
 <script src=".././asset/Js/fonctions.js"></script>
 </body>

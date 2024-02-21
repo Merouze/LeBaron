@@ -2,7 +2,7 @@
 require "../../back-office/_includes/_dbCo.php";
 session_start();
 
-//****************************** Treatment create pdf for billing
+//****************************** Treatment modify pdf for billing
 
 // Vérifiez si le formulaire a été soumis
 if (isset($_POST['submitPDF'])) {

@@ -14,12 +14,13 @@ $sqlSelectCondolences = $dtLb->prepare("SELECT id_defunt, id_condolence, nom_exp
 $sqlSelectCondolences->execute(['id_defunt' => $idDefunt, 'id_condolence' => $idCondolences]);
 $condolences = $sqlSelectCondolences->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!-- section header title -->
 <section class="header-pages">
 </section>
 
 <?php
-var_dump($condolences);
+// var_dump($condolences);
 ?>
 <h1 class="display grey text-align padding-title">Message(s) de&nbsp;<span class="blue">Condoléance(s)</span></h1>
 <div>
@@ -29,8 +30,6 @@ var_dump($condolences);
                 <strong>Nom :</strong> <?= $condolence['nom_expditeur'] ?><br>
                 <strong>Email :</strong> <?= $condolence['email_expditeur'] ?><br>
                 <strong>Message :</strong> <?= $condolence['message'] ?><br><br>
-                <!-- <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>"> -->
-                <!-- <input class="input-check" type="hidden" name="condolence_ids[]" value="<?= $condolence['id_condolence'] ?>"> -->
             </li>
         </ul>
     <?php endforeach; ?>
@@ -56,6 +55,7 @@ var_dump($condolences);
         <li><a href="condolences-family.php?idDefunt=<?= urlencode($idDefunt) ?>">Voir les Condoléances</a></li>
     </div>
 </div>
+
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes./_footer.php' ?>
 

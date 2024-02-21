@@ -1,5 +1,6 @@
 <!-- // ----- # HEAD # ----- // -->
 <?php include './_includes/_head.php' ?>
+
 <!-- section header title -->
 <!-- // ----- # NAV # ----- // -->
 <?php include './_includes./_nav.php' ?>
@@ -114,7 +115,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
         <label class="label" for="email">Adresse e-mail:</label>
         <input type="email" id="email" name="email" required>
         <label class="label" for="password">Mot de passe:</label>
-        <input type="password" id="password" name="password">
+        <div>
+            <input type="password" id="password" name="password" required>
+            <i class="fas fa-eye" id="showIcon"></i>
+            <i class="fas fa-eye-slash" id="hideIcon" style="display:none;"></i>
+        </div>
         <button type="submit">Se connecter</button>
         <br>
         <button name="forget" type="submit-forget">Réinitialiser le mot de passe</button>

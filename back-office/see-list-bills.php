@@ -83,7 +83,7 @@ if (isset($results) && !empty($results) && isset($_POST['token']) && $token === 
                                 <li class="bold">Prix T.T.C. : <span class="bold blue"><?= $result['ttc'] ?> €</span></li>
                             </div>
                             <div class="display-btn-list-ad">
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" target="_blank" href="see-bill.php?idBill=<?= urlencode($result['id_bill']) ?>">Consulter</a></p>
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" target="_blank" href="_treatment/_treatment_see_bill.php?idBill=<?= urlencode($result['id_bill']) ?>">Consulter</a></p>
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-bill.php?idBill=<?= urlencode($result['id_bill']) ?>">Modifier</a></p>
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="_treatment/_treatment_sent_bill.php?idBill=<?= urlencode($result['id_bill']) ?>">Envoyer</a></p>
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteBill(<?= $idBill ?>);">Supprimer</a></p>
@@ -142,7 +142,7 @@ if (isset($results) && !empty($results) && isset($_POST['token']) && $token === 
             echo '<li class="bold">Prix ttc : ' . $bill['ttc'] . ' €</li>';
             echo '</div>';
             echo '<div class="display-btn-list-ad">';
-            echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" target="_blank" href="see-bill.php?idBill=' . urlencode($bill['id_bill']) . '">Consulter</a></p>';
+            echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" target="_blank" href="_treatment/_treatment_see_bill.php?idBill=' . urlencode($bill['id_bill']) . '">Consulter</a></p>';
             echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-bill.php?idBill=' . urlencode($bill['id_bill']) . '">Modifier</a></p>';
             echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="_treatment/_treatment_sent_bill?idBill=' . urlencode($bill['id_bill']) . '">Envoyer</a></p>';
             echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteBill(' . $idBill . ');">Supprimer</a></p>';
