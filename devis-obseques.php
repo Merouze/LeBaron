@@ -229,8 +229,13 @@
         </label>
         <input type="text" id="link-defunt" name="link-defunt" required>
 
+        <label for="adress">
+            <h4>Votre adresse <span class="red">*</span></h4>
+        </label>
+        <input type="text" id="adress" name="adress" required>
+
         <label for="city">
-            <h4>Ville <span class="red">*</span></h4>
+            <h4>Ville et code postal <span class="red">*</span></h4>
         </label>
         <input type="text" id="city" name="city" required>
 

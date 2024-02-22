@@ -102,6 +102,15 @@ function confirmDeleteBill(idBill) {
     }
     // Si l'utilisateur clique sur Annuler, ne faites rien
 }
+function confirmDeleteEstimateTraite(idEstimate) {
+    // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce devis ?");
+
+    // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
+    if (confirmation) {
+        window.location.href = `./_treatment/_delete-estimate-obs-traite.php?idEstimate=${idEstimate}`;
+    }
+}
 // scroll btn 
 function scrollFunction() {
     // Si le défilement est supérieur à 20 pixels, affichez le bouton

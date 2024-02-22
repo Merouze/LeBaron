@@ -3,6 +3,8 @@ require "../../back-office/_includes/_dbCo.php";
 session_start();
 
 //****************************** Treatment create pdf for billing
+// var_dump($_POST);
+// exit;
 
 // Vérifiez si le formulaire a été soumis
 if (isset($_POST['submitPDF']) && isset($_POST['token'])) {
@@ -219,12 +221,11 @@ if (isset($_POST['submitPDF']) && isset($_POST['token'])) {
     }
 };
 
-//****************************** Treatment add billing
+//****************************** Treatment modify estimate
 
-if (isset($_POST['submitAddBill']) && isset($_POST['token'])) {
+if (isset($_POST['submitUpdateEstimate']) && isset($_POST['token'])) {
     $token = strip_tags($_POST['token']);
-    // var_dump($_POST);
-    // exit;
+
     if ($token === $_SESSION['myToken']) {
 
         $designations = isset($_POST["designation"]) ? $_POST["designation"] : [];
@@ -243,27 +244,52 @@ if (isset($_POST['submitAddBill']) && isset($_POST['token'])) {
         $ttc = strip_tags($_POST["ttc"]);
         $message = strip_tags($_POST["commentaire"]);
         $idEstimate = strip_tags($_POST["idEstimate"]);
+        $idEstimateObs = strip_tags($_POST["idEstimateObs"]);
         $traite = 1;
-// var_dump($_POST);
-// exit;
-        // Requête SQL pour mettre à jour les données générales
-        $sqlUpdate = $dtLb->prepare(
-            "UPDATE devis_obs SET 
-        traite = :traite
-        WHERE id_estimate = :id_estimate"
-        );
 
-        // Exécution de la requête pour les données générales
-        $sqlUpdate->execute([
-            'traite' => $traite,
+        // Récupérez les données des champs dynamiques
+        $dynamicFields = [];
+
+        // Obtenez le nombre total de champs (peu importe le type)
+        $numFields = count($_POST['designation']);
+
+        // Itérez sur chaque champ en utilisant son indice
+        for ($i = 0; $i < $numFields; $i++) {
+            $dynamicFields[] = [
+                'designation' => isset($_POST["designation"][$i]) ? strip_tags($_POST["designation"][$i]) : '',
+                'frais_avances' => isset($_POST["frais_avances"][$i]) ? strip_tags($_POST["frais_avances"][$i]) : '',
+                'prix_ht_10' => isset($_POST["prix_ht_10"][$i]) ? strip_tags($_POST["prix_ht_10"][$i]) : '',
+                'prix_ht_20' => isset($_POST["prix_ht_20"][$i]) ? strip_tags($_POST["prix_ht_20"][$i]) : '',
+            ];
+        }
+
+        // Supprimez les lignes existantes liées à cette estimation
+        $deleteExistingRows = $dtLb->prepare("DELETE FROM raw_estimate WHERE id_estimate_obs = :id_estimate_obs AND id_estimate = :id_estimate");
+        $deleteExistingRows->execute([
+            'id_estimate_obs' => $idEstimateObs,
             'id_estimate' => $idEstimate,
         ]);
 
-        // Requête SQL pour les données générales
-        $sqlGeneral = $dtLb->prepare("INSERT INTO estimate_obs (name, lastname, adress, city, email, total_ht, tva_10, tva_20, total_frais_avances, ttc, message, id_estimate) VALUES (:name, :lastname, :adress, :city, :email, :total_ht, :tva_10, :tva_20, :total_frais_avances, :ttc, :message, :id_estimate)");
+        // Insérez les nouvelles données dans la table raw_estimate
+        $insertNewRows = $dtLb->prepare("INSERT INTO raw_estimate (id_estimate_obs, id_estimate, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_estimate_obs, :id_estimate, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
+
+        foreach ($dynamicFields as $key => $field) {
+            // Exécution de la requête pour chaque ligne
+            $insertNewRows->execute([
+                'id_estimate_obs' => $idEstimateObs,
+                'id_estimate' => $idEstimate,
+                'designation' => $field['designation'],
+                'frais_avances' => $field['frais_avances'],
+                'prix_ht_10' => $field['prix_ht_10'],
+                'prix_ht_20' => $field['prix_ht_20'],
+            ]);
+        }
+
+        // Mettez à jour les données générales dans la table estimate_obs
+        $updateGeneralData = $dtLb->prepare("UPDATE estimate_obs SET name = :name, lastname = :lastname, adress = :adress, city = :city, email = :email, total_ht = :total_ht, tva_10 = :tva_10, tva_20 = :tva_20, total_frais_avances = :total_frais_avances, ttc = :ttc, message = :message WHERE id_estimate = :id_estimate");
 
         // Exécution de la requête pour les données générales
-        $sqlGeneral->execute([
+        $updateGeneralData->execute([
             'name' => $firstname,
             'lastname' => $lastname,
             'adress' => $adress,
@@ -278,35 +304,9 @@ if (isset($_POST['submitAddBill']) && isset($_POST['token'])) {
             'id_estimate' => $idEstimate,
         ]);
 
-        // Récupération de l'id_bill généré
-        $idEstimateObs = $dtLb->lastInsertId();
-
-        // Requête SQL pour les lignes spécifiques
-        $sqlSpecific = $dtLb->prepare("INSERT INTO raw_estimate (id_estimate_obs, id_estimate, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_estimate_obs, :id_estimate, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
-
-        // ...
-        // var_dump($id_bill);
-        // exit;
-
-        foreach ($designations as $key => $designation) {
-            // Exécution de la requête pour chaque ligne
-            $sqlSpecific->execute([
-                'id_estimate_obs' => $idEstimateObs,
-                'id_estimate' => $idEstimate,
-                'designation' => $designation,
-                'frais_avances' => $advances[$key],
-                'prix_ht_10' => $htPrices10[$key],
-                'prix_ht_20' => $htPrices20[$key],
-            ]);
-            // Ajouter une notification de succès
-            $_SESSION['notif'] = [
-                'type' => 'success', // ou tout autre style CSS que vous utilisez pour les notifications de succès
-                'message' => 'Le devis a été enregistrer avec succès!',
-            ];
-        }
+        // Redirection avec un code de statut approprié
+        header('Location: /LeBaron/back-office/list-devis-obs.php');
+        exit;
     }
 }
-//   Redirection avec un code de statut approprié
-header('Location: /LeBaron/back-office/list-devis-obs.php');
-exit;
 

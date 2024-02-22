@@ -1,7 +1,8 @@
 <?php
 require "../../back-office/_includes/_dbCo.php";
 $dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+// var_dump($_POST);
+// exit;
 use \Mailjet\Resources;
 // Vérification de la soumission du formulaire
 session_start();
@@ -74,6 +75,7 @@ if (isset($_POST['firstname']) && isset($_POST['mail']) && isset($_POST['token']
             $firstname = strip_tags($_POST['firstname']);
             $lastname = strip_tags($_POST['lastname']);
             $linkDefunt = strip_tags($_POST['link-defunt']);
+            $adress = strip_tags($_POST['adress']);
             $city = strip_tags($_POST['city']);
             $mail = strip_tags($_POST['mail']);
             $confirmMail = strip_tags($_POST['confirm-mail']);
@@ -81,8 +83,8 @@ if (isset($_POST['firstname']) && isset($_POST['mail']) && isset($_POST['token']
             $hourContact = strip_tags($_POST['hour-contact']);
 
             // Requête SQL pour l'insertion des données
-            $stmt = $dtLb->prepare("INSERT INTO devis_obs (type_demande, firstname_defunt, lastname_defunt, date_born, location_born, cp_born, date_death, location_death, city_death, city_death_cp, presentation_corps, body_care, obituary_online, obituary_press, type_funeral, city_ceremony, type_ceremony, type_sepulture, message, firstname, lastname, link_defunt, city, mail, confirm_mail, phone, hour_contact, accept_conditions) 
-                               VALUES (:type_demande, :firstname_defunt, :lastname_defunt, :date_born, :location_born, :cp_born, :date_death, :location_death, :city_death, :city_death_cp, :presentation_corps, :body_care, :obituary_online, :obituary_press, :type_funeral, :city_ceremony, :type_ceremony, :type_sepulture, :message, :firstname, :lastname, :link_defunt, :city, :mail, :confirm_mail, :phone, :hour_contact, :accept_conditions)");
+            $stmt = $dtLb->prepare("INSERT INTO devis_obs (type_demande, firstname_defunt, lastname_defunt, date_born, location_born, cp_born, date_death, location_death, city_death, city_death_cp, presentation_corps, body_care, obituary_online, obituary_press, type_funeral, city_ceremony, type_ceremony, type_sepulture, message, firstname, lastname, link_defunt, adress, city, mail, confirm_mail, phone, hour_contact, accept_conditions) 
+                               VALUES (:type_demande, :firstname_defunt, :lastname_defunt, :date_born, :location_born, :cp_born, :date_death, :location_death, :city_death, :city_death_cp, :presentation_corps, :body_care, :obituary_online, :obituary_press, :type_funeral, :city_ceremony, :type_ceremony, :type_sepulture, :message, :firstname, :lastname, :link_defunt, :adress, :city, :mail, :confirm_mail, :phone, :hour_contact, :accept_conditions)");
 
             // Liaison des paramètres
             $stmt->bindParam(':type_demande', $typeDemande);
@@ -107,6 +109,7 @@ if (isset($_POST['firstname']) && isset($_POST['mail']) && isset($_POST['token']
             $stmt->bindParam(':firstname', $firstname);
             $stmt->bindParam(':lastname', $lastname);
             $stmt->bindParam(':link_defunt', $linkDefunt);
+            $stmt->bindParam(':adress', $adress);
             $stmt->bindParam(':city', $city);
             $stmt->bindParam(':mail', $mail);
             $stmt->bindParam(':confirm_mail', $confirmMail);
