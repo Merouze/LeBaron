@@ -46,7 +46,7 @@ if (isset($_SESSION['notif']) && is_array($_SESSION['notif'])) {
     unset($_SESSION['error']);
 }
 ?>
-<h1 class="display grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>
+<h1 class="grey text-align padding-title">Liste des&nbsp;<span class="blue">Avis de décès</span></h1>
 <!-- Afficher les résultats de la recherche -->
 <section class="resultats-recherche">
     <?php
@@ -62,7 +62,7 @@ if (isset($_SESSION['notif']) && is_array($_SESSION['notif'])) {
                 ?>
                 <li>
                     <ul>
-                        <div class="display-mtb20 display_list-ad display-search-admin ">
+                        <div class="display-mtb20 display_list-ad display-search-admin">
                             <div class="display-li-ad">
                                 <li class="bold grey"><?= $resultat['nom_prenom_defunt'] . ' ' . $resultat['age'] . ' ans' ?></li>
                                 <li class="bold blue"><?= $dateFormatee ?></li>
@@ -90,7 +90,7 @@ if (isset($_SESSION['notif']) && is_array($_SESSION['notif'])) {
     </div>
 </section>
 <!-- section li defunt -->
-<section class="display-ad">
+<section class="display-section-avis">
     <h3 class="mb50 text-align grey">Nos derniers avis de <span class="blue">décès publiés</span></h3>
     <?php
     $idDefunt = isset($_GET['idDefunt']) ? $_GET['idDefunt'] : null;
@@ -100,22 +100,22 @@ if (isset($_SESSION['notif']) && is_array($_SESSION['notif'])) {
     ORDER BY c.date_ceremonie DESC
     LIMIT 4");
     $lastAvis = $sqlGetLastAvis->fetchAll(PDO::FETCH_ASSOC);
-    echo '<ul>';
+    echo '<ul class="display-avis">';
     foreach ($lastAvis as $avis) {
           // Créer un objet DateTime pour la date de la cérémonie
           $dateCeremonie = new DateTime($avis['date_ceremonie']);
 
           // Formater la date en jours/mois/année
           $dateFormatee = $dateCeremonie->format('d/m/Y');
-        echo '<li>';
+        echo '<li class="mb30">';
         echo '<ul>';
-        echo '<div class="display-mtb20 display_list-ad-cl">';
+        echo '<div class="display-mtb20 display_list-ad display-search-admin">';
         echo '<div>';
         echo '<li class="bold grey">' . $avis['nom_prenom_defunt'] . ' ' . $avis['age'] . ' ans</li>';
         echo '<li class="bold blue">' . $dateFormatee . '</li>';
         echo '</div>';
-        echo '<div>';
-        echo '<p class="obituary-cta"><a class="cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter</a></p>';
+        echo '<div class="display-btn-list-ad-cl">';
+        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="avis-deces.php?idDefunt=' . urlencode($avis['id_defunt']) . '">Consulter</a></p>';
         echo '</div>';
         echo '</div>';
         echo '</ul>';

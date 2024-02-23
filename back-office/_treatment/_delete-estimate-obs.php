@@ -3,7 +3,7 @@ require "../../back-office/_includes/_dbCo.php";
 $dtLb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 session_start();
-$_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+$_SESSION['myToken'];
 
 // Assurez-vous que l'ID de l'estimation est passé dans l'URL
 if (isset($_GET['idEstimate'])) {
@@ -22,7 +22,11 @@ if (isset($_GET['idEstimate'])) {
 
         // Exécution de la requête
         $stmt->execute();
-
+        // Définir la notification de suppression avec succès
+        $_SESSION['notif'] = [
+            'type' => 'success',
+            'message' => 'Demande de devis supprimées avec succès.'
+        ];
         // Redirection après la suppression
         header("Location: .././list-devis-obs.php");
         exit();
@@ -32,9 +36,7 @@ if (isset($_GET['idEstimate'])) {
         exit();
     }
 } else {
-   // Redirection vers une page appropriée après la suppression
-   header("Location: .././list-devis-obs.php");
-   exit();
+    // Redirection vers une page appropriée après la suppression
+    header("Location: .././list-devis-obs.php");
+    exit();
 }
-
-?>

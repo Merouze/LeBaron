@@ -69,7 +69,6 @@ $htmlCondolences = '
         <p>02.31.26.91.75 7j/7 et 24h/24.</p>
         <p>2 Rte de Maltot 14930 Vieux.</p>
         <p>Le <span class="blue bold">' . $dateDayFormatee . ',</span></p>
-        <p>Id. devis : <span class="blue bold">' . $idEstimate . '.</span></p>
     </div>
 </div>
 
@@ -215,7 +214,7 @@ if (isset($_POST['submitPDF']) && isset($_POST['token'])) {
 
     ]);
     $mpdf->WriteHTML($htmlCondolences . $htmlDevis . $htmlFooter);
-    $pdfPath = './devis-marbrerie-' . $idEstimate . '.pdf';
+    $pdfPath = './devis-marbrerie.pdf';
     // En-têtes pour indiquer que le contenu est un fichier PDF
     header('Content-Type: application/pdf');
     // Affichez le PDF dans le navigateur avec la possibilité de télécharger
@@ -223,7 +222,97 @@ if (isset($_POST['submitPDF']) && isset($_POST['token'])) {
     // Enregistrez le PDF sur le serveur
     // $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
     // Obtenez le contenu du PDF directement dans une variable
-    $pdfContent = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
-    // Stockez le contenu dans une variable de session
-    $_SESSION['pdf_content_' . $idEstimate] = $pdfContent;
+    // $pdfContent = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    // // Stockez le contenu dans une variable de session
+    // $_SESSION['pdf_content_' . $idEstimate] = $pdfContent;
 }
+//****************************** Treatment add estimate mar
+
+if (isset($_POST['submitSaveMar']) && isset($_POST['token'])) { 
+    $token = strip_tags($_POST['token']);
+    // var_dump($_POST);
+    // exit;
+    if ($token === $_SESSION['myToken']) {
+
+        $designations = isset($_POST["designation"]) ? $_POST["designation"] : [];
+        $advances = isset($_POST["frais_avances"]) ? $_POST["frais_avances"] : [];
+        $htPrices10 = isset($_POST["prix_ht_10"]) ? $_POST["prix_ht_10"] : [];
+        $htPrices20 = isset($_POST["prix_ht_20"]) ? $_POST["prix_ht_20"] : [];
+        $firstname = strip_tags($_POST["firstname"]);
+        $lastname = strip_tags($_POST["lastname"]);
+        $adress = strip_tags($_POST["adress"]);
+        $city = strip_tags($_POST["city"]);
+        $email = strip_tags($_POST["email"]);
+        $totalHt = strip_tags($_POST["total_ht"]);
+        $tva10 = strip_tags($_POST["tva_10"]);
+        $tva20 = strip_tags($_POST["tva_20"]);
+        $totalAdvance = strip_tags($_POST["total_frais_avances"]);
+        $ttc = strip_tags($_POST["ttc"]);
+        $message = strip_tags($_POST["commentaire"]);
+        $idEstimate = strip_tags($_POST["idEstimate"]);
+        $traite = 1;
+// var_dump($traite);
+// exit;
+        // Requête SQL pour mettre à jour les données générales
+        $sqlUpdate = $dtLb->prepare(
+            "UPDATE devis_mar SET 
+        traite = :traite
+        WHERE id_estimate = :id_estimate"
+        );
+
+        // Exécution de la requête pour les données générales
+        $sqlUpdate->execute([
+            'traite' => $traite,
+            'id_estimate' => $idEstimate,
+        ]);
+
+        // Requête SQL pour les données générales
+        $sqlGeneral = $dtLb->prepare("INSERT INTO estimate_mar (name, lastname, adress, city, email, is_save, total_ht, tva_10, tva_20, total_frais_avances, ttc, message, id_estimate) VALUES (:name, :lastname, :adress, :city, :email, :is_save, :total_ht, :tva_10, :tva_20, :total_frais_avances, :ttc, :message, :id_estimate)");
+
+        // Exécution de la requête pour les données générales
+        $sqlGeneral->execute([
+            'name' => $firstname,
+            'lastname' => $lastname,
+            'adress' => $adress,
+            'city' => $city,
+            'email' => $email,
+            'is_save' => $traite,
+            'total_ht' => $totalHt,
+            'tva_10' => $tva10,
+            'tva_20' => $tva20,
+            'total_frais_avances' => $totalAdvance,
+            'ttc' => $ttc,
+            'message' => $message,
+            'id_estimate' => $idEstimate,
+        ]);
+
+        // Récupération de l'id généré
+        $idEstimateMar = $dtLb->lastInsertId();
+
+        // Requête SQL pour les lignes spécifiques
+        $sqlSpecific = $dtLb->prepare("INSERT INTO raw_estimate (id_estimate_mar, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_estimate_mar, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
+
+        // ...
+        // var_dump($id_bill);
+        // exit;
+
+        foreach ($designations as $key => $designation) {
+            // Exécution de la requête pour chaque ligne
+            $sqlSpecific->execute([
+                'id_estimate_mar' => $idEstimateMar,
+                'designation' => $designation,
+                'frais_avances' => $advances[$key],
+                'prix_ht_10' => $htPrices10[$key],
+                'prix_ht_20' => $htPrices20[$key],
+            ]);
+            // Ajouter une notification de succès
+            $_SESSION['notif'] = [
+                'type' => 'success', // ou tout autre style CSS que vous utilisez pour les notifications de succès
+                'message' => 'Le devis a été enregistrer avec succès!',
+            ];
+        }
+    }
+}
+//   Redirection avec un code de statut approprié
+header('Location: /LeBaron/back-office/list-devis-mar.php');
+exit;

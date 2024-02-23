@@ -39,8 +39,16 @@ body {
     margin-bottom: 50px;
 }
 
-.mt30 {
-    margin-top: 30px;
+.mb20 {
+    margin-top: 20px;
+}
+
+.mb30 {
+    margin-bottom: 30px;
+}
+
+.pb100 {
+    padding-bottom: 30px;
 }
 
 .check-form {
@@ -61,6 +69,7 @@ body a {
     text-decoration: none;
     color: white;
 }
+
 body p {
     line-height: 24px;
 
@@ -199,13 +208,16 @@ ul {
 }
 
 .cta-ad {
-    width: 20%;
+    /* width: 20%; */
     margin-bottom: 10px;
 
 }
 
 .input-ad {
     width: 50%;
+}
+.ul-contact {
+    padding: 20px;
 }
 
 .ad {
@@ -225,8 +237,6 @@ ul {
 .display-ad ul {
     padding-left: 0;
     max-width: 40vw;
-
-
 }
 
 .mt50 {
@@ -373,6 +383,37 @@ ul {
 
 }
 
+.display-section-avis {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.display-avis {
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+}
+
+.display-avis-div {
+    display: flex;
+    justify-content: space-between;
+    width: 50vw;
+}
+
+.display-ad-avis {
+    max-width: 40vw;
+    margin: 50px auto;
+}
+
+.display-ad-avis ul {
+    padding-left: 0;
+    max-width: 40vw;
+}
+
+
 
 /* map */
 @media screen and (max-width: 960px) {
@@ -487,7 +528,6 @@ ul {
 
     .display {
         display: flex;
-
         color: #353031;
         font-size: 21px;
         padding: 165px 0px 0px 0px;
@@ -497,6 +537,21 @@ ul {
         display: flex;
         justify-content: center;
     }
+
+    .display-avis ul {
+        display: flex;
+        flex-direction: column;
+        max-width: 100% !important;
+    }
+
+    .resultats-recherche {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 190px;
+    }
+    
+
 
 
 }

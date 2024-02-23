@@ -22,6 +22,11 @@ if (isset($_GET['idEstimate'])) {
 
         // Exécution de la requête
         $stmt->execute();
+          // Définir la notification de suppression avec succès
+          $_SESSION['notif'] = [
+            'type' => 'success',
+            'message' => 'Demande de devis supprimées avec succès.'
+        ];
 
         // Redirection après la suppression
         header("Location: .././list-devis-prev.php");

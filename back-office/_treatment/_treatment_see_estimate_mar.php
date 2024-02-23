@@ -12,16 +12,17 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
 
     if ($token === $_SESSION['myToken']) {
 
-        $sqlRetrieveEstimate = $dtLb->prepare("SELECT * FROM estimate_obs WHERE id_estimate = :id_estimate");
+        $sqlRetrieveEstimate = $dtLb->prepare("SELECT * FROM estimate_mar WHERE id_estimate = :id_estimate");
         $sqlRetrieveEstimate->execute(['id_estimate' => $idEstimate]);
         $estimateData = $sqlRetrieveEstimate->fetch(PDO::FETCH_ASSOC);
-
-        $idEstimateObs = $estimateData['id_estimate_obs'];
-        //     var_dump($estimateData);
+        $idEstimateMar = $estimateData['id_estimate_mar'] ?? '';
+        // var_dump($idEstimateMar);
         // exit;
+
+
         /// Utilisez également $id_bill pour récupérer les données spécifiques de la table raw_bill
-        $sqlRetrieveRawBill = $dtLb->prepare("SELECT * FROM raw_estimate WHERE id_estimate_obs = :id_estimate_obs");
-        $sqlRetrieveRawBill->execute(['id_estimate_obs' => $idEstimateObs]);
+        $sqlRetrieveRawBill = $dtLb->prepare("SELECT * FROM raw_estimate WHERE id_estimate_mar = :id_estimate_mar");
+        $sqlRetrieveRawBill->execute(['id_estimate_mar' => $idEstimateMar]);
         $rawBillData = $sqlRetrieveRawBill->fetchAll(PDO::FETCH_ASSOC);
 
         // var_dump($estimateData);
@@ -40,18 +41,14 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
                 'prix_ht_20' => $row['prix_ht_20'],
             ];
         }
-        $reformattedRawBillData = array_reverse($reformattedRawBillData);
-        // Récupération de l'id_bill s'il existe déjà
-        $existingIdBill = $estimateData['id_estimate'];
-        // var_dump($existingIdBill);
-        // exit;
+
         // Récupération des données des champs statiques
         $designation = $reformattedRawBillData[0]['designation'] ?? array();
         $advance = $reformattedRawBillData[0]['frais_avances'] ?? array();
         $htPrice10 = $reformattedRawBillData[0]['prix_ht_10'] ?? array();
         $htPrice20 = $reformattedRawBillData[0]['prix_ht_20'] ?? array();
         // Utilisation des valeurs récupérées pour remplir les champs statiques
-        $idBill = $estimateData['id_bill'] ?? '';
+        $idEstimateMar = $estimateData['id_estimate_mar'] ?? '';
         $name = $estimateData['name'] ?? '';
         $lastname = $estimateData['lastname'] ?? '';
         $email = $estimateData['email'] ?? '';
@@ -70,7 +67,7 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
         $dateFormatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
         $formattedDate = $dateFormatter->format($currentDate->getTimestamp());
 
-        // var_dump($estimateData);
+        // var_dump($rawBillData);
         // exit;
 
         // Génération du contenu stylisé du PDF pour les condoléances
@@ -121,13 +118,13 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
     <div>
     <img src="../../asset/img/logo-LB.png" alt="logo">
     <div class="align-right">
-    <p class="bold">' . $name . ' ' . $lastname . '</p>
+        <p class="bold">' . $name . ' ' . $lastname . '</p>
         <p>' . $adress . '</p>
-        <p>' . $cP . ' ' . $city . '</p>
+        <p>' . $city . '</p>
     </div>
     </div>
     <div class="text-align">
-    <p>Devis n° ' . $idEstimateObs . ' à Vieux le ' . $formattedDate . '.</p>
+    <p>Devis n° ' . $idEstimateMar . ' à Vieux le ' . $formattedDate . '.</p>
     </div>
     ';
 

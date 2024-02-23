@@ -100,8 +100,13 @@
         </label>
         <input type="text" id="profession" name="profession" required>
 
+        <label for="adress">
+            <h4>Adresse <span class="red">*</span></h4>
+        </label>
+        <input type="text" id="adress" name="adress" required>
+
         <label for="city">
-            <h4>Ville <span class="red">*</span></h4>
+            <h4>Ville et code postale <span class="red">*</span></h4>
         </label>
         <input type="text" id="city" name="city" required>
 
@@ -133,7 +138,10 @@
         <!-- Conditions d'utilisation -->
         <div>
             <input class="check-form" type="checkbox" id="accept-conditions" name="accept-conditions" required>
-            <label for="accept-conditions"><p>En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis.</p><p>Cette demande est gratuite et sans engagement de votre part.</p></label>
+            <label for="accept-conditions">
+                <p>En envoyant ce formulaire, j'accepte que les informations saisies soient utilisées pour être recontacté dans le cadre strict de cette demande de devis.</p>
+                <p>Cette demande est gratuite et sans engagement de votre part.</p>
+            </label>
         </div>
 
         <button name="d-prev" type="submit">Envoyer votre demande</button>
@@ -148,4 +156,5 @@
 <script src="asset/Js/script.js"></script>
 <script src="asset/Js/fonctions.js"></script>
 </body>
+
 </html>

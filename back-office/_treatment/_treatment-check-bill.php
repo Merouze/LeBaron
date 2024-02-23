@@ -282,7 +282,7 @@ if (isset($_POST['submitAddBill']) && isset($_POST['token'])) {
         $idEstimateObs = $dtLb->lastInsertId();
 
         // Requête SQL pour les lignes spécifiques
-        $sqlSpecific = $dtLb->prepare("INSERT INTO raw_estimate (id_estimate_obs, id_estimate, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_estimate_obs, :id_estimate, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
+        $sqlSpecific = $dtLb->prepare("INSERT INTO raw_estimate (id_estimate_obs, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_estimate_obs, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
 
         // ...
         // var_dump($id_bill);
@@ -292,7 +292,6 @@ if (isset($_POST['submitAddBill']) && isset($_POST['token'])) {
             // Exécution de la requête pour chaque ligne
             $sqlSpecific->execute([
                 'id_estimate_obs' => $idEstimateObs,
-                'id_estimate' => $idEstimate,
                 'designation' => $designation,
                 'frais_avances' => $advances[$key],
                 'prix_ht_10' => $htPrices10[$key],

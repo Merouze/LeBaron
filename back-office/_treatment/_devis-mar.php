@@ -13,7 +13,7 @@ if (isset($_POST['firstname']) && isset($_POST['mail']) && isset($_POST['token']
     $firstname = "Prénom : " . strip_tags($_POST['firstname']);
     $lastname = "Nom : " . strip_tags($_POST['lastname']);
     $email = strip_tags($_POST['mail']);
-    $message = "Message : " . strip_tags($_POST['message']);
+    $message = "Message : " . strip_tags($_POST['message-marble']);
 
     if ($token === $_SESSION['myToken']) {
 
@@ -60,15 +60,19 @@ if (isset($_POST['firstname']) && isset($_POST['mail']) && isset($_POST['token']
             $locationCimetary = strip_tags($_POST['location-cimetary']);
             $firstname = strip_tags($_POST['firstname']);
             $lastname = strip_tags($_POST['lastname']);
+            $adress = strip_tags($_POST['adress']);
             $city = strip_tags($_POST['city']);
             $mail = strip_tags($_POST['mail']);
             $confirmMail = strip_tags($_POST['confirm-mail']);
             $phone = strip_tags($_POST['phone']);
             $hourContact = strip_tags($_POST['hour-contact']);
+            $acceptConditions = isset($_POST['accept-conditions']) ? 1 : 0;
 
+// var_dump($_POST);
+// exit;
             // Requête SQL pour l'insertion des données
-            $stmt = $dtLb->prepare("INSERT INTO devis_mar (type_works, type_monument, type_entretien, flowering, message_marble, location_fall, cimetary_name, location_cimetary, firstname, lastname, city, mail, confirm_mail, phone, hour_contact, accept_conditions) 
-                               VALUES (:type_works, :type_monument, :type_entretien, :flowering, :message_marble, :location_fall, :cimetary_name, :location_cimetary, :firstname, :lastname, :city, :mail, :confirm_mail, :phone, :hour_contact, :accept_conditions)");
+            $stmt = $dtLb->prepare("INSERT INTO devis_mar (type_works, type_monument, type_entretien, flowering, message_marble, location_fall, cimetary_name, location_cimetary, firstname, lastname, adress, city, mail, confirm_mail, phone, hour_contact, accept_conditions) 
+                               VALUES (:type_works, :type_monument, :type_entretien, :flowering, :message_marble, :location_fall, :cimetary_name, :location_cimetary, :firstname, :lastname, :adress, :city, :mail, :confirm_mail, :phone, :hour_contact, :accept_conditions)");
 
             // Liaison des paramètres
             $stmt->bindParam(':type_works', $typeWorks);
@@ -81,12 +85,12 @@ if (isset($_POST['firstname']) && isset($_POST['mail']) && isset($_POST['token']
             $stmt->bindParam(':location_cimetary', $locationCimetary);
             $stmt->bindParam(':firstname', $firstname);
             $stmt->bindParam(':lastname', $lastname);
+            $stmt->bindParam(':adress', $adress,);
             $stmt->bindParam(':city', $city);
             $stmt->bindParam(':mail', $mail);
             $stmt->bindParam(':confirm_mail', $confirmMail);
             $stmt->bindParam(':phone', $phone);
             $stmt->bindParam(':hour_contact', $hourContact);
-            $acceptConditions = isset($_POST['accept-conditions']) ? 1 : 0;
             $stmt->bindParam(':accept_conditions', $acceptConditions);
 
             // Exécution de la requête

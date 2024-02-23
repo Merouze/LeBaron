@@ -264,20 +264,18 @@ if (isset($_POST['submitUpdateEstimate']) && isset($_POST['token'])) {
         }
 
         // Supprimez les lignes existantes liées à cette estimation
-        $deleteExistingRows = $dtLb->prepare("DELETE FROM raw_estimate WHERE id_estimate_obs = :id_estimate_obs AND id_estimate = :id_estimate");
+        $deleteExistingRows = $dtLb->prepare("DELETE FROM raw_estimate WHERE id_estimate_obs = :id_estimate_obs");
         $deleteExistingRows->execute([
             'id_estimate_obs' => $idEstimateObs,
-            'id_estimate' => $idEstimate,
         ]);
 
         // Insérez les nouvelles données dans la table raw_estimate
-        $insertNewRows = $dtLb->prepare("INSERT INTO raw_estimate (id_estimate_obs, id_estimate, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_estimate_obs, :id_estimate, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
+        $insertNewRows = $dtLb->prepare("INSERT INTO raw_estimate (id_estimate_obs, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_estimate_obs, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
 
         foreach ($dynamicFields as $key => $field) {
             // Exécution de la requête pour chaque ligne
             $insertNewRows->execute([
                 'id_estimate_obs' => $idEstimateObs,
-                'id_estimate' => $idEstimate,
                 'designation' => $field['designation'],
                 'frais_avances' => $field['frais_avances'],
                 'prix_ht_10' => $field['prix_ht_10'],
@@ -286,7 +284,95 @@ if (isset($_POST['submitUpdateEstimate']) && isset($_POST['token'])) {
         }
 
         // Mettez à jour les données générales dans la table estimate_obs
-        $updateGeneralData = $dtLb->prepare("UPDATE estimate_obs SET name = :name, lastname = :lastname, adress = :adress, city = :city, email = :email, total_ht = :total_ht, tva_10 = :tva_10, tva_20 = :tva_20, total_frais_avances = :total_frais_avances, ttc = :ttc, message = :message WHERE id_estimate = :id_estimate");
+        $updateGeneralData = $dtLb->prepare("UPDATE estimate_obs SET name = :name, lastname = :lastname, adress = :adress, city = :city, email = :email, total_ht = :total_ht, tva_10 = :tva_10, tva_20 = :tva_20, total_frais_avances = :total_frais_avances, ttc = :ttc, message = :message WHERE id_estimate_obs = :id_estimate_obs");
+
+        // Exécution de la requête pour les données générales
+        $updateGeneralData->execute([
+            'name' => $firstname,
+            'lastname' => $firstname,
+            'adress' => $adress,
+            'city' => $city,
+            'email' => $email,
+            'total_ht' => $totalHt,
+            'tva_10' => $tva10,
+            'tva_20' => $tva20,
+            'total_frais_avances' => $totalAdvance,
+            'ttc' => $ttc,
+            'message' => $message,
+            'id_estimate_obs' => $idEstimateObs,
+        ]);
+
+        // Redirection avec un code de statut approprié
+        header('Location: /LeBaron/back-office/list-devis-obs.php');
+        exit;
+    }
+}
+//****************************** Treatment modify estimate mar
+
+if (isset($_POST['submitUpdateEstimateMar']) && isset($_POST['token'])) {
+    $token = strip_tags($_POST['token']);
+    // var_dump($_POST);
+    // exit;
+
+    if ($token === $_SESSION['myToken']) {
+
+        $designations = isset($_POST["designation"]) ? $_POST["designation"] : [];
+        $advances = isset($_POST["frais_avances"]) ? $_POST["frais_avances"] : [];
+        $htPrices10 = isset($_POST["prix_ht_10"]) ? $_POST["prix_ht_10"] : [];
+        $htPrices20 = isset($_POST["prix_ht_20"]) ? $_POST["prix_ht_20"] : [];
+        $firstname = strip_tags($_POST["firstname"]);
+        $lastname = strip_tags($_POST["lastname"]);
+        $adress = strip_tags($_POST["adress"]);
+        $city = strip_tags($_POST["city"]);
+        $email = strip_tags($_POST["mail"]);
+        $totalHt = strip_tags($_POST["total_ht"]);
+        $tva10 = strip_tags($_POST["tva_10"]);
+        $tva20 = strip_tags($_POST["tva_20"]);
+        $totalAdvance = strip_tags($_POST["total_frais_avances"]);
+        $ttc = strip_tags($_POST["ttc"]);
+        $message = strip_tags($_POST["commentaire"]);
+        $idEstimate = strip_tags($_POST["idEstimate"]);
+        $idEstimateMar = strip_tags($_POST["idEstimateMar"]);
+        $traite = 1;
+
+        // Récupérez les données des champs dynamiques
+        $dynamicFields = [];
+
+        // Obtenez le nombre total de champs (peu importe le type)
+        $numFields = count($_POST['designation']);
+
+        // Itérez sur chaque champ en utilisant son indice
+        for ($i = 0; $i < $numFields; $i++) {
+            $dynamicFields[] = [
+                'designation' => isset($_POST["designation"][$i]) ? strip_tags($_POST["designation"][$i]) : '',
+                'frais_avances' => isset($_POST["frais_avances"][$i]) ? strip_tags($_POST["frais_avances"][$i]) : '',
+                'prix_ht_10' => isset($_POST["prix_ht_10"][$i]) ? strip_tags($_POST["prix_ht_10"][$i]) : '',
+                'prix_ht_20' => isset($_POST["prix_ht_20"][$i]) ? strip_tags($_POST["prix_ht_20"][$i]) : '',
+            ];
+        }
+
+        // Supprimez les lignes existantes liées à cette estimation
+        $deleteExistingRows = $dtLb->prepare("DELETE FROM raw_estimate WHERE id_estimate_mar = :id_estimate_mar");
+        $deleteExistingRows->execute([
+            'id_estimate_mar' => $idEstimateMar,
+        ]);
+
+        // Insérez les nouvelles données dans la table raw_estimate
+        $insertNewRows = $dtLb->prepare("INSERT INTO raw_estimate (id_estimate_mar, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_estimate_mar, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
+
+        foreach ($dynamicFields as $key => $field) {
+            // Exécution de la requête pour chaque ligne
+            $insertNewRows->execute([
+                'id_estimate_mar' => $idEstimateMar,
+                'designation' => $field['designation'],
+                'frais_avances' => $field['frais_avances'],
+                'prix_ht_10' => $field['prix_ht_10'],
+                'prix_ht_20' => $field['prix_ht_20'],
+            ]);
+        }
+
+        // Mettez à jour les données générales dans la table estimate_mar
+        $updateGeneralData = $dtLb->prepare("UPDATE estimate_mar SET name = :name, lastname = :lastname, adress = :adress, city = :city, email = :email, total_ht = :total_ht, tva_10 = :tva_10, tva_20 = :tva_20, total_frais_avances = :total_frais_avances, ttc = :ttc, message = :message WHERE id_estimate = :id_estimate");
 
         // Exécution de la requête pour les données générales
         $updateGeneralData->execute([
@@ -305,7 +391,93 @@ if (isset($_POST['submitUpdateEstimate']) && isset($_POST['token'])) {
         ]);
 
         // Redirection avec un code de statut approprié
-        header('Location: /LeBaron/back-office/list-devis-obs.php');
+        header('Location: /LeBaron/back-office/list-devis-mar.php');
+        exit;
+    }
+}
+//****************************** Treatment modify estimate prev
+
+if (isset($_POST['submitUpdateEstimatePrev']) && isset($_POST['token'])) {
+    $token = strip_tags($_POST['token']);
+
+
+    if ($token === $_SESSION['myToken']) {
+
+        $designations = isset($_POST["designation"]) ? $_POST["designation"] : [];
+        $advances = isset($_POST["frais_avances"]) ? $_POST["frais_avances"] : [];
+        $htPrices10 = isset($_POST["prix_ht_10"]) ? $_POST["prix_ht_10"] : [];
+        $htPrices20 = isset($_POST["prix_ht_20"]) ? $_POST["prix_ht_20"] : [];
+        $firstname = strip_tags($_POST["firstname"]);
+        $lastname = strip_tags($_POST["lastname"]);
+        $adress = strip_tags($_POST["adress"]);
+        $city = strip_tags($_POST["city"]);
+        $email = strip_tags($_POST["mail"]);
+        $totalHt = strip_tags($_POST["total_ht"]);
+        $tva10 = strip_tags($_POST["tva_10"]);
+        $tva20 = strip_tags($_POST["tva_20"]);
+        $totalAdvance = strip_tags($_POST["total_frais_avances"]);
+        $ttc = strip_tags($_POST["ttc"]);
+        $message = strip_tags($_POST["commentaire"]);
+        $idEstimate = strip_tags($_POST["idEstimate"]);
+        $idEstimatePrev = strip_tags($_POST["id_estimate_prev"]);
+        $traite = 1;
+
+        // Récupérez les données des champs dynamiques
+        $dynamicFields = [];
+        // var_dump($_POST);
+        // exit;
+        // Obtenez le nombre total de champs (peu importe le type)
+        $numFields = count($_POST['designation']);
+
+        // Itérez sur chaque champ en utilisant son indice
+        for ($i = 0; $i < $numFields; $i++) {
+            $dynamicFields[] = [
+                'designation' => isset($_POST["designation"][$i]) ? strip_tags($_POST["designation"][$i]) : '',
+                'frais_avances' => isset($_POST["frais_avances"][$i]) ? strip_tags($_POST["frais_avances"][$i]) : '',
+                'prix_ht_10' => isset($_POST["prix_ht_10"][$i]) ? strip_tags($_POST["prix_ht_10"][$i]) : '',
+                'prix_ht_20' => isset($_POST["prix_ht_20"][$i]) ? strip_tags($_POST["prix_ht_20"][$i]) : '',
+            ];
+        }
+
+        // Supprimez les lignes existantes liées à cette estimation
+        $deleteExistingRows = $dtLb->prepare("DELETE FROM raw_estimate WHERE id_estimate_prev = :id_estimate_prev");
+        $deleteExistingRows->execute([
+            'id_estimate_prev' => $idEstimatePrev,
+        ]);
+
+        // Insérez les nouvelles données dans la table raw_estimate
+        $insertNewRows = $dtLb->prepare("INSERT INTO raw_estimate (id_estimate_prev, designation, frais_avances, prix_ht_10, prix_ht_20) VALUES (:id_estimate_prev, :designation, :frais_avances, :prix_ht_10, :prix_ht_20)");
+
+        foreach ($dynamicFields as $key => $field) {
+            // Exécution de la requête pour chaque ligne
+            $insertNewRows->execute([
+                'id_estimate_prev' => $idEstimatePrev,
+                'designation' => $field['designation'],
+                'frais_avances' => $field['frais_avances'],
+                'prix_ht_10' => $field['prix_ht_10'],
+                'prix_ht_20' => $field['prix_ht_20'],
+            ]);
+        }
+
+        // Mettez à jour les données générales dans la table estimate_mar
+        $updateGeneralData = $dtLb->prepare("UPDATE estimate_prev SET name = :name, firstname = :firstname; total_ht = :total_ht, tva_10 = :tva_10, tva_20 = :tva_20, total_frais_avances = :total_frais_avances, ttc = :ttc, message = :message WHERE id_estimate = :id_estimate");
+
+        // Exécution de la requête pour les données générales
+        $updateGeneralData->execute([
+    
+            'name' => $lastname,
+            'firstname' => $firstname,
+            'total_ht' => $totalHt,
+            'tva_10' => $tva10,
+            'tva_20' => $tva20,
+            'total_frais_avances' => $totalAdvance,
+            'ttc' => $ttc,
+            'message' => $message,
+            'id_estimate' => $idEstimate,
+        ]);
+    
+        // Redirection avec un code de statut approprié
+        header('Location: /LeBaron/back-office/list-devis-prev.php');
         exit;
     }
 }

@@ -15,7 +15,7 @@
             <h3><span class="">ART</span>ISAN-MARBRIER</h3>
             </div>
             <div class="info-location-contact">
-                <ul>
+                <ul class="ul-contact">
                     <li>Route de Maltot</li>
                     <li>14930 VIEUX</li>
                     <li><span class="grey bold">Tél.</span> <span class="blue bold">02 31 26 91 75</li>

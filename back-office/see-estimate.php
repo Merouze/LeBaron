@@ -39,7 +39,8 @@ if ($idEstimate && count($resultats) > 0) {
             <?= '<li><span class="bold">Situation familiale :</span> ' . $resultat['situation_familiale'] . '</li>'; ?>
             <?= '<li><span class="bold">Date de naissance :</span> ' . $dateBornFormatee . '</li>'; ?>
             <?= '<li><span class="bold">Profession :</span> ' . $resultat['profession'] . '</li>'; ?>
-            <?= '<li><span class="bold">Ville :</span> ' . $resultat['ville'] . '</li>'; ?>
+            <?= '<li><span class="bold">Adresse :</span> ' . $resultat['adress'] . '</li>'; ?>
+            <?= '<li><span class="bold">Ville et code postale :</span> ' . $resultat['ville'] . '</li>'; ?>
             <?= '<li><span class="bold">Téléphone :</span> ' . $resultat['tel'] . '</li>'; ?>
             <?= '<li><span class="bold">Email :</span> ' . $resultat['email'] . '</li>'; ?>
             <?= '<li><span class="bold">Horaire de contact :</span> ' . $resultat['horaire_contact'] . '</li>'; ?>
@@ -137,27 +138,21 @@ if ($idEstimate && count($resultats) > 0) {
                 <br>
                 <label class="bold" for="commentaire">Commentaire :</label>
                 <textarea rows="6" id="commentaire" name="commentaire"></textarea>
+                <input type="hidden" name="name" value="<?= $resultat['nom']; ?>" required>
+                <input type="hidden" name="prenom" value="<?= $resultat['prenom']; ?>" required>
+                <input type="hidden" name="adress" value="<?= $resultat['adress']; ?>" required>
+                <input type="hidden" name="city" value="<?= $resultat['ville']; ?>" required>
+                <input type="hidden" name="email" value="<?= $resultat['email']; ?>" required>
+                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
+
+
+
             </div>
             <button type="submit" formtarget="_blank" name="submitPDF">Générer PDF</button>
+            <br>
+            <button type="submit" name="submitSavePrev">Enregistrer</button>
         </form>
-        <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
-            <div>
-                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-                <input type="hidden" name="estimateTraite" value="<?= $estimateTraite; ?>" required>
-                <input type="hidden" name="email" value="<?= $resultat['email']; ?>" required>
-                <input type="hidden" name="name" value="<?= $resultat['nom']; ?>" required>
-            </div>
-            <button type="submit" name="submitUpdatePrev">Valider et envoyer par mail</button>
-        </form>
-        <form class="form-estimate" method="post" action="_treatment/_treatment-check-estimate.php">
-            <div>
-                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-                <input type="hidden" name="idEstimate" value="<?= $idEstimate; ?>" required>
-                <input type="hidden" name="estimateTraite" value="<?= $estimateTraite; ?>" required>
-            </div>
-            <button type="submit" name="submitTraitePrev">Valider sans envoyer par mail</button>
-        </form>
+
     </div>
 </section>
 <!-- // ----- # FOOTER # ----- // -->

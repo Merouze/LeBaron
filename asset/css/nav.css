@@ -56,9 +56,11 @@
     justify-content: flex-end;
     height: 60px;
 }
+
 .justify {
     justify-content: center;
 }
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -104,6 +106,28 @@ nav.info {
     align-items: center;
 }
 
+.link-family {
+    display: flex;
+}
+
+.link-family ul {
+    display: flex;
+}
+
+.link-family li {
+    margin: 10px;
+}
+
+.link-family a {
+    color: #353031;
+}
+.link-family a:hover{
+    color: #039DB5;
+    font-weight: bold;
+}
+
+
+
 @media screen and (max-width: 960px) {
     .logo {
         display: flex;
@@ -146,11 +170,20 @@ nav.info {
 
     }
 
+    .link-family {
+        display: flex;
+    }
+
+    .link-family a {
+        color: #353031;
+    }
 
     .nav-links.active {
         display: flex;
         background-color: white;
         height: auto;
+        z-index: 100;
+
     }
 
     .info-nav {
@@ -200,8 +233,9 @@ nav.info {
         border-radius: 15px;
         margin: 0;
     }
+
     .user-icon {
         display: none;
     }
-
+  
 }

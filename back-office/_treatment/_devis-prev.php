@@ -58,6 +58,7 @@ if (isset($_POST['firstname']) && isset($_POST['mail']) && isset($_POST['token']
             $familySituation = strip_tags($_POST['family-situation']);
             $birthdate = strip_tags($_POST['birthdate']);
             $profession = strip_tags($_POST['profession']);
+            $adress = strip_tags($_POST['adress']);
             $city = strip_tags($_POST['city']);
             $mail = strip_tags($_POST['mail']);
             $confirmMail = strip_tags($_POST['confirm-mail']);
@@ -68,8 +69,8 @@ if (isset($_POST['firstname']) && isset($_POST['mail']) && isset($_POST['token']
             // $dateDemande = strip_tags($_POST['date-demande']);
 
             // Requête SQL pour l'insertion des données
-            $stmt = $dtLb->prepare("INSERT INTO devis_prevoyance (type_demande, type_contrat, prenom, nom, situation_familiale, date_naissance, profession, ville, email, tel, horaire_contact, message, accept_conditions, traite) 
-                               VALUES (:type_obs, :time_finance, :firstname, :lastname, :family_situation, :birthdate, :profession, :city, :mail, :phone, :hour_contact, :message_pre,  :accept_conditions, :traite)");
+            $stmt = $dtLb->prepare("INSERT INTO devis_prevoyance (type_demande, type_contrat, prenom, nom, situation_familiale, date_naissance, profession, adress, ville, email, tel, horaire_contact, message, accept_conditions, traite) 
+                               VALUES (:type_obs, :time_finance, :firstname, :lastname, :family_situation, :birthdate, :profession, :adress, :city, :mail, :phone, :hour_contact, :message_pre,  :accept_conditions, :traite)");
 
             // Liaison des paramètres
             $stmt->bindParam(':type_obs', $typeObs);
@@ -79,6 +80,7 @@ if (isset($_POST['firstname']) && isset($_POST['mail']) && isset($_POST['token']
             $stmt->bindParam(':family_situation', $familySituation);
             $stmt->bindParam(':birthdate', $birthdate);
             $stmt->bindParam(':profession', $profession);
+            $stmt->bindParam(':adress', $adress);
             $stmt->bindParam(':city', $city);
             $stmt->bindParam(':mail', $mail);
             $stmt->bindParam(':phone', $phone);

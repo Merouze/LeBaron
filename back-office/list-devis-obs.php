@@ -19,8 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['recherche']) && isset($
         WHERE (firstname LIKE :recherche OR lastname LIKE :recherche OR id_estimate LIKE :recherche)
         AND traite = 1");
         $sqlSearch->execute(['recherche' => "%$recherche%"]);
-
-
         $resultats = $sqlSearch->fetchAll(PDO::FETCH_ASSOC);
         // Vérifier s'il y a des résultats
         if ($sqlSearch->rowCount() > 0) {
@@ -70,7 +68,7 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
             <?php foreach ($resultats as $resultat) :
                 // Créer un objet DateTime pour la date de la cérémonie
                 $dateDemande = new DateTime($resultat['date_demande']);
-
+                // var_dump($resultats);
                 // Formater la date en jours/mois/année
                 $dateFormatee = $dateDemande->format('d/m/Y');
             ?>
@@ -87,8 +85,7 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
                             <div class="display-btn-list-ad">
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-estimate-obs.php?idEstimate=<?= urlencode($resultat['id_estimate']) ?>&token=<?= $_SESSION['myToken'] ?>">Modifier</a></p>
                                 <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="_treatment/_treatment_sent_estimate.php?idEstimate=<?= urlencode($resultat['id_estimate']) ?>&token=<?= $_SESSION['myToken'] ?>">Envoyer</a></p>
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimateTraite(<?= $resultat['id_estimate'] ?>);">Supprimer le devis</a></p>
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(<?= $resultat['id_estimate'] ?>);">Supprimer la demande</a></p>
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimateTraiteObs(<?= $resultat['id_estimate'] ?>);">Supprimer le devis et la demande</a></p>
                             </div>
 
                         </div>
@@ -128,8 +125,8 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
                     <li class="bold blue"><?= $dateFormatee ?></li>
                 </div>
                 <div class="display-btn-list-ad">
-                    <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate-obs.php?idEstimate=<?= urlencode($list['id_estimate']) ?>">Consulter</a></p>
-                    <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(<?= $list['id_estimate'] ?>);">Supprimer</a></p>
+                    <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate-obs.php?idEstimate=<?= urlencode($list['id_estimate']) ?>">Traiter la demande</a></p>
+                    <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(<?= $list['id_estimate'] ?>);">Supprimer la demande</a></p>
                 </div>
             </div>
         </ul>
@@ -152,25 +149,25 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
 
 
 <script>
-    function confirmDeleteEstimate(idEstimate) {
-        // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
-        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer la demande de devis ?");
+    // function confirmDeleteEstimate(idEstimate) {
+    //     // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    //     var confirmation = confirm("Êtes-vous sûr de vouloir supprimer la demande de devis ?");
 
-        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
-        if (confirmation) {
-            window.location.href = `./_treatment/_delete-estimate-obs.php?idEstimate=${idEstimate}`;
-        }
-    }
+    //     // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
+    //     if (confirmation) {
+    //         window.location.href = `./_treatment/_delete-estimate-obs.php?idEstimate=${idEstimate}`;
+    //     }
+    // }
 
-    function confirmDeleteEstimateTraite(idEstimate) {
-        // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
-        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce devis ?");
+    // function confirmDeleteEstimateTraiteObs(idEstimate) {
+    //     // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    //     var confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce devis et la demande ?");
 
-        // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
-        if (confirmation) {
-            window.location.href = `./_treatment/_delete-estimate-obs-traite.php?idEstimate=${idEstimate}`;
-        }
-    }
+    //     // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
+    //     if (confirmation) {
+    //         window.location.href = `./_treatment/_delete-estimate-obs-traite.php?idEstimate=${idEstimate}`;
+    //     }
+    // }
 </script>
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>

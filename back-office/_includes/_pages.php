@@ -304,6 +304,26 @@ $pages = [
     
         ],
         [
+            'name' => 'modif-estimate-mar',
+            'file' => 'modif-estimate-mar.php',
+            'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
+            'linkCss' => ['.././asset/css/style.css', '.././asset/css/index.css', '.././asset/css/nav.css', '.././asset/css/footer.css', '.././asset/css/form.css','.././asset/css/condoleance.css', '.././asset/css/devis.css', '.././asset/css/admin.css','.././asset/css/estimate.css'],
+            'linkScript' => ['.././asset/js/fonctions.js', '.././asset/js/script.js'],
+            'language' => 'fr',
+            'onNav' => true
+    
+        ],
+        [
+            'name' => 'modif-estimate-prev',
+            'file' => 'modif-estimate-prev.php',
+            'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',
+            'linkCss' => ['.././asset/css/style.css', '.././asset/css/index.css', '.././asset/css/nav.css', '.././asset/css/footer.css', '.././asset/css/form.css','.././asset/css/condoleance.css', '.././asset/css/devis.css', '.././asset/css/admin.css','.././asset/css/estimate.css'],
+            'linkScript' => ['.././asset/js/fonctions.js', '.././asset/js/script.js'],
+            'language' => 'fr',
+            'onNav' => true
+    
+        ],
+        [
             'name' => 'see-estimate',
             'file' => 'see-estimate.php',
             'title' => 'PompesFunèbres-LeBaron-ArtisanMarbrier',

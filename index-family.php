@@ -37,7 +37,7 @@ if (isset($_SESSION['error'])) {
     unset($_SESSION['error']);
 }
 ?>
-<div class="nav-links justify">
+<div class="link-family justify">
     <ul>
         <li><a href="obituary-family.php?idDefunt=<?= urlencode($idDefunt) ?>">Voir l'Avis de Décès</a></li>
         <li><a href="condolences-family.php?idDefunt=<?= urlencode($idDefunt) ?>">Voir les Condoléances</a></li>

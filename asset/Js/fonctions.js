@@ -102,13 +102,64 @@ function confirmDeleteBill(idBill) {
     }
     // Si l'utilisateur clique sur Annuler, ne faites rien
 }
-function confirmDeleteEstimateTraite(idEstimate) {
+// delete EstimateTraiteObs
+function confirmDeleteEstimateTraiteObs(idEstimate) {
     // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
-    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce devis ?");
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce devis et la demande ?");
 
     // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
     if (confirmation) {
         window.location.href = `./_treatment/_delete-estimate-obs-traite.php?idEstimate=${idEstimate}`;
+    }
+}
+// delete EstimateTraiteMar
+function confirmDeleteEstimateTraiteMar(idEstimate) {
+    // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce devis et la demande ?");
+
+    // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
+    if (confirmation) {
+        window.location.href = `./_treatment/_delete-estimate-mar-traite.php?idEstimate=${idEstimate}`;
+    }
+}
+// delete EstimateTraitePrev
+function confirmDeleteEstimateTraitePrev(idEstimate) {
+    // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce devis et la demande ?");
+
+    // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
+    if (confirmation) {
+        window.location.href = `./_treatment/_delete-estimate-prev-traite.php?idEstimate=${idEstimate}`;
+    }
+}
+// delete EstimateObs
+function confirmDeleteEstimate(idEstimate) {
+    // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer la demande de devis ?");
+
+    // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
+    if (confirmation) {
+        window.location.href = `./_treatment/_delete-estimate-obs.php?idEstimate=${idEstimate}`;
+    }
+}
+// delete EstimateObs
+function confirmDeleteEstimateMar(idEstimate) {
+    // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer la demande de devis ?");
+
+    // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
+    if (confirmation) {
+        window.location.href = `./_treatment/_delete-estimate-mar.php?idEstimate=${idEstimate}`;
+    }
+}
+// delete EstimateObs
+function confirmDeleteEstimatePrev(idEstimate) {
+    // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
+    var confirmation = confirm("Êtes-vous sûr de vouloir supprimer la demande de devis ?");
+
+    // Si l'utilisateur clique sur OK, redirigez vers la page de suppression avec l'id
+    if (confirmation) {
+        window.location.href = `./_treatment/_delete-estimate-prev.php?idEstimate=${idEstimate}`;
     }
 }
 // scroll btn 

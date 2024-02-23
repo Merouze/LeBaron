@@ -18,10 +18,13 @@ if (isset($_GET['idEstimate'])) {
     $sqlRetrieveFacture = $dtLb->prepare("SELECT * FROM estimate_obs WHERE id_estimate = :id_estimate");
     $sqlRetrieveFacture->execute(['id_estimate' => $id_estimate]);
     $factureData = $sqlRetrieveFacture->fetch(PDO::FETCH_ASSOC);
+    $idEstimateObs = $factureData['id_estimate_obs'];
+    // var_dump($idEstimateObs);
+    // exit;
 
     /// Utilisez également $id_bill pour récupérer les données spécifiques de la table raw_bill
-    $sqlRetrieveRawBill = $dtLb->prepare("SELECT * FROM raw_estimate WHERE id_estimate = :id_estimate");
-    $sqlRetrieveRawBill->execute(['id_estimate' => $id_estimate]);
+    $sqlRetrieveRawBill = $dtLb->prepare("SELECT * FROM raw_estimate WHERE id_estimate_obs = :id_estimate_obs");
+    $sqlRetrieveRawBill->execute(['id_estimate_obs' => $idEstimateObs]);
     $rawBillData = $sqlRetrieveRawBill->fetchAll(PDO::FETCH_ASSOC);
 
     // var_dump($factureData);  
@@ -40,7 +43,7 @@ if (isset($_GET['idEstimate'])) {
     }
     $reformattedRawBillData = array_reverse($reformattedRawBillData);
     // Récupération de l'id_bill s'il existe déjà
-    $existingIdBill = $factureData['id_estimate'];
+    // $existingIdBill = $factureData['id_estimate'];
     // var_dump($existingIdBill);
     // exit;
     // Récupération des données des champs statiques
@@ -57,7 +60,7 @@ if (isset($_GET['idEstimate'])) {
     $cP = $factureData['cP'] ?? '';
     $adress = $factureData['adress'] ?? '';
     $city = $factureData['city'] ?? '';
-    $totalHt = $factureData['total_ht'] ?? '';
+    $totalHt = $factureData['total_ht'] ?? '';  
     $tva10 = $factureData['tva_10'] ?? '';
     $tva20 = $factureData['tva_20'] ?? '';
     $totalAdvance = $factureData['total_frais_avances'] ?? '';
@@ -126,7 +129,7 @@ border: 1px solid #333;
 </div>
 </div>
 <div class="text-align">
-<p>Devis n° ' . $id_estimate . ' à Vieux le ' . $formattedDate . '.</p>
+<p>Devis n° ' . $idEstimateObs . ' à Vieux le ' . $formattedDate . '.</p>
 </div>
 ';
 

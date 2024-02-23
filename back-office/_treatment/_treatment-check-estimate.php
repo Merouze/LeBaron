@@ -49,36 +49,19 @@ if (isset($_POST['submitTraiteObs'])) {
 
 }
 
-if (isset($_POST['submitTraiteMar'])) {
-    $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
-
-    //   Requête SQL pour mettre à jour le devis
-    $sqlEstimate = $dtLb->prepare("UPDATE devis_mar SET traite = 1 WHERE id_estimate = :id_estimate");
-    $sqlEstimate->execute(['id_estimate' => $idEstimate]);
-    
-    if ($sqlEstimate->rowCount() > 0) {
-        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis classé avec succès'];
-    } else {
-        $_SESSION['notif'] = ['type' => 'error', 'message' => 'Erreur lors du traitement du devis'];
-    }
 
 
-    //   Redirection avec un code de statut approprié
-    header('Location: /LeBaron/back-office/list-devis-mar.php');
-    exit;
-
-}
 
 //****************************** Treatment udpdate and send pdf for estimate prev
 
 // Vérifiez si le formulaire a été soumis
 if (isset($_POST['submitUpdatePrev'])) {
     $idEstimate = isset($_POST['idEstimate']) ? $_POST['idEstimate'] : null;
-    if (($_POST['traited']) == 1) {
-        $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis déja envoyé ultérieurement.'];
-        header('Location: /LeBaron/back-office/list-devis-prev.php');
-        exit;
-    }
+    // if (($_POST['traited']) == 1) {
+    //     $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis déja envoyé ultérieurement.'];
+    //     header('Location: /LeBaron/back-office/list-devis-prev.php');
+    //     exit;
+    // }
 
 
     $emailDestinataire = strip_tags($_POST["email"]);

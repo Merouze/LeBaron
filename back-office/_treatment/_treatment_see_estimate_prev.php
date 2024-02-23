@@ -12,16 +12,19 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
 
     if ($token === $_SESSION['myToken']) {
 
-        $sqlRetrieveEstimate = $dtLb->prepare("SELECT * FROM estimate_obs WHERE id_estimate = :id_estimate");
+        $sqlRetrieveEstimate = $dtLb->prepare("SELECT * FROM estimate_prev WHERE id_estimate = :id_estimate");
         $sqlRetrieveEstimate->execute(['id_estimate' => $idEstimate]);
         $estimateData = $sqlRetrieveEstimate->fetch(PDO::FETCH_ASSOC);
-
-        $idEstimateObs = $estimateData['id_estimate_obs'];
-        //     var_dump($estimateData);
+        $idEstimatePrev = $estimateData['id_estimate_prev'] ?? '';
+        // var_dump($estimateData);
         // exit;
+
+
+
+
         /// Utilisez également $id_bill pour récupérer les données spécifiques de la table raw_bill
-        $sqlRetrieveRawBill = $dtLb->prepare("SELECT * FROM raw_estimate WHERE id_estimate_obs = :id_estimate_obs");
-        $sqlRetrieveRawBill->execute(['id_estimate_obs' => $idEstimateObs]);
+        $sqlRetrieveRawBill = $dtLb->prepare("SELECT * FROM raw_estimate WHERE id_estimate_prev = :id_estimate_prev");
+        $sqlRetrieveRawBill->execute(['id_estimate_prev' => $idEstimatePrev]);
         $rawBillData = $sqlRetrieveRawBill->fetchAll(PDO::FETCH_ASSOC);
 
         // var_dump($estimateData);
@@ -42,7 +45,7 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
         }
         $reformattedRawBillData = array_reverse($reformattedRawBillData);
         // Récupération de l'id_bill s'il existe déjà
-        $existingIdBill = $estimateData['id_estimate'];
+        // $existingIdBill = $estimateData['id_estimate'];
         // var_dump($existingIdBill);
         // exit;
         // Récupération des données des champs statiques
@@ -51,12 +54,10 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
         $htPrice10 = $reformattedRawBillData[0]['prix_ht_10'] ?? array();
         $htPrice20 = $reformattedRawBillData[0]['prix_ht_20'] ?? array();
         // Utilisation des valeurs récupérées pour remplir les champs statiques
-        $idBill = $estimateData['id_bill'] ?? '';
         $name = $estimateData['name'] ?? '';
-        $lastname = $estimateData['lastname'] ?? '';
+        $firstname = $estimateData['firstname'] ?? '';
         $email = $estimateData['email'] ?? '';
         $adress = $estimateData['adress'] ?? '';
-        $cP = $estimateData['cP'] ?? '';
         $city = $estimateData['city'] ?? '';
         $totalHt = $estimateData['total_ht'] ?? '';
         $tva10 = $estimateData['tva_10'] ?? '';
@@ -70,6 +71,8 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
         $dateFormatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
         $formattedDate = $dateFormatter->format($currentDate->getTimestamp());
 
+        // var_dump($name);
+        // var_dump($firstname);
         // var_dump($estimateData);
         // exit;
 
@@ -121,13 +124,13 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
     <div>
     <img src="../../asset/img/logo-LB.png" alt="logo">
     <div class="align-right">
-    <p class="bold">' . $name . ' ' . $lastname . '</p>
+    <p class="bold">' . $firstname . ' ' . $name . '</p>
         <p>' . $adress . '</p>
-        <p>' . $cP . ' ' . $city . '</p>
+        <p>' . $city . '</p>
     </div>
     </div>
     <div class="text-align">
-    <p>Devis n° ' . $idEstimateObs . ' à Vieux le ' . $formattedDate . '.</p>
+    <p>Devis n° ' . $idEstimatePrev . ' à Vieux le ' . $formattedDate . '.</p>
     </div>
     ';
 
@@ -154,6 +157,7 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
         <tbody>";
 
         // Maintenant vous pouvez utiliser $reformattedRawBillData dans la boucle foreach
+        $htmlDevis .= "<tbody>";
         foreach ($reformattedRawBillData as $value) {
             $htmlDevis .= "
     <tr>
@@ -163,6 +167,8 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
         <td class='align-right'>{$value['prix_ht_20']}</td>
     </tr>";
         }
+        $htmlDevis .= "</tbody>";  // Fermez la balise tbody après la boucle foreach
+
 
         //  var_dump($estimateData);
         // var_dump($reformattedRawBillData);
@@ -170,7 +176,6 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
 
 
         $htmlDevis .= "
-        </tbody>
         <tfoot>
         <tr>
             <td colspan='4'><hr></td>

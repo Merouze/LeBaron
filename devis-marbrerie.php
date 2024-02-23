@@ -120,7 +120,7 @@
                     <span class="red">*</span>
                 </h4>
             </label>
-            <input type="text" id="location-fall" name="location-cimetary" required>
+            <input type="text" id="location-cimetary" name="location-cimetary" required>
 
             <!-- Vos coordonnées -->
             <h3 class="text-align">Vos coordonnées</h3>
@@ -134,8 +134,13 @@
             </label>
             <input type="text" id="lastname" name="lastname" required>
 
+            <label for="adress">
+                <h4>Adresse <span class="red">*</span></h4>
+            </label>
+            <input type="text" id="adress" name="adress" required>
+            
             <label for="city">
-                <h4>Ville <span class="red">*</span></h4>
+                <h4>Ville et code postal<span class="red">*</span></h4>
             </label>
             <input type="text" id="city" name="city" required>
 

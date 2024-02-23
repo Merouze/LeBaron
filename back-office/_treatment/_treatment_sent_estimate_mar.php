@@ -1,6 +1,8 @@
 <?php
 require "../../back-office/_includes/_dbCo.php";
 session_start();
+use \Mailjet\Resources;
+
 
 //****************************** Treatment create pdf for billing
 // var_dump($_GET);
@@ -12,16 +14,19 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
 
     if ($token === $_SESSION['myToken']) {
 
-        $sqlRetrieveEstimate = $dtLb->prepare("SELECT * FROM estimate_obs WHERE id_estimate = :id_estimate");
+        $sqlRetrieveEstimate = $dtLb->prepare("SELECT * FROM estimate_mar WHERE id_estimate = :id_estimate");
         $sqlRetrieveEstimate->execute(['id_estimate' => $idEstimate]);
         $estimateData = $sqlRetrieveEstimate->fetch(PDO::FETCH_ASSOC);
-
-        $idEstimateObs = $estimateData['id_estimate_obs'];
-        //     var_dump($estimateData);
+        $idEstimateMar = $estimateData['id_estimate_mar'] ?? '';
+        $idEstimateF = $estimateData['id_estimate'] ?? '';
+        // var_dump($idEstimateF);
+        // var_dump($estimateData);
         // exit;
+
+
         /// Utilisez également $id_bill pour récupérer les données spécifiques de la table raw_bill
-        $sqlRetrieveRawBill = $dtLb->prepare("SELECT * FROM raw_estimate WHERE id_estimate_obs = :id_estimate_obs");
-        $sqlRetrieveRawBill->execute(['id_estimate_obs' => $idEstimateObs]);
+        $sqlRetrieveRawBill = $dtLb->prepare("SELECT * FROM raw_estimate WHERE id_estimate_mar = :id_estimate_mar");
+        $sqlRetrieveRawBill->execute(['id_estimate_mar' => $idEstimateMar]);
         $rawBillData = $sqlRetrieveRawBill->fetchAll(PDO::FETCH_ASSOC);
 
         // var_dump($estimateData);
@@ -40,9 +45,9 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
                 'prix_ht_20' => $row['prix_ht_20'],
             ];
         }
-        $reformattedRawBillData = array_reverse($reformattedRawBillData);
+        // $reformattedRawBillData = array_reverse($reformattedRawBillData);
         // Récupération de l'id_bill s'il existe déjà
-        $existingIdBill = $estimateData['id_estimate'];
+        // $existingIdBill = $estimateData['id_estimate'];
         // var_dump($existingIdBill);
         // exit;
         // Récupération des données des champs statiques
@@ -51,7 +56,7 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
         $htPrice10 = $reformattedRawBillData[0]['prix_ht_10'] ?? array();
         $htPrice20 = $reformattedRawBillData[0]['prix_ht_20'] ?? array();
         // Utilisation des valeurs récupérées pour remplir les champs statiques
-        $idBill = $estimateData['id_bill'] ?? '';
+        $idEstimateMar = $estimateData['id_estimate_mar'] ?? '';
         $name = $estimateData['name'] ?? '';
         $lastname = $estimateData['lastname'] ?? '';
         $email = $estimateData['email'] ?? '';
@@ -70,7 +75,7 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
         $dateFormatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
         $formattedDate = $dateFormatter->format($currentDate->getTimestamp());
 
-        // var_dump($estimateData);
+        // var_dump($rawBillData);
         // exit;
 
         // Génération du contenu stylisé du PDF pour les condoléances
@@ -121,13 +126,13 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
     <div>
     <img src="../../asset/img/logo-LB.png" alt="logo">
     <div class="align-right">
-    <p class="bold">' . $name . ' ' . $lastname . '</p>
+        <p class="bold">' . $name . ' ' . $lastname . '</p>
         <p>' . $adress . '</p>
-        <p>' . $cP . ' ' . $city . '</p>
+        <p>' . $city . '</p>
     </div>
     </div>
     <div class="text-align">
-    <p>Devis n° ' . $idEstimateObs . ' à Vieux le ' . $formattedDate . '.</p>
+    <p>Devis n° ' . $idEstimateMar . ' à Vieux le ' . $formattedDate . '.</p>
     </div>
     ';
 
@@ -237,12 +242,77 @@ if (isset($_GET['idEstimate']) && isset($_GET['token'])) {
 
         // En-têtes pour indiquer que le contenu est un fichier PDF
         header('Content-Type: application/pdf');
-        header('Content-Disposition: inline; filename="facture.pdf"');
+        // header('Content-Disposition: inline; filename="Devis-marbrerie.pdf"');
 
         // Affichez le contenu PDF dans le navigateur
-        echo $pdfContent;
+        //         echo $pdfContent;
 
-        // Fin du script pour éviter tout autre rendu indésirable
-        exit;
+        //         // Fin du script pour éviter tout autre rendu indésirable
+        //         exit;
+        //     }
+        // }
+        // var_dump($idEstimateMar);
+        // var_dump($idEstimate);
+        // var_dump($idEstimateF);
+        // exit;
+        //****************************** Treatment udpdate and send pdf for estimate mar
+        // Vérifiez si le formulaire a été soumis
+        if (isset($idEstimateMar) && $idEstimate == $idEstimateF) {
+            // Obtenez le contenu du PDF depuis la session
+            $pdfPath = $_SESSION['pdf_content_' . $idEstimateMar];
+            // var_dump($_POST);
+            // exit;
+            // Envoie le PDF par e-mail avec Mailjet
+            $mj = new \Mailjet\Client($_ENV['MJ_APIKEY_PUBLIC'], $_ENV['MJ_APIKEY_PRIVATE'], true, ['version' => 'v3.1']);
+
+            // Assurez-vous que $emailDestinataire et $pdfPath sont correctement définis
+
+            $body = [
+                'Messages' => [
+                    [
+                        'From' => [
+                            'Email' => 'aurelienmerouze@gmail.com',
+                            'Name' => 'P.F. Le Baron.'
+                        ],
+                        'To' => [
+                            [
+                                'Email' => $email,
+                                'Name' => $name
+                            ]
+                        ],
+                        'Subject' => 'Devis',
+                        'TextPart' => 'pdf.',
+                        'HTMLPart' => 'Bonjour veuillez trouver ci-joint votre devis en pdf.',
+                        'Attachments' => [
+                            [
+                                'ContentType' => 'application/pdf',
+                                'Filename' => 'Devis-n°' . $idEstimateMar . '.pdf',
+                                'Base64Content' => base64_encode($pdfContent)
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+            // var_dump($email);
+            // exit;
+
+            $response = $mj->post(Resources::$Email, ['body' => $body]);
+
+
+            //   Gestion des erreurs lors de l'envoi d'e-mails
+            if ($response->success()) {
+                $_SESSION['notif'] = ['type' => 'success', 'message' => 'Devis envoyé avec succès !'];
+            } else {
+                $_SESSION['notif'] = ['type' => 'error', 'message' => 'Erreur lors de l\'envoi du devis : ' . $response->getStatus() . ' - ' . json_encode($response->getData())];
+            }
+
+            // //   Requête SQL pour mettre à jour le devis
+            $sqlEstimate = $dtLb->prepare("UPDATE estimate_mar SET is_sent = 1 WHERE id_estimate = :id_estimate");
+            $sqlEstimate->execute(['id_estimate' => $idEstimate]);
+
+            // //   Redirection avec un code de statut approprié
+            header('Location: /LeBaron/back-office/list-devis-mar.php');
+            exit;
+        }
     }
 }

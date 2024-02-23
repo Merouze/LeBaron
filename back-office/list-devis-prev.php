@@ -46,6 +46,43 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
 ?>
 <section class="header-pages">
 </section>
+<!-- Afficher les résultats de la recherche -->
+<section class="resultats-recherche">
+    <?php
+    if (isset($resultats) && !empty($resultats)) : ?>
+        <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
+        <h3><span class="blue">Devis</span> " traité ".</h3>
+        <ul>
+            <?php foreach ($resultats as $resultat) :
+                // Créer un objet DateTime pour la date de la cérémonie
+                $dateDemande = new DateTime($resultat['date_demande']);
+
+                // Formater la date en jours/mois/année
+                $dateFormatee = $dateDemande->format('d/m/Y');
+            ?>
+                <li>
+                    <ul>
+                        <div class="display-mtb20 display_list-ad display-search-admin">
+                            <div class="display-li-ad">
+                                <li></li>
+                                <li class="bold grey"><?= $resultat['prenom'] . ' ' . $resultat['nom'] . '' ?></li>
+                                <li class="bold blue"><?= $dateFormatee ?></li>
+                            </div>
+                            <div class="display-btn-list-ad">
+                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" target="_blank" href="_treatment/_treatment_see_estimate_prev.php?idEstimate=<?= urlencode($resultat['id_estimate']) ?>&token=<?= $_SESSION['myToken'] ?>">Consulter</a></p>
+                                <div class="display-btn-list-ad">
+                                    <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="modif-estimate-prev.php?idEstimate=<?= urlencode($resultat['id_estimate']) ?>&token=<?= $_SESSION['myToken'] ?>">Modifier</a></p>
+                                    <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="_treatment/_treatment_sent_estimate_prev.php?idEstimate=<?= urlencode($resultat['id_estimate']) ?>&token=<?= $_SESSION['myToken'] ?>">Envoyer</a></p>
+                                    <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimateTraitePrev(<?= $resultat['id_estimate'] ?>);">Supprimer le devis et la demande</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</section>
 <h1 class="text-align bold grey">Les devis prévoyance<span class="blue"> à traiter</span></h1>
 <?= "<p class='text-align'>Il y a actuellement <span class='blue bold'>$totalDevis</span> devis à traiter.</p>" ?>
 
@@ -79,8 +116,8 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
         echo '<li class="bold blue">' . $dateFormatee . '</li>'; // Modifier cette ligne
         echo '</div>';
         echo '<div class="display-btn-list-ad">';
-        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate.php?idEstimate=' . urlencode($list['id_estimate']) . '">Consulter</a></p>';
-        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(' . $list['id_estimate'] . ');">Supprimer</a></p>';
+        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate.php?idEstimate=' . urlencode($list['id_estimate']) . '">Traiter la demande</a></p>';
+        echo '<p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimatePrev(' . $list['id_estimate'] . ');">Supprimer la demande</a></p>';
         echo '</div>';
         echo '</div>';
         echo '</ul>';
@@ -88,40 +125,6 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
     }
     echo '</ul>';
     ?>
-</section>
-
-<!-- Afficher les résultats de la recherche -->
-<section class="resultats-recherche">
-    <?php
-    if (isset($resultats) && !empty($resultats)) : ?>
-        <h2 class="text-align">Résultats de la <span class="blue">recherche</span></h2>
-        <h3><span class="blue">Devis</span> " traité ".</h3>
-        <ul>
-            <?php foreach ($resultats as $resultat) :
-                // Créer un objet DateTime pour la date de la cérémonie
-                $dateDemande = new DateTime($resultat['date_demande']);
-
-                // Formater la date en jours/mois/année
-                $dateFormatee = $dateDemande->format('d/m/Y');
-            ?>
-                <li>
-                    <ul>
-                        <div class="display-mtb20 display_list-ad display-search-admin ">
-                            <div class="display-li-ad">
-                                <li></li>
-                                <li class="bold grey"><?= $resultat['prenom'] . ' ' . $resultat['nom'] . '' ?></li>
-                                <li class="bold blue"><?= $dateFormatee ?></li>
-                            </div>
-                            <div class="display-btn-list-ad">
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="see-estimate.php?idEstimate=<?= urlencode($resultat['id_estimate']) ?>">Consulter</a></p>
-                                <p class="obituary-cta"><a class="cta-btn-list-ad cta-obituary" href="javascript:void(0);" onclick="confirmDeleteEstimate(<?= $resultat['id_estimate'] ?>);">Supprimer</a></p>
-                            </div>
-                        </div>
-                    </ul>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
 </section>
 
 <!-- <?php var_dump($_SESSION); ?> -->
@@ -140,7 +143,7 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
 </section>
 
 
-<script>
+<!-- <script>
     function confirmDeleteEstimate(idEstimate) {
         // Utilisez la fonction confirm() pour afficher une boîte de dialogue avec les boutons OK et Annuler
         var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cette demande de devis ?");
@@ -150,7 +153,7 @@ if (isset($_SESSION["notif"]) && is_array($_SESSION["notif"])) {
             window.location.href = `./_treatment/_delete-estimate-prev.php?idEstimate=${idEstimate}`;
         }
     }
-</script>
+</script> -->
 <!-- // ----- # FOOTER # ----- // -->
 <?php include './_includes/_footer.php' ?>
 

@@ -32,7 +32,7 @@
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
-            <p> Ont la tristesse de vous faire part du décès de :</p>
+            <p class="text-align"> Ont la tristesse de vous faire part du décès de :</p>
             <p><span class="blue bold"><?= $defunt['nom_prenom_defunt'] ?>.</span></p><br>
             <p>Survenu le <span class="blue bold"><?= $dateDeDecesFormattee ?>,</span></p>
             <p>A l'age de <span class="blue bold"><?= $defunt['age'] ?> ans.</span></p>
